@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+results/*/
+data/images/pillow/
+data/images/screenspot/
+data/images/_speed_*.png
+*.egg-info/
+uv.lock
