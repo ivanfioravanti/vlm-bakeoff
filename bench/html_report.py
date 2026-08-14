@@ -3,6 +3,7 @@ from __future__ import annotations
 import html
 from typing import Any
 
+from bench.refcoco import LIQUID_REFERCOCO_AVG, SPLITS
 from bench.screenspot import LIQUID_SCREENSPOT_AVG, LIQUID_SCREENSPOT_V2
 
 _CSS = """
@@ -455,6 +456,37 @@ def render_html(payload: dict[str, Any]) -> str:
             )
         type_rows.append(f"<tr><th>{_esc(t)}</th>{''.join(cells)}</tr>")
 
+    subsets_present = sorted(
+        {s for s in summaries.values() for s in s.get("refcoco_by_subset") or {}}
+    )
+    refcoco_rows = []
+    for s in [x for x in SPLITS if x in subsets_present]:
+        cells = []
+        for m in models:
+            val = summaries[m]["refcoco_by_subset"].get(s)
+            p = _pct_num(val)
+            cells.append(
+                f'<td><span class="heat" style="--p:{p:.0f}">{_pct(val)}</span></td>'
+            )
+        refcoco_rows.append(f"<tr><th>{_esc(s)}</th>{''.join(cells)}<td></td></tr>")
+    for label, key, ref in (
+        ("avg — box center in gold", "refcoco_macro", LIQUID_REFERCOCO_AVG),
+        ("avg — IoU ≥ 0.5", "refcoco_iou_macro", None),
+    ):
+        cells = []
+        for m in models:
+            val = summaries[m].get(key)
+            p = _pct_num(val)
+            cells.append(
+                f'<td><div class="bar" title="{_pct(val)}"><i style="--p:{p:.0f}%"></i></div></td>'
+            )
+        ref_cell = (
+            f'<td class="ref">{_pct(ref)}</td>' if ref is not None else "<td></td>"
+        )
+        refcoco_rows.append(
+            f"<tr><th>{_esc(label)}</th>{''.join(cells)}{ref_cell}</tr>"
+        )
+
     speed_html = ""
     if payload.get("speed"):
         dials = []
@@ -606,11 +638,29 @@ def render_html(payload: dict[str, Any]) -> str:
                 f"<tbody>{''.join(type_rows)}</tbody></table>"
             )
 
+    refcoco_table = ""
+    if subsets_present:
+        rc_n = max(s.get("refcoco_n") or 0 for s in summaries.values())
+        heads = "".join(f"<th>{_esc(m)}</th>" for m in models)
+        note = (
+            f"{rc_n} items — RefCOCO / RefCOCO+ / RefCOCOg referring expressions on COCO "
+            "photos, the 8 eval splits behind Liquid’s published RefCOCO-avg. Two hit rules "
+            "reported (precision@1 rule unspecified); whichever avg lands nearer 87.9 matches "
+            "their scorer. Liquid column is published vLLM 0.26, not this local run."
+        )
+        refcoco_table = (
+            "<h2>RefCOCO grounding</h2>"
+            f"<p class='note'>{_esc(note)}</p>"
+            f"<table><thead><tr><th>Split</th>{heads}<th>Liquid vLLM</th></tr></thead>"
+            f"<tbody>{''.join(refcoco_rows)}</tbody></table>"
+        )
+
     sampling = payload.get("sampling") or {}
     backends = _backends_used(models, runs)
     runtime = " + ".join(_BACKEND_LABEL.get(b, b.upper()) for b in backends) or "local"
     engines = _join([_BACKEND_ENGINE.get(b, b) for b in backends])
     ss_n = max((s.get("screenspot_n") or 0) for s in summaries.values()) if summaries else 0
+    rc_n = max((s.get("refcoco_n") or 0) for s in summaries.values()) if summaries else 0
     if ss_n >= 1000:
         lede = (
             "The full 1,272-item ScreenSpot-v2 test set. "
@@ -623,6 +673,13 @@ def render_html(payload: dict[str, Any]) -> str:
         )
     else:
         lede = f"Local {runtime} capability and speed measurements."
+    if rc_n:
+        full_rc = rc_n >= 25000
+        lede += (
+            " Plus RefCOCO grounding: "
+            + ("all 8 eval splits" if full_rc else f"a {rc_n}-item seeded subset")
+            + " vs Liquid’s published 87.9."
+        )
     versions = []
     if "mlx" in backends and payload.get("mlx_vlm_version"):
         versions.append(f'mlx-vlm {_esc(payload["mlx_vlm_version"])}')
@@ -666,6 +723,7 @@ def render_html(payload: dict[str, Any]) -> str:
     </section>
     {cat_table}
     {plat_table}
+    {refcoco_table}
     {tq_html}
     {speed_html}
     {cases_html}

@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from bench import RESULTS
+from bench.refcoco import LIQUID_REFERCOCO_AVG, SPLITS
 from bench.screenspot import LIQUID_SCREENSPOT_AVG, LIQUID_SCREENSPOT_V2
 
 
@@ -14,6 +15,12 @@ def _acc(rows: list[dict]) -> float | None:
     if not rows:
         return None
     return sum(1 for r in rows if r["pass"]) / len(rows)
+
+
+def _iou_acc(rows: list[dict]) -> float | None:
+    if not rows:
+        return None
+    return sum(1 for r in rows if (r.get("iou") or 0.0) >= 0.5) / len(rows)
 
 
 def _pct(x: float | None) -> str:
@@ -24,6 +31,7 @@ def summarize(run: dict[str, Any]) -> dict[str, Any]:
     by_cat: dict[str, list] = defaultdict(list)
     by_plat: dict[str, list] = defaultdict(list)
     by_type: dict[str, list] = defaultdict(list)
+    by_subset: dict[str, list] = defaultdict(list)
     for row in run["cases"]:
         by_cat[row["category"]].append(row)
         meta = row.get("meta") or {}
@@ -33,10 +41,17 @@ def summarize(run: dict[str, Any]) -> dict[str, Any]:
         dtype = meta.get("data_type")
         if dtype:
             by_type[dtype].append(row)
+        subset = meta.get("subset")
+        if subset:
+            by_subset[subset].append(row)
     plats = {k: _acc(v) for k, v in sorted(by_plat.items())}
     macro = None
     if all(p in plats and plats[p] is not None for p in ("desktop", "mobile", "web")):
         macro = sum(plats[p] for p in ("desktop", "mobile", "web")) / 3
+    subsets = {k: _acc(v) for k, v in sorted(by_subset.items())}
+    subsets_iou = {k: _iou_acc(v) for k, v in sorted(by_subset.items())}
+    refcoco_macro = sum(subsets.values()) / len(subsets) if subsets else None
+    refcoco_iou_macro = sum(subsets_iou.values()) / len(subsets_iou) if subsets_iou else None
     return {
         "overall": _acc(run["cases"]),
         "n": len(run["cases"]),
@@ -47,6 +62,11 @@ def summarize(run: dict[str, Any]) -> dict[str, Any]:
         "screenspot_by_type": {k: _acc(v) for k, v in sorted(by_type.items())},
         "screenspot_macro": macro,
         "screenspot_n": sum(len(v) for v in by_plat.values()),
+        "refcoco_by_subset": subsets,
+        "refcoco_iou_by_subset": subsets_iou,
+        "refcoco_macro": refcoco_macro,
+        "refcoco_iou_macro": refcoco_iou_macro,
+        "refcoco_n": sum(len(v) for v in by_subset.values()),
     }
 
 
@@ -126,6 +146,15 @@ def render_markdown(payload: dict[str, Any]) -> str:
             "`{image_id, bbox_2d, label}` items (0–1000 integer coordinates). Scorer takes the "
             "predicted box center."
         ),
+        "liquid": (
+            "Prompt protocol: `liquid` — the ScreenSpot-v2 prompt used in Liquid's official tests: "
+            "locate the clickable element, return one tight JSON bbox_2d whose center is the click "
+            "point (0–1000 integer coordinates). No system prompt."
+        ),
+        "liquid_reason": (
+            "Prompt protocol: `liquid_reason` — as `liquid`, plus a silent-reasoning instruction "
+            "(reason internally, output only the box)."
+        ),
     }.get(protocol, f"Prompt protocol: `{protocol}`.")
     lines = [
         f"# LFM2.5-VL local {runtime} bench",
@@ -201,6 +230,37 @@ def render_markdown(payload: dict[str, Any]) -> str:
                 for t in types:
                     cells = [_pct(summaries[m]["screenspot_by_type"].get(t)) for m in models]
                     lines.append(f"| {t} | " + " | ".join(cells) + " |")
+        subsets_present = sorted(
+            {s for sm in summaries.values() for s in sm.get("refcoco_by_subset") or {}}
+        )
+        if subsets_present:
+            order = [s for s in SPLITS if s in subsets_present]
+            rc_n = max(s.get("refcoco_n") or 0 for s in summaries.values())
+            scope = (
+                "seeded subset, expect a few pp of sampling noise"
+                if rc_n < 1000
+                else "all 8 eval splits"
+            )
+            lines += [
+                "",
+                f"## RefCOCO grounding ({rc_n} items, {scope})",
+                "",
+                "Referring expressions on COCO photos — RefCOCO / RefCOCO+ / RefCOCOg, the 8 "
+                "eval splits behind Liquid's published RefCOCO-avg. Two hit rules are reported "
+                "because their precision@1 rule is unspecified; whichever avg lands nearer 87.9 "
+                "is the one matching their scorer. Liquid column is the published vLLM number, "
+                "not this local run.",
+                "",
+                "| Split | " + " | ".join(f"`{m}`" for m in models) + " | Liquid vLLM |",
+                "| --- | " + " | ".join("---" for _ in models) + " | --- |",
+            ]
+            for s in order:
+                cells = [_pct(summaries[m]["refcoco_by_subset"].get(s)) for m in models]
+                lines.append(f"| {s} | " + " | ".join(cells) + " | |")
+            cells = [_pct(summaries[m].get("refcoco_macro")) for m in models]
+            lines.append("| avg — box center in gold | " + " | ".join(cells) + f" | {_pct(LIQUID_REFERCOCO_AVG)} |")
+            cells = [_pct(summaries[m].get("refcoco_iou_macro")) for m in models]
+            lines.append("| avg — IoU ≥ 0.5 | " + " | ".join(cells) + " | |")
     timed = [m for m in models if runs[m].get("elapsed_s") and summaries[m]["n"]]
     if timed:
         def _dur(x: float) -> str:

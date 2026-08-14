@@ -17,7 +17,9 @@ from bench.prompts import (
     GROUNDING_JSON_SYSTEM,
     GROUNDING_JSON_USER,
     PYAUTOGUI_USER,
+    liquid_user,
 )
+from bench.refcoco import build_refcoco
 from bench.report import write_outputs
 from bench.score import score
 from bench.screenspot import build_screenspot
@@ -36,13 +38,22 @@ def _chip() -> str:
 
 
 def cmd_prepare(args: argparse.Namespace) -> int:
-    screenspot = build_screenspot(args.screenspot)
-    print(f"screenspot: {len(screenspot)} tasks ({args.screenspot})")
+    if args.screenspot == "off" and args.refcoco == "off":
+        raise SystemExit("nothing to prepare: both --screenspot and --refcoco are off")
+    if args.screenspot != "off":
+        screenspot = build_screenspot(args.screenspot)
+        print(f"screenspot: {len(screenspot)} tasks ({args.screenspot})")
+    if args.refcoco != "off":
+        refcoco = build_refcoco(args.refcoco)
+        print(f"refcoco: {len(refcoco)} tasks ({args.refcoco})")
     return 0
 
 
 def _apply_protocol(tasks: list[dict], protocol: str) -> list[dict]:
     """Re-ground ScreenSpot tasks under a different prompt protocol.
+
+    ScreenSpot only — RefCOCO tasks already carry the grounding_json recipe
+    baked in at prepare time and are passed through untouched.
 
     'bbox' keeps the tasks as prepared. 'pyautogui' swaps in Liquid's official
     ScreenSpot-v2 wording (user message only — their harness drops the system
@@ -55,7 +66,7 @@ def _apply_protocol(tasks: list[dict], protocol: str) -> list[dict]:
         return tasks
     out: list[dict] = []
     for task in tasks:
-        if task.get("scorer") != "click_in_box":
+        if task.get("category") != "screenspot" or task.get("scorer") != "click_in_box":
             out.append(task)
             continue
         meta = task.get("meta") or {}
@@ -74,6 +85,10 @@ def _apply_protocol(tasks: list[dict], protocol: str) -> list[dict]:
             t["prompt"] = GROUNDING_JSON_USER.format(instruction=instruction)
             t["system"] = GROUNDING_JSON_SYSTEM
             t["max_tokens"] = 256
+        elif protocol in ("liquid", "liquid_reason"):
+            t["prompt"] = liquid_user(instruction, reason=protocol == "liquid_reason")
+            t["max_tokens"] = 256
+            t.pop("system", None)
         else:
             raise ValueError(f"unknown protocol: {protocol!r}")
         out.append(t)
@@ -113,6 +128,8 @@ def cmd_run(args: argparse.Namespace) -> int:
                     "category": task["category"],
                     "pass": scored["pass"],
                     "metric": scored.get("metric"),
+                    "iou": scored.get("iou"),
+                    "pred_bbox": scored.get("pred_bbox"),
                     "output": text,
                     "expected": task.get("expected"),
                     "meta": task.get("meta"),
@@ -215,12 +232,20 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description="Local MLX / GGUF VLM capability benchmark")
     sub = p.add_subparsers(dest="cmd", required=True)
 
-    sp = sub.add_parser("prepare", help="Generate ScreenSpot-v2 tasks and images")
+    sp = sub.add_parser("prepare", help="Generate ScreenSpot-v2 and RefCOCO tasks and images")
     sp.add_argument(
         "--screenspot",
-        choices=("full", "subset"),
+        choices=("full", "subset", "off"),
         default="full",
-        help="full = 1,272-item official test set; subset = 48 seeded items (16 per platform)",
+        help="full = 1,272-item official test set; subset = 48 seeded items (16 per platform); off = skip",
+    )
+    sp.add_argument(
+        "--refcoco",
+        choices=("full", "subset", "off"),
+        default="subset",
+        help="grounding on COCO photos behind Liquid's published RefCOCO-avg 87.9: "
+        "full = all 8 eval splits (25,770 items, ~5 GB download, hours per model); "
+        "subset = 64 seeded items per split (512 total); off = skip",
     )
     sp.set_defaults(func=cmd_prepare)
 
@@ -229,7 +254,7 @@ def main(argv: list[str] | None = None) -> int:
     sr.add_argument("--categories", default="")
     sr.add_argument(
         "--protocol",
-        choices=("grounding_json", "bbox", "pyautogui"),
+        choices=("grounding_json", "liquid", "liquid_reason", "bbox", "pyautogui"),
         default="grounding_json",
         help="grounding_json = docs.liquid.ai grounding recipe (JSON bbox_2d, "
         "default — 80.8%% vs 64.3%% macro locally); bbox = plain [0,1000] box; "

@@ -58,3 +58,38 @@ GROUNDING_JSON_SYSTEM = (
     "Return one item per visible matching object or region. Return [] if none are visible."
 )
 GROUNDING_JSON_USER = "Provide bounding boxes for the UI element for this instruction: {instruction}"
+
+# RefCOCO track — same grounding_json recipe as ScreenSpot (system prompt
+# above), but the referring-expression wording from the REC literature
+# ("region this sentence describes") instead of UI-element framing. RefCOCO
+# tasks bake this at prepare time and do not go through protocol switching.
+REFERCOCO_USER = "Provide bounding boxes for the region this sentence describes: {expression}"
+
+# `liquid` / `liquid_reason` protocols — the ScreenSpot-v2 prompt used in
+# Liquid's official tests (received directly, 2026-08). Same JSON bbox_2d
+# family as grounding_json but: "clickable element" framing, exactly one
+# tight box, box center = the click point (matching the center-based
+# scoring), an inspect-small-icons nudge, markdown ban, and no system
+# prompt. liquid_reason adds a silent-reasoning instruction (non-reasoning
+# mode: reason internally, output only the box).
+LIQUID_INSPECT = (
+    "Inspect the screenshot carefully, especially small or unlabeled icons."
+)
+LIQUID_REASON = (
+    "Reason silently about the target's visual appearance and distinguish it "
+    "from similar nearby controls. Do not output the reasoning."
+)
+LIQUID_JSON_SHAPE = (
+    'Use this JSON shape: [{"image_id": 0, "bbox_2d": [xmin, ymin, xmax, ymax], '
+    '"label": "target"}]. Use integer coordinates from 0 to 1000. '
+    "Do not include markdown or any other text."
+)
+
+
+def liquid_user(instruction: str, reason: bool = False) -> str:
+    middle = f"{LIQUID_INSPECT} {LIQUID_REASON}" if reason else LIQUID_INSPECT
+    return (
+        "Locate the clickable UI element described by this instruction:\n"
+        f"{instruction}\n\n{middle} Return only one tight bounding box whose "
+        f"center is the exact point you would click. {LIQUID_JSON_SHAPE}"
+    )

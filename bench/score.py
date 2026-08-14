@@ -111,6 +111,11 @@ def score(task: dict[str, Any], text: str) -> dict[str, Any]:
         result["pass"] = ok
         result["metric"] = float(ok)
         result["pred_bbox"] = pred
+        # Secondary criterion: IoU@0.5 against the gold box. Liquid publishes
+        # RefCOCO as precision@1 without spelling out the hit rule, so both
+        # this and the center rule are recorded per case and compared in the
+        # report until one is pinned as their P@1.
+        result["iou"] = iou(pred, gold) if pred else 0.0
         result["pred_click"] = list(click) if click else None
     elif kind == "click_point":
         # Mirrors Liquid's VLMEvalKit ScreenSpot scorer (parse_bbox_aguvis +
