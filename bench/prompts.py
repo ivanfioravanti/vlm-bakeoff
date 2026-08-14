@@ -65,6 +65,12 @@ GROUNDING_JSON_USER = "Provide bounding boxes for the UI element for this instru
 # tasks bake this at prepare time and do not go through protocol switching.
 REFERCOCO_USER = "Provide bounding boxes for the region this sentence describes: {expression}"
 
+# DocVQA track — the canonical short-answer instruction from the DocVQA
+# evaluation protocol (as used by the lmms-eval / InternVL / LLaVA harnesses):
+# free-form reading comprehension on document pages, scored by ANLS. No system
+# prompt — VQA is not grounding; the grounding_json system above is box-specific.
+DOCVQA_PROMPT = "{question}\nAnswer the question using a single word or phrase."
+
 # `liquid` / `liquid_reason` protocols — the ScreenSpot-v2 prompt used in
 # Liquid's official tests (received directly, 2026-08). Same JSON bbox_2d
 # family as grounding_json but: "clickable element" framing, exactly one

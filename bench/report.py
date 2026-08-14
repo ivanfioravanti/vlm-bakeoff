@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from bench import RESULTS
+from bench.docvqa import LIQUID_DOCVQA_ANLS
 from bench.refcoco import LIQUID_REFERCOCO_AVG, SPLITS
 from bench.screenspot import LIQUID_SCREENSPOT_AVG, LIQUID_SCREENSPOT_V2
 
@@ -32,6 +33,7 @@ def summarize(run: dict[str, Any]) -> dict[str, Any]:
     by_plat: dict[str, list] = defaultdict(list)
     by_type: dict[str, list] = defaultdict(list)
     by_subset: dict[str, list] = defaultdict(list)
+    by_dtype_q: dict[str, list] = defaultdict(list)
     for row in run["cases"]:
         by_cat[row["category"]].append(row)
         meta = row.get("meta") or {}
@@ -44,6 +46,9 @@ def summarize(run: dict[str, Any]) -> dict[str, Any]:
         subset = meta.get("subset")
         if subset:
             by_subset[subset].append(row)
+        qtype = meta.get("question_type")
+        if row["category"] == "docvqa" and qtype:
+            by_dtype_q[qtype].append(row)
     plats = {k: _acc(v) for k, v in sorted(by_plat.items())}
     macro = None
     if all(p in plats and plats[p] is not None for p in ("desktop", "mobile", "web")):
@@ -52,6 +57,12 @@ def summarize(run: dict[str, Any]) -> dict[str, Any]:
     subsets_iou = {k: _iou_acc(v) for k, v in sorted(by_subset.items())}
     refcoco_macro = sum(subsets.values()) / len(subsets) if subsets else None
     refcoco_iou_macro = sum(subsets_iou.values()) / len(subsets_iou) if subsets_iou else None
+    docvqa_rows = by_cat.get("docvqa") or []
+    docvqa_anls = (
+        sum(float(r.get("metric") or 0.0) for r in docvqa_rows) / len(docvqa_rows)
+        if docvqa_rows
+        else None
+    )
     return {
         "overall": _acc(run["cases"]),
         "n": len(run["cases"]),
@@ -67,6 +78,13 @@ def summarize(run: dict[str, Any]) -> dict[str, Any]:
         "refcoco_macro": refcoco_macro,
         "refcoco_iou_macro": refcoco_iou_macro,
         "refcoco_n": sum(len(v) for v in by_subset.values()),
+        "docvqa_anls": docvqa_anls,
+        "docvqa_acc": _acc(docvqa_rows),
+        "docvqa_by_type": {
+            k: sum(float(r.get("metric") or 0.0) for r in v) / len(v)
+            for k, v in sorted(by_dtype_q.items())
+        },
+        "docvqa_n": len(docvqa_rows),
     }
 
 
@@ -261,6 +279,40 @@ def render_markdown(payload: dict[str, Any]) -> str:
             lines.append("| avg — box center in gold | " + " | ".join(cells) + f" | {_pct(LIQUID_REFERCOCO_AVG)} |")
             cells = [_pct(summaries[m].get("refcoco_iou_macro")) for m in models]
             lines.append("| avg — IoU ≥ 0.5 | " + " | ".join(cells) + " | |")
+        if any(summaries[m].get("docvqa_n") for m in models):
+            dv_n = max(s.get("docvqa_n") or 0 for s in summaries.values())
+            scope = (
+                "seeded subset, expect a couple pp of sampling noise"
+                if dv_n < 5000
+                else "full validation split"
+            )
+            lines += [
+                "",
+                f"## DocVQA ({dv_n} items, {scope})",
+                "",
+                "Document reading comprehension — free-form short answers on the official "
+                "validation split, scored by ANLS (Levenshtein, threshold 0.5; errors count 0). "
+                "Liquid column is their published vLLM ANLS, not this local run.",
+                "",
+                "| Metric | " + " | ".join(f"`{m}`" for m in models) + " | Liquid vLLM |",
+                "| --- | " + " | ".join("---" for _ in models) + " | --- |",
+            ]
+            cells = [_pct(summaries[m].get("docvqa_anls")) for m in models]
+            lines.append("| ANLS | " + " | ".join(cells) + f" | {_pct(LIQUID_DOCVQA_ANLS)} |")
+            cells = [_pct(summaries[m].get("docvqa_acc")) for m in models]
+            lines.append("| ANLS pass rate | " + " | ".join(cells) + " | |")
+            qtypes = sorted(
+                {q for s in summaries.values() for q in s.get("docvqa_by_type") or {}}
+            )
+            if qtypes:
+                lines += [
+                    "",
+                    "| Question type | " + " | ".join(f"`{m}`" for m in models) + " |",
+                    "| --- | " + " | ".join("---" for _ in models) + " |",
+                ]
+                for q in qtypes:
+                    cells = [_pct(summaries[m]["docvqa_by_type"].get(q)) for m in models]
+                    lines.append(f"| {q} | " + " | ".join(cells) + " |")
     timed = [m for m in models if runs[m].get("elapsed_s") and summaries[m]["n"]]
     if timed:
         def _dur(x: float) -> str:

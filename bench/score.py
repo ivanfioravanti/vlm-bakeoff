@@ -82,6 +82,20 @@ def _contains(needle: str, haystack: str) -> bool:
     return re.search(f"{left}{re.escape(n)}{right}", h) is not None
 
 
+def _levenshtein(a: str, b: str) -> int:
+    if a == b:
+        return 0
+    if not a or not b:
+        return len(a) or len(b)
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        cur = [i]
+        for j, cb in enumerate(b, 1):
+            cur.append(min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (ca != cb)))
+        prev = cur
+    return prev[-1]
+
+
 def score(task: dict[str, Any], text: str) -> dict[str, Any]:
     kind = task["scorer"]
     expected = task.get("expected") or {}
@@ -144,6 +158,24 @@ def score(task: dict[str, Any], text: str) -> dict[str, Any]:
         result["metric"] = float(ok)
         result["pred_click"] = list(click)
         result["parsed"] = parsed
+    elif kind == "anls":
+        # Official DocVQA metric: 1 - NLD (Levenshtein / max string length),
+        # best over the reference answers; values below the threshold count
+        # as 0. The published benchmark number is the mean of per-case values.
+        answers = expected["answers"]
+        thresh = float(expected.get("anls", 0.5))
+        text_n = _norm(text)
+        val = 0.0
+        for ans in answers:
+            ans_n = _norm(str(ans))
+            if not ans_n:
+                continue
+            nld = _levenshtein(text_n, ans_n) / max(len(text_n), len(ans_n))
+            val = max(val, 1.0 - nld)
+        if val < thresh:
+            val = 0.0
+        result["metric"] = val
+        result["pass"] = val >= thresh
     elif kind == "choice":
         gold = _norm(str(expected["text"]))
         ok = _contains(gold, text) or _norm(text).startswith(gold)

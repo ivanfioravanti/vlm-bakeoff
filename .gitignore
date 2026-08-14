@@ -9,3 +9,4 @@ data/images/_speed_*.png
 *.egg-info/
 uv.lock
 data/images/refcoco/
+data/images/docvqa/

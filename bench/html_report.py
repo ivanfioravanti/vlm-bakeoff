@@ -3,6 +3,7 @@ from __future__ import annotations
 import html
 from typing import Any
 
+from bench.docvqa import LIQUID_DOCVQA_ANLS
 from bench.refcoco import LIQUID_REFERCOCO_AVG, SPLITS
 from bench.screenspot import LIQUID_SCREENSPOT_AVG, LIQUID_SCREENSPOT_V2
 
@@ -655,6 +656,49 @@ def render_html(payload: dict[str, Any]) -> str:
             f"<tbody>{''.join(refcoco_rows)}</tbody></table>"
         )
 
+    docvqa_rows = []
+    for label, key, ref in (
+        ("ANLS", "docvqa_anls", LIQUID_DOCVQA_ANLS),
+        ("ANLS pass rate", "docvqa_acc", None),
+    ):
+        cells = []
+        for m in models:
+            val = summaries[m].get(key)
+            p = _pct_num(val)
+            cells.append(
+                f'<td><span class="heat" style="--p:{p:.0f}">{_pct(val)}</span></td>'
+            )
+        ref_cell = (
+            f'<td class="ref">{_pct(ref)}</td>' if ref is not None else "<td></td>"
+        )
+        docvqa_rows.append(f"<tr><th>{_esc(label)}</th>{''.join(cells)}{ref_cell}</tr>")
+    qtypes = sorted({q for s in summaries.values() for q in s.get("docvqa_by_type") or {}})
+    for q in qtypes:
+        cells = []
+        for m in models:
+            val = summaries[m]["docvqa_by_type"].get(q)
+            p = _pct_num(val)
+            cells.append(
+                f'<td><span class="heat" style="--p:{p:.0f}">{_pct(val)}</span></td>'
+            )
+        docvqa_rows.append(f"<tr><th>{_esc(q)}</th>{''.join(cells)}<td></td></tr>")
+
+    docvqa_table = ""
+    if any(summaries[m].get("docvqa_n") for m in models):
+        dv_n = max(s.get("docvqa_n") or 0 for s in summaries.values())
+        heads = "".join(f"<th>{_esc(m)}</th>" for m in models)
+        note = (
+            f"{dv_n} items — document reading comprehension on the official DocVQA validation "
+            "split, free-form short answers scored by ANLS (threshold 0.5; errors count 0). "
+            "Liquid column is published vLLM 0.26 ANLS, not this local run."
+        )
+        docvqa_table = (
+            "<h2>DocVQA</h2>"
+            f"<p class='note'>{_esc(note)}</p>"
+            f"<table><thead><tr><th>Metric</th>{heads}<th>Liquid vLLM</th></tr></thead>"
+            f"<tbody>{''.join(docvqa_rows)}</tbody></table>"
+        )
+
     sampling = payload.get("sampling") or {}
     backends = _backends_used(models, runs)
     runtime = " + ".join(_BACKEND_LABEL.get(b, b.upper()) for b in backends) or "local"
@@ -679,6 +723,14 @@ def render_html(payload: dict[str, Any]) -> str:
             " Plus RefCOCO grounding: "
             + ("all 8 eval splits" if full_rc else f"a {rc_n}-item seeded subset")
             + " vs Liquid’s published 87.9."
+        )
+    dv_n = max((s.get("docvqa_n") or 0) for s in summaries.values()) if summaries else 0
+    if dv_n:
+        full_dv = dv_n >= 5300
+        lede += (
+            " Plus DocVQA: "
+            + ("full validation split" if full_dv else f"a {dv_n}-item seeded subset")
+            + " vs Liquid’s published 91.1 ANLS."
         )
     versions = []
     if "mlx" in backends and payload.get("mlx_vlm_version"):
@@ -724,6 +776,7 @@ def render_html(payload: dict[str, Any]) -> str:
     {cat_table}
     {plat_table}
     {refcoco_table}
+    {docvqa_table}
     {tq_html}
     {speed_html}
     {cases_html}

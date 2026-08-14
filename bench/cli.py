@@ -10,6 +10,7 @@ import time
 import traceback
 from pathlib import Path
 
+from bench.docvqa import build_docvqa
 from bench.infer import ModelSession
 from bench.models import DEFAULT_MODELS, parse_models, spec
 from bench.prompts import (
@@ -38,14 +39,17 @@ def _chip() -> str:
 
 
 def cmd_prepare(args: argparse.Namespace) -> int:
-    if args.screenspot == "off" and args.refcoco == "off":
-        raise SystemExit("nothing to prepare: both --screenspot and --refcoco are off")
-    if args.screenspot != "off":
-        screenspot = build_screenspot(args.screenspot)
-        print(f"screenspot: {len(screenspot)} tasks ({args.screenspot})")
-    if args.refcoco != "off":
-        refcoco = build_refcoco(args.refcoco)
-        print(f"refcoco: {len(refcoco)} tasks ({args.refcoco})")
+    tracks = [
+        ("screenspot", args.screenspot, build_screenspot),
+        ("refcoco", args.refcoco, build_refcoco),
+        ("docvqa", args.docvqa, build_docvqa),
+    ]
+    if all(mode == "off" for _, mode, _ in tracks):
+        raise SystemExit("nothing to prepare: every track flag is off")
+    for name, mode, build in tracks:
+        if mode != "off":
+            tasks = build(mode)
+            print(f"{name}: {len(tasks)} tasks ({mode})")
     return 0
 
 
@@ -232,7 +236,7 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description="Local MLX / GGUF VLM capability benchmark")
     sub = p.add_subparsers(dest="cmd", required=True)
 
-    sp = sub.add_parser("prepare", help="Generate ScreenSpot-v2 and RefCOCO tasks and images")
+    sp = sub.add_parser("prepare", help="Generate ScreenSpot-v2, RefCOCO and DocVQA tasks and images")
     sp.add_argument(
         "--screenspot",
         choices=("full", "subset", "off"),
@@ -246,6 +250,13 @@ def main(argv: list[str] | None = None) -> int:
         help="grounding on COCO photos behind Liquid's published RefCOCO-avg 87.9: "
         "full = all 8 eval splits (25,770 items, ~5 GB download, hours per model); "
         "subset = 64 seeded items per split (512 total); off = skip",
+    )
+    sp.add_argument(
+        "--docvqa",
+        choices=("full", "subset", "off"),
+        default="subset",
+        help="document reading comprehension behind Liquid's published DocVQA 91.1 (val, ANLS): "
+        "full = 5,349 questions (~1 GB download); subset = 500 seeded items; off = skip",
     )
     sp.set_defaults(func=cmd_prepare)
 
