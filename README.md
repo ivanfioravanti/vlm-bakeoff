@@ -127,7 +127,22 @@ uv venv
 uv pip install -e .
 ```
 
-`pyproject.toml` pins mlx-vlm to the LFM2.5-VL tiling fix via a `[tool.uv.sources]` **git source** — the [PR #1885](https://github.com/Blaizzy/mlx-vlm/pull/1885) branch on GitHub, so no local checkout is needed and `uv.lock` pins the exact commit. Without the pin, `uv run` would fall back to the published mlx-vlm and MLX ScreenSpot numbers drop ~16pp (reports flag this via the recorded mlx-vlm version). To hack on a local fork instead, temporarily swap the source for `{ path = "../path/to/mlx-vlm", editable = true }`; once the fix ships in a release, delete the block and relock.
+`pyproject.toml` pins mlx-vlm to the LFM2.5-VL tiling fix via a `[tool.uv.sources]` **git source** — the [PR #1885](https://github.com/Blaizzy/mlx-vlm/pull/1885) branch on GitHub, so no local checkout is needed, and the committed `uv.lock` pins the exact commit (the branch head moves; the lock is what makes installs reproducible — don't regenerate it casually). Without the pin, `uv run` would fall back to the published mlx-vlm and MLX ScreenSpot numbers drop ~16pp (reports flag this via the recorded mlx-vlm version). To hack on a local fork instead, temporarily swap the source for `{ path = "../path/to/mlx-vlm", editable = true }`; once the fix ships in a release, delete the block and relock.
+
+### Fresh machine (quickstart)
+
+Images and dataset caches are never committed — `prepare` is a required step on a new clone, not an optimization. Full sequence, verified end-to-end on macOS / Apple Silicon:
+
+```bash
+git clone https://github.com/ivanfioravanti/vlm-bakeoff.git && cd vlm-bakeoff
+brew install llama.cpp                    # only needed for the GGUF side
+uv venv && uv pip install -e .            # installs the mlx-vlm commit pinned in uv.lock
+uv run python -m bench prepare            # downloads datasets (~17 GB) and regenerates all images
+uv run python -m bench run --models 4bit,8bit,bf16,gguf-q4km,gguf-q8,gguf-bf16
+open "results/$(ls -t results | head -1)/REPORT.html"
+```
+
+Disk budget for the full six-model setup: ~12 GB MLX weights + ~11 GB GGUF repo + ~17 GB dataset caches (all under `~/.cache/huggingface`) + ~1.2 GB extracted images — plan for ~40 GB. Single-track setups are far lighter (BLINK subset alone is <1 GB). Two practical notes: export `HF_TOKEN` before the big downloads to avoid anonymous rate limits, and each model's weights download on its first `run`. For like-for-like cross-machine comparisons, keep the same `--models` list and default sampling — the chip is recorded in every report automatically.
 
 ## Run
 

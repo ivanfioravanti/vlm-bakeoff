@@ -7,7 +7,6 @@ data/images/pillow/
 data/images/screenspot/
 data/images/_speed_*.png
 *.egg-info/
-uv.lock
 data/images/refcoco/
 data/images/docvqa/
 data/images/infographicvqa/
