@@ -96,6 +96,22 @@ def _levenshtein(a: str, b: str) -> int:
     return prev[-1]
 
 
+def _choice_letter(text: str) -> str | None:
+    """Extract an A–D choice from BLINK-style answers: "(B)", "B", "B is closer"."""
+    t = _norm(text)
+    m = re.search(r"\(([a-d])\)", t)
+    if m:
+        return m.group(1)
+    m = re.match(r"^\(?\s*([a-d])(?:\s|\)|$)", t)
+    if m:
+        return m.group(1)
+    m = re.search(r"\b([a-d])\s*\)", t)
+    if m:
+        return m.group(1)
+    letters = re.findall(r"\b([a-d])\b", t)
+    return letters[-1] if letters else None
+
+
 def score(task: dict[str, Any], text: str) -> dict[str, Any]:
     kind = task["scorer"]
     expected = task.get("expected") or {}
@@ -176,6 +192,15 @@ def score(task: dict[str, Any], text: str) -> dict[str, Any]:
             val = 0.0
         result["metric"] = val
         result["pass"] = val >= thresh
+    elif kind == "choice_letter":
+        # BLINK-style multiple choice: gold is "(B)"; the model may emit the
+        # parenthesized letter, a bare letter, or letter + choice text.
+        gold = _choice_letter(str(expected["text"]))
+        pred = _choice_letter(text or "")
+        ok = gold is not None and pred == gold
+        result["pass"] = ok
+        result["metric"] = float(ok)
+        result["pred_letter"] = pred
     elif kind == "choice":
         gold = _norm(str(expected["text"]))
         ok = _contains(gold, text) or _norm(text).startswith(gold)

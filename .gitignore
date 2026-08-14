@@ -10,3 +10,5 @@ data/images/_speed_*.png
 uv.lock
 data/images/refcoco/
 data/images/docvqa/
+data/images/infographicvqa/
+data/images/blink/

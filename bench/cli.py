@@ -10,7 +10,8 @@ import time
 import traceback
 from pathlib import Path
 
-from bench.docvqa import build_docvqa
+from bench.blink import build_blink
+from bench.docvqa import build_docvqa, build_infographicvqa
 from bench.infer import ModelSession
 from bench.models import DEFAULT_MODELS, parse_models, spec
 from bench.prompts import (
@@ -43,6 +44,8 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         ("screenspot", args.screenspot, build_screenspot),
         ("refcoco", args.refcoco, build_refcoco),
         ("docvqa", args.docvqa, build_docvqa),
+        ("infographicvqa", args.infographicvqa, build_infographicvqa),
+        ("blink", args.blink, build_blink),
     ]
     if all(mode == "off" for _, mode, _ in tracks):
         raise SystemExit("nothing to prepare: every track flag is off")
@@ -236,7 +239,7 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description="Local MLX / GGUF VLM capability benchmark")
     sub = p.add_subparsers(dest="cmd", required=True)
 
-    sp = sub.add_parser("prepare", help="Generate ScreenSpot-v2, RefCOCO and DocVQA tasks and images")
+    sp = sub.add_parser("prepare", help="Generate benchmark tasks and images (all tracks)")
     sp.add_argument(
         "--screenspot",
         choices=("full", "subset", "off"),
@@ -257,6 +260,21 @@ def main(argv: list[str] | None = None) -> int:
         default="subset",
         help="document reading comprehension behind Liquid's published DocVQA 91.1 (val, ANLS): "
         "full = 5,349 questions (~1 GB download); subset = 500 seeded items; off = skip",
+    )
+    sp.add_argument(
+        "--infographicvqa",
+        choices=("full", "subset", "off"),
+        default="subset",
+        help="infographic reading comprehension behind Liquid's published 70.2 (val, ANLS; same "
+        "repo/scorer as DocVQA): full = 2,801 questions; subset = 500 seeded items; off = skip",
+    )
+    sp.add_argument(
+        "--blink",
+        choices=("full", "subset", "off"),
+        default="subset",
+        help="multi-image perceptual tasks behind Liquid's published BLINK 61.5 (val, overall "
+        "accuracy; 1-4 images per item): full = all 14 tasks (1,901 items); subset = 16 seeded "
+        "items per task (224); off = skip",
     )
     sp.set_defaults(func=cmd_prepare)
 

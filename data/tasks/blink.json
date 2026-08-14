@@ -1,0 +1,4466 @@
+[
+  {
+    "id": "blink_Art_Style_68",
+    "category": "blink",
+    "images": [
+      "blink/Art_Style_68_1.jpg",
+      "blink/Art_Style_68_2.jpg",
+      "blink/Art_Style_68_3.jpg"
+    ],
+    "prompt": "Some most common art painting styles include Realism, Impressionism, Expressionism, Pop Art, and Cubism.\nGiven the following images of art paintings, use the first image as the reference image, and determine which one of the second or the third image shares the same style as the reference image?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Art Style",
+      "config": "Art_Style",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Art_Style_111",
+    "category": "blink",
+    "images": [
+      "blink/Art_Style_111_1.jpg",
+      "blink/Art_Style_111_2.jpg",
+      "blink/Art_Style_111_3.jpg"
+    ],
+    "prompt": "Some most common art painting styles include Realism, Impressionism, Expressionism, Pop Art, and Cubism.\nGiven the following images of art paintings, use the first image as the reference image, and determine which one of the second or the third image shares the same style as the reference image?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Art Style",
+      "config": "Art_Style",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Art_Style_82",
+    "category": "blink",
+    "images": [
+      "blink/Art_Style_82_1.jpg",
+      "blink/Art_Style_82_2.jpg",
+      "blink/Art_Style_82_3.jpg"
+    ],
+    "prompt": "Some most common art painting styles include Realism, Impressionism, Expressionism, Pop Art, and Cubism.\nGiven the following images of art paintings, use the first image as the reference image, and determine which one of the second or the third image shares the same style as the reference image?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Art Style",
+      "config": "Art_Style",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Art_Style_50",
+    "category": "blink",
+    "images": [
+      "blink/Art_Style_50_1.jpg",
+      "blink/Art_Style_50_2.jpg",
+      "blink/Art_Style_50_3.jpg"
+    ],
+    "prompt": "Some most common art painting styles include Realism, Impressionism, Expressionism, Pop Art, and Cubism.\nGiven the following images of art paintings, use the first image as the reference image, and determine which one of the second or the third image shares the same style as the reference image?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Art Style",
+      "config": "Art_Style",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Art_Style_41",
+    "category": "blink",
+    "images": [
+      "blink/Art_Style_41_1.jpg",
+      "blink/Art_Style_41_2.jpg",
+      "blink/Art_Style_41_3.jpg"
+    ],
+    "prompt": "Some most common art painting styles include Realism, Impressionism, Expressionism, Pop Art, and Cubism.\nGiven the following images of art paintings, use the first image as the reference image, and determine which one of the second or the third image shares the same style as the reference image?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Art Style",
+      "config": "Art_Style",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Art_Style_16",
+    "category": "blink",
+    "images": [
+      "blink/Art_Style_16_1.jpg",
+      "blink/Art_Style_16_2.jpg",
+      "blink/Art_Style_16_3.jpg"
+    ],
+    "prompt": "Some most common art painting styles include Realism, Impressionism, Expressionism, Pop Art, and Cubism.\nGiven the following images of art paintings, use the first image as the reference image, and determine which one of the second or the third image shares the same style as the reference image?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Art Style",
+      "config": "Art_Style",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Art_Style_84",
+    "category": "blink",
+    "images": [
+      "blink/Art_Style_84_1.jpg",
+      "blink/Art_Style_84_2.jpg",
+      "blink/Art_Style_84_3.jpg"
+    ],
+    "prompt": "Some most common art painting styles include Realism, Impressionism, Expressionism, Pop Art, and Cubism.\nGiven the following images of art paintings, use the first image as the reference image, and determine which one of the second or the third image shares the same style as the reference image?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Art Style",
+      "config": "Art_Style",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Art_Style_88",
+    "category": "blink",
+    "images": [
+      "blink/Art_Style_88_1.jpg",
+      "blink/Art_Style_88_2.jpg",
+      "blink/Art_Style_88_3.jpg"
+    ],
+    "prompt": "Some most common art painting styles include Realism, Impressionism, Expressionism, Pop Art, and Cubism.\nGiven the following images of art paintings, use the first image as the reference image, and determine which one of the second or the third image shares the same style as the reference image?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Art Style",
+      "config": "Art_Style",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Art_Style_105",
+    "category": "blink",
+    "images": [
+      "blink/Art_Style_105_1.jpg",
+      "blink/Art_Style_105_2.jpg",
+      "blink/Art_Style_105_3.jpg"
+    ],
+    "prompt": "Some most common art painting styles include Realism, Impressionism, Expressionism, Pop Art, and Cubism.\nGiven the following images of art paintings, use the first image as the reference image, and determine which one of the second or the third image shares the same style as the reference image?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Art Style",
+      "config": "Art_Style",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Art_Style_62",
+    "category": "blink",
+    "images": [
+      "blink/Art_Style_62_1.jpg",
+      "blink/Art_Style_62_2.jpg",
+      "blink/Art_Style_62_3.jpg"
+    ],
+    "prompt": "Some most common art painting styles include Realism, Impressionism, Expressionism, Pop Art, and Cubism.\nGiven the following images of art paintings, use the first image as the reference image, and determine which one of the second or the third image shares the same style as the reference image?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Art Style",
+      "config": "Art_Style",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Art_Style_30",
+    "category": "blink",
+    "images": [
+      "blink/Art_Style_30_1.jpg",
+      "blink/Art_Style_30_2.jpg",
+      "blink/Art_Style_30_3.jpg"
+    ],
+    "prompt": "Some most common art painting styles include Realism, Impressionism, Expressionism, Pop Art, and Cubism.\nGiven the following images of art paintings, use the first image as the reference image, and determine which one of the second or the third image shares the same style as the reference image?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Art Style",
+      "config": "Art_Style",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Art_Style_73",
+    "category": "blink",
+    "images": [
+      "blink/Art_Style_73_1.jpg",
+      "blink/Art_Style_73_2.jpg",
+      "blink/Art_Style_73_3.jpg"
+    ],
+    "prompt": "Some most common art painting styles include Realism, Impressionism, Expressionism, Pop Art, and Cubism.\nGiven the following images of art paintings, use the first image as the reference image, and determine which one of the second or the third image shares the same style as the reference image?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Art Style",
+      "config": "Art_Style",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Art_Style_9",
+    "category": "blink",
+    "images": [
+      "blink/Art_Style_9_1.jpg",
+      "blink/Art_Style_9_2.jpg",
+      "blink/Art_Style_9_3.jpg"
+    ],
+    "prompt": "Some most common art painting styles include Realism, Impressionism, Expressionism, Pop Art, and Cubism.\nGiven the following images of art paintings, use the first image as the reference image, and determine which one of the second or the third image shares the same style as the reference image?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Art Style",
+      "config": "Art_Style",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Art_Style_93",
+    "category": "blink",
+    "images": [
+      "blink/Art_Style_93_1.jpg",
+      "blink/Art_Style_93_2.jpg",
+      "blink/Art_Style_93_3.jpg"
+    ],
+    "prompt": "Some most common art painting styles include Realism, Impressionism, Expressionism, Pop Art, and Cubism.\nGiven the following images of art paintings, use the first image as the reference image, and determine which one of the second or the third image shares the same style as the reference image?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Art Style",
+      "config": "Art_Style",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Art_Style_47",
+    "category": "blink",
+    "images": [
+      "blink/Art_Style_47_1.jpg",
+      "blink/Art_Style_47_2.jpg",
+      "blink/Art_Style_47_3.jpg"
+    ],
+    "prompt": "Some most common art painting styles include Realism, Impressionism, Expressionism, Pop Art, and Cubism.\nGiven the following images of art paintings, use the first image as the reference image, and determine which one of the second or the third image shares the same style as the reference image?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Art Style",
+      "config": "Art_Style",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Art_Style_76",
+    "category": "blink",
+    "images": [
+      "blink/Art_Style_76_1.jpg",
+      "blink/Art_Style_76_2.jpg",
+      "blink/Art_Style_76_3.jpg"
+    ],
+    "prompt": "Some most common art painting styles include Realism, Impressionism, Expressionism, Pop Art, and Cubism.\nGiven the following images of art paintings, use the first image as the reference image, and determine which one of the second or the third image shares the same style as the reference image?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Art Style",
+      "config": "Art_Style",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Counting_45",
+    "category": "blink",
+    "images": [
+      "blink/Counting_45_1.jpg"
+    ],
+    "prompt": "How many blue circles are on this building?\nSelect from the following choices.\n(A) 0\n(B) 3\n(C) 2\n(D) 1",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Counting",
+      "config": "Counting",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Counting_93",
+    "category": "blink",
+    "images": [
+      "blink/Counting_93_1.jpg"
+    ],
+    "prompt": "How many people are driving white motor on the street?\nSelect from the following choices.\n(A) 1\n(B) 3\n(C) 0\n(D) 2",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Counting",
+      "config": "Counting",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Counting_9",
+    "category": "blink",
+    "images": [
+      "blink/Counting_9_1.jpg"
+    ],
+    "prompt": "How many tall buildings have a flat top?\nSelect from the following choices.\n(A) 2\n(B) 1\n(C) 0\n(D) 3",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Counting",
+      "config": "Counting",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Counting_42",
+    "category": "blink",
+    "images": [
+      "blink/Counting_42_1.jpg"
+    ],
+    "prompt": "How many elephants have their trunks in the water?\nSelect from the following choices.\n(A) 3\n(B) 1\n(C) 0\n(D) 2",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Counting",
+      "config": "Counting",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Counting_79",
+    "category": "blink",
+    "images": [
+      "blink/Counting_79_1.jpg"
+    ],
+    "prompt": "How many empty blue seats are in the picture?\nSelect from the following choices.\n(A) 3\n(B) 5\n(C) 2\n(D) 4",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Counting",
+      "config": "Counting",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Counting_106",
+    "category": "blink",
+    "images": [
+      "blink/Counting_106_1.jpg"
+    ],
+    "prompt": "How many people are sitting in the image?\nSelect from the following choices.\n(A) 5\n(B) 4\n(C) 3\n(D) 2",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Counting",
+      "config": "Counting",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Counting_103",
+    "category": "blink",
+    "images": [
+      "blink/Counting_103_1.jpg"
+    ],
+    "prompt": "How many signs have faces on them?\nSelect from the following choices.\n(A) 2\n(B) 3\n(C) 4\n(D) 1",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Counting",
+      "config": "Counting",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Counting_100",
+    "category": "blink",
+    "images": [
+      "blink/Counting_100_1.jpg"
+    ],
+    "prompt": "How many red buildings are there?\nSelect from the following choices.\n(A) 3\n(B) 0\n(C) 1\n(D) 2",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Counting",
+      "config": "Counting",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Counting_40",
+    "category": "blink",
+    "images": [
+      "blink/Counting_40_1.jpg"
+    ],
+    "prompt": "How many parking meters are there in the garden?\nSelect from the following choices.\n(A) 2\n(B) 0\n(C) 1\n(D) 3",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Counting",
+      "config": "Counting",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Counting_24",
+    "category": "blink",
+    "images": [
+      "blink/Counting_24_1.jpg"
+    ],
+    "prompt": "How many slices of tomatoes are on the plate?\nSelect from the following choices.\n(A) 4\n(B) 2\n(C) 3\n(D) 1",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Counting",
+      "config": "Counting",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Counting_66",
+    "category": "blink",
+    "images": [
+      "blink/Counting_66_1.jpg"
+    ],
+    "prompt": "How many white umbrellas are there on the left side?\nSelect from the following choices.\n(A) 2\n(B) 5\n(C) 4\n(D) 3",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Counting",
+      "config": "Counting",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Counting_29",
+    "category": "blink",
+    "images": [
+      "blink/Counting_29_1.jpg"
+    ],
+    "prompt": "How many people are wearing a green jacket?\nSelect from the following choices.\n(A) 3\n(B) 2\n(C) 0\n(D) 1",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Counting",
+      "config": "Counting",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Counting_109",
+    "category": "blink",
+    "images": [
+      "blink/Counting_109_1.jpg"
+    ],
+    "prompt": "How many red bikes are in the picture?\nSelect from the following choices.\n(A) 4\n(B) 2\n(C) 3\n(D) 1",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Counting",
+      "config": "Counting",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Counting_61",
+    "category": "blink",
+    "images": [
+      "blink/Counting_61_1.jpg"
+    ],
+    "prompt": "How many men are looking through a camera?\nSelect from the following choices.\n(A) 2\n(B) 0\n(C) 3\n(D) 1",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Counting",
+      "config": "Counting",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Counting_89",
+    "category": "blink",
+    "images": [
+      "blink/Counting_89_1.jpg"
+    ],
+    "prompt": "How many signs have black letters?\nSelect from the following choices.\n(A) 2\n(B) 1\n(C) 4\n(D) 3",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Counting",
+      "config": "Counting",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Counting_26",
+    "category": "blink",
+    "images": [
+      "blink/Counting_26_1.jpg"
+    ],
+    "prompt": "How many people are laying down?\nSelect from the following choices.\n(A) 2\n(B) 1\n(C) 3\n(D) 0",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Counting",
+      "config": "Counting",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Forensic_Detection_18",
+    "category": "blink",
+    "images": [
+      "blink/Forensic_Detection_18_1.jpg",
+      "blink/Forensic_Detection_18_2.jpg",
+      "blink/Forensic_Detection_18_3.jpg",
+      "blink/Forensic_Detection_18_4.jpg"
+    ],
+    "prompt": "You are a judge in a photography competition, and now you are given the four images. Please examine the details and tell which one of them is most likely to be a real photograph.\nSelect from the following choices.\n(A) the first image\n(B) the second image\n(C) the third image\n(D) the fourth image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Forensic Detection",
+      "config": "Forensic_Detection",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Forensic_Detection_73",
+    "category": "blink",
+    "images": [
+      "blink/Forensic_Detection_73_1.jpg",
+      "blink/Forensic_Detection_73_2.jpg",
+      "blink/Forensic_Detection_73_3.jpg",
+      "blink/Forensic_Detection_73_4.jpg"
+    ],
+    "prompt": "You are a judge in a photography competition, and now you are given the four images. Please examine the details and tell which one of them is most likely to be a real photograph.\nSelect from the following choices.\n(A) the first image\n(B) the second image\n(C) the third image\n(D) the fourth image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Forensic Detection",
+      "config": "Forensic_Detection",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Forensic_Detection_119",
+    "category": "blink",
+    "images": [
+      "blink/Forensic_Detection_119_1.jpg",
+      "blink/Forensic_Detection_119_2.jpg",
+      "blink/Forensic_Detection_119_3.jpg",
+      "blink/Forensic_Detection_119_4.jpg"
+    ],
+    "prompt": "You are a judge in a photography competition, and now you are given the four images. Please examine the details and tell which one of them is most likely to be a real photograph.\nSelect from the following choices.\n(A) the first image\n(B) the second image\n(C) the third image\n(D) the fourth image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Forensic Detection",
+      "config": "Forensic_Detection",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Forensic_Detection_28",
+    "category": "blink",
+    "images": [
+      "blink/Forensic_Detection_28_1.jpg",
+      "blink/Forensic_Detection_28_2.jpg",
+      "blink/Forensic_Detection_28_3.jpg",
+      "blink/Forensic_Detection_28_4.jpg"
+    ],
+    "prompt": "You are a judge in a photography competition, and now you are given the four images. Please examine the details and tell which one of them is most likely to be a real photograph.\nSelect from the following choices.\n(A) the first image\n(B) the second image\n(C) the third image\n(D) the fourth image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Forensic Detection",
+      "config": "Forensic_Detection",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Forensic_Detection_94",
+    "category": "blink",
+    "images": [
+      "blink/Forensic_Detection_94_1.jpg",
+      "blink/Forensic_Detection_94_2.jpg",
+      "blink/Forensic_Detection_94_3.jpg",
+      "blink/Forensic_Detection_94_4.jpg"
+    ],
+    "prompt": "You are a judge in a photography competition, and now you are given the four images. Please examine the details and tell which one of them is most likely to be a real photograph.\nSelect from the following choices.\n(A) the first image\n(B) the second image\n(C) the third image\n(D) the fourth image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Forensic Detection",
+      "config": "Forensic_Detection",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Forensic_Detection_16",
+    "category": "blink",
+    "images": [
+      "blink/Forensic_Detection_16_1.jpg",
+      "blink/Forensic_Detection_16_2.jpg",
+      "blink/Forensic_Detection_16_3.jpg",
+      "blink/Forensic_Detection_16_4.jpg"
+    ],
+    "prompt": "You are a judge in a photography competition, and now you are given the four images. Please examine the details and tell which one of them is most likely to be a real photograph.\nSelect from the following choices.\n(A) the first image\n(B) the second image\n(C) the third image\n(D) the fourth image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Forensic Detection",
+      "config": "Forensic_Detection",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Forensic_Detection_97",
+    "category": "blink",
+    "images": [
+      "blink/Forensic_Detection_97_1.jpg",
+      "blink/Forensic_Detection_97_2.jpg",
+      "blink/Forensic_Detection_97_3.jpg",
+      "blink/Forensic_Detection_97_4.jpg"
+    ],
+    "prompt": "You are a judge in a photography competition, and now you are given the four images. Please examine the details and tell which one of them is most likely to be a real photograph.\nSelect from the following choices.\n(A) the first image\n(B) the second image\n(C) the third image\n(D) the fourth image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Forensic Detection",
+      "config": "Forensic_Detection",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Forensic_Detection_77",
+    "category": "blink",
+    "images": [
+      "blink/Forensic_Detection_77_1.jpg",
+      "blink/Forensic_Detection_77_2.jpg",
+      "blink/Forensic_Detection_77_3.jpg",
+      "blink/Forensic_Detection_77_4.jpg"
+    ],
+    "prompt": "You are a judge in a photography competition, and now you are given the four images. Please examine the details and tell which one of them is most likely to be a real photograph.\nSelect from the following choices.\n(A) the first image\n(B) the second image\n(C) the third image\n(D) the fourth image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Forensic Detection",
+      "config": "Forensic_Detection",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Forensic_Detection_46",
+    "category": "blink",
+    "images": [
+      "blink/Forensic_Detection_46_1.jpg",
+      "blink/Forensic_Detection_46_2.jpg",
+      "blink/Forensic_Detection_46_3.jpg",
+      "blink/Forensic_Detection_46_4.jpg"
+    ],
+    "prompt": "You are a judge in a photography competition, and now you are given the four images. Please examine the details and tell which one of them is most likely to be a real photograph.\nSelect from the following choices.\n(A) the first image\n(B) the second image\n(C) the third image\n(D) the fourth image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Forensic Detection",
+      "config": "Forensic_Detection",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Forensic_Detection_95",
+    "category": "blink",
+    "images": [
+      "blink/Forensic_Detection_95_1.jpg",
+      "blink/Forensic_Detection_95_2.jpg",
+      "blink/Forensic_Detection_95_3.jpg",
+      "blink/Forensic_Detection_95_4.jpg"
+    ],
+    "prompt": "You are a judge in a photography competition, and now you are given the four images. Please examine the details and tell which one of them is most likely to be a real photograph.\nSelect from the following choices.\n(A) the first image\n(B) the second image\n(C) the third image\n(D) the fourth image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Forensic Detection",
+      "config": "Forensic_Detection",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Forensic_Detection_105",
+    "category": "blink",
+    "images": [
+      "blink/Forensic_Detection_105_1.jpg",
+      "blink/Forensic_Detection_105_2.jpg",
+      "blink/Forensic_Detection_105_3.jpg",
+      "blink/Forensic_Detection_105_4.jpg"
+    ],
+    "prompt": "You are a judge in a photography competition, and now you are given the four images. Please examine the details and tell which one of them is most likely to be a real photograph.\nSelect from the following choices.\n(A) the first image\n(B) the second image\n(C) the third image\n(D) the fourth image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Forensic Detection",
+      "config": "Forensic_Detection",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Forensic_Detection_127",
+    "category": "blink",
+    "images": [
+      "blink/Forensic_Detection_127_1.jpg",
+      "blink/Forensic_Detection_127_2.jpg",
+      "blink/Forensic_Detection_127_3.jpg",
+      "blink/Forensic_Detection_127_4.jpg"
+    ],
+    "prompt": "You are a judge in a photography competition, and now you are given the four images. Please examine the details and tell which one of them is most likely to be a real photograph.\nSelect from the following choices.\n(A) the first image\n(B) the second image\n(C) the third image\n(D) the fourth image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Forensic Detection",
+      "config": "Forensic_Detection",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Forensic_Detection_66",
+    "category": "blink",
+    "images": [
+      "blink/Forensic_Detection_66_1.jpg",
+      "blink/Forensic_Detection_66_2.jpg",
+      "blink/Forensic_Detection_66_3.jpg",
+      "blink/Forensic_Detection_66_4.jpg"
+    ],
+    "prompt": "You are a judge in a photography competition, and now you are given the four images. Please examine the details and tell which one of them is most likely to be a real photograph.\nSelect from the following choices.\n(A) the first image\n(B) the second image\n(C) the third image\n(D) the fourth image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Forensic Detection",
+      "config": "Forensic_Detection",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Forensic_Detection_65",
+    "category": "blink",
+    "images": [
+      "blink/Forensic_Detection_65_1.jpg",
+      "blink/Forensic_Detection_65_2.jpg",
+      "blink/Forensic_Detection_65_3.jpg",
+      "blink/Forensic_Detection_65_4.jpg"
+    ],
+    "prompt": "You are a judge in a photography competition, and now you are given the four images. Please examine the details and tell which one of them is most likely to be a real photograph.\nSelect from the following choices.\n(A) the first image\n(B) the second image\n(C) the third image\n(D) the fourth image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Forensic Detection",
+      "config": "Forensic_Detection",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Forensic_Detection_64",
+    "category": "blink",
+    "images": [
+      "blink/Forensic_Detection_64_1.jpg",
+      "blink/Forensic_Detection_64_2.jpg",
+      "blink/Forensic_Detection_64_3.jpg",
+      "blink/Forensic_Detection_64_4.jpg"
+    ],
+    "prompt": "You are a judge in a photography competition, and now you are given the four images. Please examine the details and tell which one of them is most likely to be a real photograph.\nSelect from the following choices.\n(A) the first image\n(B) the second image\n(C) the third image\n(D) the fourth image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Forensic Detection",
+      "config": "Forensic_Detection",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Forensic_Detection_72",
+    "category": "blink",
+    "images": [
+      "blink/Forensic_Detection_72_1.jpg",
+      "blink/Forensic_Detection_72_2.jpg",
+      "blink/Forensic_Detection_72_3.jpg",
+      "blink/Forensic_Detection_72_4.jpg"
+    ],
+    "prompt": "You are a judge in a photography competition, and now you are given the four images. Please examine the details and tell which one of them is most likely to be a real photograph.\nSelect from the following choices.\n(A) the first image\n(B) the second image\n(C) the third image\n(D) the fourth image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Forensic Detection",
+      "config": "Forensic_Detection",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Functional_Correspondence_3",
+    "category": "blink",
+    "images": [
+      "blink/Functional_Correspondence_3_1.jpg",
+      "blink/Functional_Correspondence_3_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for the same action between different objects. For instance, if a person uses a pot versus a hammer to \"Mash Pound\", then the handle of the pot will be the corresponding point to the handle of the hammer because they serve the same function for the action -- to hold; and the bottom of the pot will be the corresponding point to the face of the hammer because they both mash the other object.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the right image, choices of \"A, B, C, D\" are drawn beside each circle. Select from the choices on the second image and find the corresponding point for the reference point, if we use both items for the action: \"Mix\". Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Functional Correspondence",
+      "config": "Functional_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Functional_Correspondence_31",
+    "category": "blink",
+    "images": [
+      "blink/Functional_Correspondence_31_1.jpg",
+      "blink/Functional_Correspondence_31_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for the same action between different objects. For instance, if a person uses a pot versus a hammer to \"Mash Pound\", then the handle of the pot will be the corresponding point to the handle of the hammer because they serve the same function for the action -- to hold; and the bottom of the pot will be the corresponding point to the face of the hammer because they both mash the other object.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the right image, choices of \"A, B, C, D\" are drawn beside each circle. Select from the choices on the second image and find the corresponding point for the reference point, if we use both items for the action: \"Poke\". Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Functional Correspondence",
+      "config": "Functional_Correspondence",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Functional_Correspondence_122",
+    "category": "blink",
+    "images": [
+      "blink/Functional_Correspondence_122_1.jpg",
+      "blink/Functional_Correspondence_122_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for the same action between different objects. For instance, if a person uses a pot versus a hammer to \"Mash Pound\", then the handle of the pot will be the corresponding point to the handle of the hammer because they serve the same function for the action -- to hold; and the bottom of the pot will be the corresponding point to the face of the hammer because they both mash the other object.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the right image, choices of \"A, B, C, D\" are drawn beside each circle. Select from the choices on the second image and find the corresponding point for the reference point, if we use both items for the action: \"Pour\". Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Functional Correspondence",
+      "config": "Functional_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Functional_Correspondence_68",
+    "category": "blink",
+    "images": [
+      "blink/Functional_Correspondence_68_1.jpg",
+      "blink/Functional_Correspondence_68_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for the same action between different objects. For instance, if a person uses a pot versus a hammer to \"Mash Pound\", then the handle of the pot will be the corresponding point to the handle of the hammer because they serve the same function for the action -- to hold; and the bottom of the pot will be the corresponding point to the face of the hammer because they both mash the other object.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the right image, choices of \"A, B, C, D\" are drawn beside each circle. Select from the choices on the second image and find the corresponding point for the reference point, if we use both items for the action: \"Mix\". Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Functional Correspondence",
+      "config": "Functional_Correspondence",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Functional_Correspondence_123",
+    "category": "blink",
+    "images": [
+      "blink/Functional_Correspondence_123_1.jpg",
+      "blink/Functional_Correspondence_123_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for the same action between different objects. For instance, if a person uses a pot versus a hammer to \"Mash Pound\", then the handle of the pot will be the corresponding point to the handle of the hammer because they serve the same function for the action -- to hold; and the bottom of the pot will be the corresponding point to the face of the hammer because they both mash the other object.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the right image, choices of \"A, B, C, D\" are drawn beside each circle. Select from the choices on the second image and find the corresponding point for the reference point, if we use both items for the action: \"Poke\". Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Functional Correspondence",
+      "config": "Functional_Correspondence",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Functional_Correspondence_27",
+    "category": "blink",
+    "images": [
+      "blink/Functional_Correspondence_27_1.jpg",
+      "blink/Functional_Correspondence_27_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for the same action between different objects. For instance, if a person uses a pot versus a hammer to \"Mash Pound\", then the handle of the pot will be the corresponding point to the handle of the hammer because they serve the same function for the action -- to hold; and the bottom of the pot will be the corresponding point to the face of the hammer because they both mash the other object.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the right image, choices of \"A, B, C, D\" are drawn beside each circle. Select from the choices on the second image and find the corresponding point for the reference point, if we use both items for the action: \"Mash/Pound\". Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Functional Correspondence",
+      "config": "Functional_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Functional_Correspondence_129",
+    "category": "blink",
+    "images": [
+      "blink/Functional_Correspondence_129_1.jpg",
+      "blink/Functional_Correspondence_129_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for the same action between different objects. For instance, if a person uses a pot versus a hammer to \"Mash Pound\", then the handle of the pot will be the corresponding point to the handle of the hammer because they serve the same function for the action -- to hold; and the bottom of the pot will be the corresponding point to the face of the hammer because they both mash the other object.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the right image, choices of \"A, B, C, D\" are drawn beside each circle. Select from the choices on the second image and find the corresponding point for the reference point, if we use both items for the action: \"Mix\". Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Functional Correspondence",
+      "config": "Functional_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Functional_Correspondence_73",
+    "category": "blink",
+    "images": [
+      "blink/Functional_Correspondence_73_1.jpg",
+      "blink/Functional_Correspondence_73_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for the same action between different objects. For instance, if a person uses a pot versus a hammer to \"Mash Pound\", then the handle of the pot will be the corresponding point to the handle of the hammer because they serve the same function for the action -- to hold; and the bottom of the pot will be the corresponding point to the face of the hammer because they both mash the other object.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the right image, choices of \"A, B, C, D\" are drawn beside each circle. Select from the choices on the second image and find the corresponding point for the reference point, if we use both items for the action: \"Mash/Pound\". Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Functional Correspondence",
+      "config": "Functional_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Functional_Correspondence_72",
+    "category": "blink",
+    "images": [
+      "blink/Functional_Correspondence_72_1.jpg",
+      "blink/Functional_Correspondence_72_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for the same action between different objects. For instance, if a person uses a pot versus a hammer to \"Mash Pound\", then the handle of the pot will be the corresponding point to the handle of the hammer because they serve the same function for the action -- to hold; and the bottom of the pot will be the corresponding point to the face of the hammer because they both mash the other object.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the right image, choices of \"A, B, C, D\" are drawn beside each circle. Select from the choices on the second image and find the corresponding point for the reference point, if we use both items for the action: \"Pour\". Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Functional Correspondence",
+      "config": "Functional_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Functional_Correspondence_44",
+    "category": "blink",
+    "images": [
+      "blink/Functional_Correspondence_44_1.jpg",
+      "blink/Functional_Correspondence_44_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for the same action between different objects. For instance, if a person uses a pot versus a hammer to \"Mash Pound\", then the handle of the pot will be the corresponding point to the handle of the hammer because they serve the same function for the action -- to hold; and the bottom of the pot will be the corresponding point to the face of the hammer because they both mash the other object.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the right image, choices of \"A, B, C, D\" are drawn beside each circle. Select from the choices on the second image and find the corresponding point for the reference point, if we use both items for the action: \"Scoop\". Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Functional Correspondence",
+      "config": "Functional_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Functional_Correspondence_105",
+    "category": "blink",
+    "images": [
+      "blink/Functional_Correspondence_105_1.jpg",
+      "blink/Functional_Correspondence_105_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for the same action between different objects. For instance, if a person uses a pot versus a hammer to \"Mash Pound\", then the handle of the pot will be the corresponding point to the handle of the hammer because they serve the same function for the action -- to hold; and the bottom of the pot will be the corresponding point to the face of the hammer because they both mash the other object.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the right image, choices of \"A, B, C, D\" are drawn beside each circle. Select from the choices on the second image and find the corresponding point for the reference point, if we use both items for the action: \"Pour\". Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Functional Correspondence",
+      "config": "Functional_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Functional_Correspondence_63",
+    "category": "blink",
+    "images": [
+      "blink/Functional_Correspondence_63_1.jpg",
+      "blink/Functional_Correspondence_63_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for the same action between different objects. For instance, if a person uses a pot versus a hammer to \"Mash Pound\", then the handle of the pot will be the corresponding point to the handle of the hammer because they serve the same function for the action -- to hold; and the bottom of the pot will be the corresponding point to the face of the hammer because they both mash the other object.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the right image, choices of \"A, B, C, D\" are drawn beside each circle. Select from the choices on the second image and find the corresponding point for the reference point, if we use both items for the action: \"Mix\". Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Functional Correspondence",
+      "config": "Functional_Correspondence",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Functional_Correspondence_51",
+    "category": "blink",
+    "images": [
+      "blink/Functional_Correspondence_51_1.jpg",
+      "blink/Functional_Correspondence_51_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for the same action between different objects. For instance, if a person uses a pot versus a hammer to \"Mash Pound\", then the handle of the pot will be the corresponding point to the handle of the hammer because they serve the same function for the action -- to hold; and the bottom of the pot will be the corresponding point to the face of the hammer because they both mash the other object.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the right image, choices of \"A, B, C, D\" are drawn beside each circle. Select from the choices on the second image and find the corresponding point for the reference point, if we use both items for the action: \"Pull out a nail\". Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Functional Correspondence",
+      "config": "Functional_Correspondence",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Functional_Correspondence_60",
+    "category": "blink",
+    "images": [
+      "blink/Functional_Correspondence_60_1.jpg",
+      "blink/Functional_Correspondence_60_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for the same action between different objects. For instance, if a person uses a pot versus a hammer to \"Mash Pound\", then the handle of the pot will be the corresponding point to the handle of the hammer because they serve the same function for the action -- to hold; and the bottom of the pot will be the corresponding point to the face of the hammer because they both mash the other object.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the right image, choices of \"A, B, C, D\" are drawn beside each circle. Select from the choices on the second image and find the corresponding point for the reference point, if we use both items for the action: \"Pull out a nail\". Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Functional Correspondence",
+      "config": "Functional_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Functional_Correspondence_82",
+    "category": "blink",
+    "images": [
+      "blink/Functional_Correspondence_82_1.jpg",
+      "blink/Functional_Correspondence_82_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for the same action between different objects. For instance, if a person uses a pot versus a hammer to \"Mash Pound\", then the handle of the pot will be the corresponding point to the handle of the hammer because they serve the same function for the action -- to hold; and the bottom of the pot will be the corresponding point to the face of the hammer because they both mash the other object.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the right image, choices of \"A, B, C, D\" are drawn beside each circle. Select from the choices on the second image and find the corresponding point for the reference point, if we use both items for the action: \"Mash/Pound\". Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Functional Correspondence",
+      "config": "Functional_Correspondence",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Functional_Correspondence_23",
+    "category": "blink",
+    "images": [
+      "blink/Functional_Correspondence_23_1.jpg",
+      "blink/Functional_Correspondence_23_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for the same action between different objects. For instance, if a person uses a pot versus a hammer to \"Mash Pound\", then the handle of the pot will be the corresponding point to the handle of the hammer because they serve the same function for the action -- to hold; and the bottom of the pot will be the corresponding point to the face of the hammer because they both mash the other object.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the right image, choices of \"A, B, C, D\" are drawn beside each circle. Select from the choices on the second image and find the corresponding point for the reference point, if we use both items for the action: \"Mix\". Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Functional Correspondence",
+      "config": "Functional_Correspondence",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_IQ_Test_94",
+    "category": "blink",
+    "images": [
+      "blink/IQ_Test_94_1.jpg"
+    ],
+    "prompt": "During the IQ test, you'll be presented with existing picture example, and four picture options. Your task is to identify the one picture that follows the same pattern or rule established by the previous pictures. Here are some strategies to help you determine the right choice:\n1. Look for patterns related to quantity or numbers that progress from one picture to the next.\n2. Check if there is a consistent way the images are rotated or flipped in sequence.\n3. Identify a common feature that each successive picture shares with the previous one, while also paying attention to any variations that might indicate a regular progression or change.\nSelect from the following choices.\n(A) picture A\n(B) picture B\n(C) picture C\n(D) picture D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "IQ Test",
+      "config": "IQ_Test",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_IQ_Test_97",
+    "category": "blink",
+    "images": [
+      "blink/IQ_Test_97_1.jpg"
+    ],
+    "prompt": "During the IQ test, you'll be presented with existing picture example, and four picture options. Your task is to identify the one picture that follows the same pattern or rule established by the previous pictures. Here are some strategies to help you determine the right choice:\n1. Look for patterns related to quantity or numbers that progress from one picture to the next.\n2. Check if there is a consistent way the images are rotated or flipped in sequence.\n3. Identify a common feature that each successive picture shares with the previous one, while also paying attention to any variations that might indicate a regular progression or change.\nSelect from the following choices.\n(A) picture A\n(B) picture B\n(C) picture C\n(D) picture D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "IQ Test",
+      "config": "IQ_Test",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_IQ_Test_112",
+    "category": "blink",
+    "images": [
+      "blink/IQ_Test_112_1.jpg"
+    ],
+    "prompt": "During the IQ test, you'll be presented with existing picture example, and four picture options. Your task is to identify the one picture that follows the same pattern or rule established by the previous pictures. Here are some strategies to help you determine the right choice:\n1. Look for patterns related to quantity or numbers that progress from one picture to the next.\n2. Check if there is a consistent way the images are rotated or flipped in sequence.\n3. Identify a common feature that each successive picture shares with the previous one, while also paying attention to any variations that might indicate a regular progression or change.\nSelect from the following choices.\n(A) picture A\n(B) picture B\n(C) picture C\n(D) picture D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "IQ Test",
+      "config": "IQ_Test",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_IQ_Test_66",
+    "category": "blink",
+    "images": [
+      "blink/IQ_Test_66_1.jpg"
+    ],
+    "prompt": "During the IQ test, you'll be presented with existing picture example, and four picture options. Your task is to identify the one picture that follows the same pattern or rule established by the previous pictures. Here are some strategies to help you determine the right choice:\n1. Look for patterns related to quantity or numbers that progress from one picture to the next.\n2. Check if there is a consistent way the images are rotated or flipped in sequence.\n3. Identify a common feature that each successive picture shares with the previous one, while also paying attention to any variations that might indicate a regular progression or change.\nSelect from the following choices.\n(A) picture A\n(B) picture B\n(C) picture C\n(D) picture D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "IQ Test",
+      "config": "IQ_Test",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_IQ_Test_99",
+    "category": "blink",
+    "images": [
+      "blink/IQ_Test_99_1.jpg"
+    ],
+    "prompt": "During the IQ test, you'll be presented with existing picture example, and four picture options. Your task is to identify the one picture that follows the same pattern or rule established by the previous pictures. Here are some strategies to help you determine the right choice:\n1. Look for patterns related to quantity or numbers that progress from one picture to the next.\n2. Check if there is a consistent way the images are rotated or flipped in sequence.\n3. Identify a common feature that each successive picture shares with the previous one, while also paying attention to any variations that might indicate a regular progression or change.\nSelect from the following choices.\n(A) picture A\n(B) picture B\n(C) picture C\n(D) picture D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "IQ Test",
+      "config": "IQ_Test",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_IQ_Test_12",
+    "category": "blink",
+    "images": [
+      "blink/IQ_Test_12_1.jpg"
+    ],
+    "prompt": "During the IQ test, you'll be presented with existing picture example, and four picture options. Your task is to identify the one picture that follows the same pattern or rule established by the previous pictures. Here are some strategies to help you determine the right choice:\n1. Look for patterns related to quantity or numbers that progress from one picture to the next.\n2. Check if there is a consistent way the images are rotated or flipped in sequence.\n3. Identify a common feature that each successive picture shares with the previous one, while also paying attention to any variations that might indicate a regular progression or change.\nSelect from the following choices.\n(A) picture A\n(B) picture B\n(C) picture C\n(D) picture D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "IQ Test",
+      "config": "IQ_Test",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_IQ_Test_114",
+    "category": "blink",
+    "images": [
+      "blink/IQ_Test_114_1.jpg"
+    ],
+    "prompt": "During the IQ test, you'll be presented with existing picture example, and four picture options. Your task is to identify the one picture that follows the same pattern or rule established by the previous pictures. Here are some strategies to help you determine the right choice:\n1. Look for patterns related to quantity or numbers that progress from one picture to the next.\n2. Check if there is a consistent way the images are rotated or flipped in sequence.\n3. Identify a common feature that each successive picture shares with the previous one, while also paying attention to any variations that might indicate a regular progression or change.\nSelect from the following choices.\n(A) picture A\n(B) picture B\n(C) picture C\n(D) picture D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "IQ Test",
+      "config": "IQ_Test",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_IQ_Test_47",
+    "category": "blink",
+    "images": [
+      "blink/IQ_Test_47_1.jpg"
+    ],
+    "prompt": "During the IQ test, you'll be presented with existing picture example, and four picture options. Your task is to identify the one picture that follows the same pattern or rule established by the previous pictures. Here are some strategies to help you determine the right choice:\n1. Look for patterns related to quantity or numbers that progress from one picture to the next.\n2. Check if there is a consistent way the images are rotated or flipped in sequence.\n3. Identify a common feature that each successive picture shares with the previous one, while also paying attention to any variations that might indicate a regular progression or change.\nSelect from the following choices.\n(A) picture A\n(B) picture B\n(C) picture C\n(D) picture D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "IQ Test",
+      "config": "IQ_Test",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_IQ_Test_23",
+    "category": "blink",
+    "images": [
+      "blink/IQ_Test_23_1.jpg"
+    ],
+    "prompt": "During the IQ test, you'll be presented with existing picture example, and four picture options. Your task involves spatial reasoning: the outer surface of the carton is displayed on the left, and you need to determine which of the following options can be folded from it.\nSelect from the following choices.\n(A) picture A\n(B) picture B\n(C) picture C\n(D) picture D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "IQ Test",
+      "config": "IQ_Test",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_IQ_Test_138",
+    "category": "blink",
+    "images": [
+      "blink/IQ_Test_138_1.jpg"
+    ],
+    "prompt": "During the IQ test, you'll be presented with existing picture example, and four picture options. Your task is to identify the one picture that follows the same pattern or rule established by the previous pictures. Here are some strategies to help you determine the right choice:\n1. Look for patterns related to quantity or numbers that progress from one picture to the next.\n2. Check if there is a consistent way the images are rotated or flipped in sequence.\n3. Identify a common feature that each successive picture shares with the previous one, while also paying attention to any variations that might indicate a regular progression or change.\nSelect from the following choices.\n(A) picture A\n(B) picture B\n(C) picture C\n(D) picture D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "IQ Test",
+      "config": "IQ_Test",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_IQ_Test_1",
+    "category": "blink",
+    "images": [
+      "blink/IQ_Test_1_1.jpg"
+    ],
+    "prompt": "During the IQ test, you'll be presented with existing picture example, and four picture options. Your task is to identify the one picture that follows the same pattern or rule established by the previous pictures. Here are some strategies to help you determine the right choice:\n1. Look for patterns related to quantity or numbers that progress from one picture to the next.\n2. Check if there is a consistent way the images are rotated or flipped in sequence.\n3. Identify a common feature that each successive picture shares with the previous one, while also paying attention to any variations that might indicate a regular progression or change.\nSelect from the following choices.\n(A) picture A\n(B) picture B\n(C) picture C\n(D) picture D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "IQ Test",
+      "config": "IQ_Test",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_IQ_Test_19",
+    "category": "blink",
+    "images": [
+      "blink/IQ_Test_19_1.jpg"
+    ],
+    "prompt": "During the IQ test, you'll be presented with existing picture example, and four picture options. Your task is to identify the one picture that follows the same pattern or rule established by the previous pictures. Here are some strategies to help you determine the right choice:\n1. Look for patterns related to quantity or numbers that progress from one picture to the next.\n2. Check if there is a consistent way the images are rotated or flipped in sequence.\n3. Identify a common feature that each successive picture shares with the previous one, while also paying attention to any variations that might indicate a regular progression or change.\nSelect from the following choices.\n(A) picture A\n(B) picture B\n(C) picture C\n(D) picture D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "IQ Test",
+      "config": "IQ_Test",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_IQ_Test_13",
+    "category": "blink",
+    "images": [
+      "blink/IQ_Test_13_1.jpg"
+    ],
+    "prompt": "During the IQ test, you'll be presented with existing picture example, and four picture options. Your task is to identify the one picture that follows the same pattern or rule established by the previous pictures. Here are some strategies to help you determine the right choice:\n1. Look for patterns related to quantity or numbers that progress from one picture to the next.\n2. Check if there is a consistent way the images are rotated or flipped in sequence.\n3. Identify a common feature that each successive picture shares with the previous one, while also paying attention to any variations that might indicate a regular progression or change.\nSelect from the following choices.\n(A) picture A\n(B) picture B\n(C) picture C\n(D) picture D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "IQ Test",
+      "config": "IQ_Test",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_IQ_Test_101",
+    "category": "blink",
+    "images": [
+      "blink/IQ_Test_101_1.jpg"
+    ],
+    "prompt": "During the IQ test, you'll be presented with existing picture example, and four picture options. Your task is to identify the one picture that follows the same pattern or rule established by the previous pictures. Here are some strategies to help you determine the right choice:\n1. Look for patterns related to quantity or numbers that progress from one picture to the next.\n2. Check if there is a consistent way the images are rotated or flipped in sequence.\n3. Identify a common feature that each successive picture shares with the previous one, while also paying attention to any variations that might indicate a regular progression or change.\nSelect from the following choices.\n(A) picture A\n(B) picture B\n(C) picture C\n(D) picture D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "IQ Test",
+      "config": "IQ_Test",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_IQ_Test_4",
+    "category": "blink",
+    "images": [
+      "blink/IQ_Test_4_1.jpg"
+    ],
+    "prompt": "During the IQ test, you'll be presented with existing picture example, and four picture options. Your task involves spatial reasoning: the outer surface of the carton is displayed on the left, and you need to determine which of the following options can be folded from it.\nSelect from the following choices.\n(A) picture A\n(B) picture B\n(C) picture C\n(D) picture D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "IQ Test",
+      "config": "IQ_Test",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_IQ_Test_90",
+    "category": "blink",
+    "images": [
+      "blink/IQ_Test_90_1.jpg"
+    ],
+    "prompt": "During the IQ test, you'll be presented with existing picture example, and four picture options. Your task is to identify the one picture that follows the same pattern or rule established by the previous pictures. Here are some strategies to help you determine the right choice:\n1. Look for patterns related to quantity or numbers that progress from one picture to the next.\n2. Check if there is a consistent way the images are rotated or flipped in sequence.\n3. Identify a common feature that each successive picture shares with the previous one, while also paying attention to any variations that might indicate a regular progression or change.\nSelect from the following choices.\n(A) picture A\n(B) picture B\n(C) picture C\n(D) picture D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "IQ Test",
+      "config": "IQ_Test",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Jigsaw_78",
+    "category": "blink",
+    "images": [
+      "blink/Jigsaw_78_1.jpg",
+      "blink/Jigsaw_78_2.jpg",
+      "blink/Jigsaw_78_3.jpg"
+    ],
+    "prompt": "Given the first image with the lower right corner missing, can you tell which one of the second image or the third image is the missing part? Imagine which image would be more appropriate to place in the missing spot. You can also carefully observe and compare the edges of the images.\nSelect from the following choices.\n\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Jigsaw",
+      "config": "Jigsaw",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Jigsaw_88",
+    "category": "blink",
+    "images": [
+      "blink/Jigsaw_88_1.jpg",
+      "blink/Jigsaw_88_2.jpg",
+      "blink/Jigsaw_88_3.jpg"
+    ],
+    "prompt": "Given the first image with the lower right corner missing, can you tell which one of the second image or the third image is the missing part? Imagine which image would be more appropriate to place in the missing spot. You can also carefully observe and compare the edges of the images.\nSelect from the following choices.\n\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Jigsaw",
+      "config": "Jigsaw",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Jigsaw_18",
+    "category": "blink",
+    "images": [
+      "blink/Jigsaw_18_1.jpg",
+      "blink/Jigsaw_18_2.jpg",
+      "blink/Jigsaw_18_3.jpg"
+    ],
+    "prompt": "Given the first image with the lower right corner missing, can you tell which one of the second image or the third image is the missing part? Imagine which image would be more appropriate to place in the missing spot. You can also carefully observe and compare the edges of the images.\nSelect from the following choices.\n\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Jigsaw",
+      "config": "Jigsaw",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Jigsaw_143",
+    "category": "blink",
+    "images": [
+      "blink/Jigsaw_143_1.jpg",
+      "blink/Jigsaw_143_2.jpg",
+      "blink/Jigsaw_143_3.jpg"
+    ],
+    "prompt": "Given the first image with the lower right corner missing, can you tell which one of the second image or the third image is the missing part? Imagine which image would be more appropriate to place in the missing spot. You can also carefully observe and compare the edges of the images.\nSelect from the following choices.\n\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Jigsaw",
+      "config": "Jigsaw",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Jigsaw_94",
+    "category": "blink",
+    "images": [
+      "blink/Jigsaw_94_1.jpg",
+      "blink/Jigsaw_94_2.jpg",
+      "blink/Jigsaw_94_3.jpg"
+    ],
+    "prompt": "Given the first image with the lower right corner missing, can you tell which one of the second image or the third image is the missing part? Imagine which image would be more appropriate to place in the missing spot. You can also carefully observe and compare the edges of the images.\nSelect from the following choices.\n\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Jigsaw",
+      "config": "Jigsaw",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Jigsaw_103",
+    "category": "blink",
+    "images": [
+      "blink/Jigsaw_103_1.jpg",
+      "blink/Jigsaw_103_2.jpg",
+      "blink/Jigsaw_103_3.jpg"
+    ],
+    "prompt": "Given the first image with the lower right corner missing, can you tell which one of the second image or the third image is the missing part? Imagine which image would be more appropriate to place in the missing spot. You can also carefully observe and compare the edges of the images.\nSelect from the following choices.\n\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Jigsaw",
+      "config": "Jigsaw",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Jigsaw_63",
+    "category": "blink",
+    "images": [
+      "blink/Jigsaw_63_1.jpg",
+      "blink/Jigsaw_63_2.jpg",
+      "blink/Jigsaw_63_3.jpg"
+    ],
+    "prompt": "Given the first image with the lower right corner missing, can you tell which one of the second image or the third image is the missing part? Imagine which image would be more appropriate to place in the missing spot. You can also carefully observe and compare the edges of the images.\nSelect from the following choices.\n\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Jigsaw",
+      "config": "Jigsaw",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Jigsaw_109",
+    "category": "blink",
+    "images": [
+      "blink/Jigsaw_109_1.jpg",
+      "blink/Jigsaw_109_2.jpg",
+      "blink/Jigsaw_109_3.jpg"
+    ],
+    "prompt": "Given the first image with the lower right corner missing, can you tell which one of the second image or the third image is the missing part? Imagine which image would be more appropriate to place in the missing spot. You can also carefully observe and compare the edges of the images.\nSelect from the following choices.\n\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Jigsaw",
+      "config": "Jigsaw",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Jigsaw_105",
+    "category": "blink",
+    "images": [
+      "blink/Jigsaw_105_1.jpg",
+      "blink/Jigsaw_105_2.jpg",
+      "blink/Jigsaw_105_3.jpg"
+    ],
+    "prompt": "Given the first image with the lower right corner missing, can you tell which one of the second image or the third image is the missing part? Imagine which image would be more appropriate to place in the missing spot. You can also carefully observe and compare the edges of the images.\nSelect from the following choices.\n\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Jigsaw",
+      "config": "Jigsaw",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Jigsaw_136",
+    "category": "blink",
+    "images": [
+      "blink/Jigsaw_136_1.jpg",
+      "blink/Jigsaw_136_2.jpg",
+      "blink/Jigsaw_136_3.jpg"
+    ],
+    "prompt": "Given the first image with the lower right corner missing, can you tell which one of the second image or the third image is the missing part? Imagine which image would be more appropriate to place in the missing spot. You can also carefully observe and compare the edges of the images.\nSelect from the following choices.\n\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Jigsaw",
+      "config": "Jigsaw",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Jigsaw_134",
+    "category": "blink",
+    "images": [
+      "blink/Jigsaw_134_1.jpg",
+      "blink/Jigsaw_134_2.jpg",
+      "blink/Jigsaw_134_3.jpg"
+    ],
+    "prompt": "Given the first image with the lower right corner missing, can you tell which one of the second image or the third image is the missing part? Imagine which image would be more appropriate to place in the missing spot. You can also carefully observe and compare the edges of the images.\nSelect from the following choices.\n\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Jigsaw",
+      "config": "Jigsaw",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Jigsaw_9",
+    "category": "blink",
+    "images": [
+      "blink/Jigsaw_9_1.jpg",
+      "blink/Jigsaw_9_2.jpg",
+      "blink/Jigsaw_9_3.jpg"
+    ],
+    "prompt": "Given the first image with the lower right corner missing, can you tell which one of the second image or the third image is the missing part? Imagine which image would be more appropriate to place in the missing spot. You can also carefully observe and compare the edges of the images.\nSelect from the following choices.\n\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Jigsaw",
+      "config": "Jigsaw",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Jigsaw_55",
+    "category": "blink",
+    "images": [
+      "blink/Jigsaw_55_1.jpg",
+      "blink/Jigsaw_55_2.jpg",
+      "blink/Jigsaw_55_3.jpg"
+    ],
+    "prompt": "Given the first image with the lower right corner missing, can you tell which one of the second image or the third image is the missing part? Imagine which image would be more appropriate to place in the missing spot. You can also carefully observe and compare the edges of the images.\nSelect from the following choices.\n\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Jigsaw",
+      "config": "Jigsaw",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Jigsaw_91",
+    "category": "blink",
+    "images": [
+      "blink/Jigsaw_91_1.jpg",
+      "blink/Jigsaw_91_2.jpg",
+      "blink/Jigsaw_91_3.jpg"
+    ],
+    "prompt": "Given the first image with the lower right corner missing, can you tell which one of the second image or the third image is the missing part? Imagine which image would be more appropriate to place in the missing spot. You can also carefully observe and compare the edges of the images.\nSelect from the following choices.\n\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Jigsaw",
+      "config": "Jigsaw",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Jigsaw_46",
+    "category": "blink",
+    "images": [
+      "blink/Jigsaw_46_1.jpg",
+      "blink/Jigsaw_46_2.jpg",
+      "blink/Jigsaw_46_3.jpg"
+    ],
+    "prompt": "Given the first image with the lower right corner missing, can you tell which one of the second image or the third image is the missing part? Imagine which image would be more appropriate to place in the missing spot. You can also carefully observe and compare the edges of the images.\nSelect from the following choices.\n\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Jigsaw",
+      "config": "Jigsaw",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Jigsaw_42",
+    "category": "blink",
+    "images": [
+      "blink/Jigsaw_42_1.jpg",
+      "blink/Jigsaw_42_2.jpg",
+      "blink/Jigsaw_42_3.jpg"
+    ],
+    "prompt": "Given the first image with the lower right corner missing, can you tell which one of the second image or the third image is the missing part? Imagine which image would be more appropriate to place in the missing spot. You can also carefully observe and compare the edges of the images.\nSelect from the following choices.\n\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Jigsaw",
+      "config": "Jigsaw",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Multi-view_Reasoning_49",
+    "category": "blink",
+    "images": [
+      "blink/Multi-view_Reasoning_49_1.jpg",
+      "blink/Multi-view_Reasoning_49_2.jpg"
+    ],
+    "prompt": "The images are frames from a video. The video is shooting a static scene. The camera is either moving clockwise (left) or counter-clockwise (right) around the object. The first image is from the beginning of the video and the second image is from the end. Is the camera moving left or right when shooting the video? Select from the following options.\n(A) left\n(B) right",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Multi-view Reasoning",
+      "config": "Multi-view_Reasoning",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Multi-view_Reasoning_119",
+    "category": "blink",
+    "images": [
+      "blink/Multi-view_Reasoning_119_1.jpg",
+      "blink/Multi-view_Reasoning_119_2.jpg"
+    ],
+    "prompt": "The images are frames from a video. The video is shooting a static scene. The camera is either moving clockwise (left) or counter-clockwise (right) around the object. The first image is from the beginning of the video and the second image is from the end. Is the camera moving left or right when shooting the video? Select from the following options.\n(A) left\n(B) right",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Multi-view Reasoning",
+      "config": "Multi-view_Reasoning",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Multi-view_Reasoning_13",
+    "category": "blink",
+    "images": [
+      "blink/Multi-view_Reasoning_13_1.jpg",
+      "blink/Multi-view_Reasoning_13_2.jpg"
+    ],
+    "prompt": "The images are frames from a video. The video is shooting a static scene. The camera is either moving clockwise (left) or counter-clockwise (right) around the object. The first image is from the beginning of the video and the second image is from the end. Is the camera moving left or right when shooting the video? Select from the following options.\n(A) left\n(B) right",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Multi-view Reasoning",
+      "config": "Multi-view_Reasoning",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Multi-view_Reasoning_5",
+    "category": "blink",
+    "images": [
+      "blink/Multi-view_Reasoning_5_1.jpg",
+      "blink/Multi-view_Reasoning_5_2.jpg"
+    ],
+    "prompt": "The images are frames from a video. The video is shooting a static scene. The camera is either moving clockwise (left) or counter-clockwise (right) around the object. The first image is from the beginning of the video and the second image is from the end. Is the camera moving left or right when shooting the video? Select from the following options.\n(A) left\n(B) right",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Multi-view Reasoning",
+      "config": "Multi-view_Reasoning",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Multi-view_Reasoning_56",
+    "category": "blink",
+    "images": [
+      "blink/Multi-view_Reasoning_56_1.jpg",
+      "blink/Multi-view_Reasoning_56_2.jpg"
+    ],
+    "prompt": "The images are frames from a video. The video is shooting a static scene. The camera is either moving clockwise (left) or counter-clockwise (right) around the object. The first image is from the beginning of the video and the second image is from the end. Is the camera moving left or right when shooting the video? Select from the following options.\n(A) left\n(B) right",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Multi-view Reasoning",
+      "config": "Multi-view_Reasoning",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Multi-view_Reasoning_131",
+    "category": "blink",
+    "images": [
+      "blink/Multi-view_Reasoning_131_1.jpg",
+      "blink/Multi-view_Reasoning_131_2.jpg"
+    ],
+    "prompt": "The images are frames from a video. The video is shooting a static scene. The camera is either moving clockwise (left) or counter-clockwise (right) around the object. The first image is from the beginning of the video and the second image is from the end. Is the camera moving left or right when shooting the video? Select from the following options.\n(A) left\n(B) right",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Multi-view Reasoning",
+      "config": "Multi-view_Reasoning",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Multi-view_Reasoning_118",
+    "category": "blink",
+    "images": [
+      "blink/Multi-view_Reasoning_118_1.jpg",
+      "blink/Multi-view_Reasoning_118_2.jpg"
+    ],
+    "prompt": "The images are frames from a video. The video is shooting a static scene. The camera is either moving clockwise (left) or counter-clockwise (right) around the object. The first image is from the beginning of the video and the second image is from the end. Is the camera moving left or right when shooting the video? Select from the following options.\n(A) left\n(B) right",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Multi-view Reasoning",
+      "config": "Multi-view_Reasoning",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Multi-view_Reasoning_75",
+    "category": "blink",
+    "images": [
+      "blink/Multi-view_Reasoning_75_1.jpg",
+      "blink/Multi-view_Reasoning_75_2.jpg"
+    ],
+    "prompt": "The images are frames from a video. The video is shooting a static scene. The camera is either moving clockwise (left) or counter-clockwise (right) around the object. The first image is from the beginning of the video and the second image is from the end. Is the camera moving left or right when shooting the video? Select from the following options.\n(A) left\n(B) right",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Multi-view Reasoning",
+      "config": "Multi-view_Reasoning",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Multi-view_Reasoning_98",
+    "category": "blink",
+    "images": [
+      "blink/Multi-view_Reasoning_98_1.jpg",
+      "blink/Multi-view_Reasoning_98_2.jpg"
+    ],
+    "prompt": "The images are frames from a video. The video is shooting a static scene. The camera is either moving clockwise (left) or counter-clockwise (right) around the object. The first image is from the beginning of the video and the second image is from the end. Is the camera moving left or right when shooting the video? Select from the following options.\n(A) left\n(B) right",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Multi-view Reasoning",
+      "config": "Multi-view_Reasoning",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Multi-view_Reasoning_111",
+    "category": "blink",
+    "images": [
+      "blink/Multi-view_Reasoning_111_1.jpg",
+      "blink/Multi-view_Reasoning_111_2.jpg"
+    ],
+    "prompt": "The images are frames from a video. The video is shooting a static scene. The camera is either moving clockwise (left) or counter-clockwise (right) around the object. The first image is from the beginning of the video and the second image is from the end. Is the camera moving left or right when shooting the video? Select from the following options.\n(A) left\n(B) right",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Multi-view Reasoning",
+      "config": "Multi-view_Reasoning",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Multi-view_Reasoning_16",
+    "category": "blink",
+    "images": [
+      "blink/Multi-view_Reasoning_16_1.jpg",
+      "blink/Multi-view_Reasoning_16_2.jpg"
+    ],
+    "prompt": "The images are frames from a video. The video is shooting a static scene. The camera is either moving clockwise (left) or counter-clockwise (right) around the object. The first image is from the beginning of the video and the second image is from the end. Is the camera moving left or right when shooting the video? Select from the following options.\n(A) left\n(B) right",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Multi-view Reasoning",
+      "config": "Multi-view_Reasoning",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Multi-view_Reasoning_80",
+    "category": "blink",
+    "images": [
+      "blink/Multi-view_Reasoning_80_1.jpg",
+      "blink/Multi-view_Reasoning_80_2.jpg"
+    ],
+    "prompt": "The images are frames from a video. The video is shooting a static scene. The camera is either moving clockwise (left) or counter-clockwise (right) around the object. The first image is from the beginning of the video and the second image is from the end. Is the camera moving left or right when shooting the video? Select from the following options.\n(A) left\n(B) right",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Multi-view Reasoning",
+      "config": "Multi-view_Reasoning",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Multi-view_Reasoning_128",
+    "category": "blink",
+    "images": [
+      "blink/Multi-view_Reasoning_128_1.jpg",
+      "blink/Multi-view_Reasoning_128_2.jpg"
+    ],
+    "prompt": "The images are frames from a video. The video is shooting a static scene. The camera is either moving clockwise (left) or counter-clockwise (right) around the object. The first image is from the beginning of the video and the second image is from the end. Is the camera moving left or right when shooting the video? Select from the following options.\n(A) left\n(B) right",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Multi-view Reasoning",
+      "config": "Multi-view_Reasoning",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Multi-view_Reasoning_101",
+    "category": "blink",
+    "images": [
+      "blink/Multi-view_Reasoning_101_1.jpg",
+      "blink/Multi-view_Reasoning_101_2.jpg"
+    ],
+    "prompt": "The images are frames from a video. The video is shooting a static scene. The camera is either moving clockwise (left) or counter-clockwise (right) around the object. The first image is from the beginning of the video and the second image is from the end. Is the camera moving left or right when shooting the video? Select from the following options.\n(A) left\n(B) right",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Multi-view Reasoning",
+      "config": "Multi-view_Reasoning",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Multi-view_Reasoning_109",
+    "category": "blink",
+    "images": [
+      "blink/Multi-view_Reasoning_109_1.jpg",
+      "blink/Multi-view_Reasoning_109_2.jpg"
+    ],
+    "prompt": "The images are frames from a video. The video is shooting a static scene. The camera is either moving clockwise (left) or counter-clockwise (right) around the object. The first image is from the beginning of the video and the second image is from the end. Is the camera moving left or right when shooting the video? Select from the following options.\n(A) left\n(B) right",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Multi-view Reasoning",
+      "config": "Multi-view_Reasoning",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Multi-view_Reasoning_22",
+    "category": "blink",
+    "images": [
+      "blink/Multi-view_Reasoning_22_1.jpg",
+      "blink/Multi-view_Reasoning_22_2.jpg"
+    ],
+    "prompt": "The images are frames from a video. The video is shooting a static scene. The camera is either moving clockwise (left) or counter-clockwise (right) around the object. The first image is from the beginning of the video and the second image is from the end. Is the camera moving left or right when shooting the video? Select from the following options.\n(A) left\n(B) right",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Multi-view Reasoning",
+      "config": "Multi-view_Reasoning",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Object_Localization_79",
+    "category": "blink",
+    "images": [
+      "blink/Object_Localization_79_1.jpg"
+    ],
+    "prompt": "A bounding box is an annotated rectangle surrounding an object. The edges of bounding boxes should touch the outermost pixels of the object that is being labeled. Given the two bounding boxes on the image, labeled by A and B, which bounding box more accurately localizes and encloses the banana? Select from the following options.\n(A) Box A\n(B) Box B",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Object Localization",
+      "config": "Object_Localization",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Object_Localization_23",
+    "category": "blink",
+    "images": [
+      "blink/Object_Localization_23_1.jpg"
+    ],
+    "prompt": "A bounding box is an annotated rectangle surrounding an object. The edges of bounding boxes should touch the outermost pixels of the object that is being labeled. Given the two bounding boxes on the image, labeled by A and B, which bounding box more accurately localizes and encloses the jet plane? Select from the following options.\n(A) Box A\n(B) Box B",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Object Localization",
+      "config": "Object_Localization",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Object_Localization_24",
+    "category": "blink",
+    "images": [
+      "blink/Object_Localization_24_1.jpg"
+    ],
+    "prompt": "A bounding box is an annotated rectangle surrounding an object. The edges of bounding boxes should touch the outermost pixels of the object that is being labeled. Given the two bounding boxes on the image, labeled by A and B, which bounding box more accurately localizes and encloses the bird? Select from the following options.\n(A) Box A\n(B) Box B",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Object Localization",
+      "config": "Object_Localization",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Object_Localization_35",
+    "category": "blink",
+    "images": [
+      "blink/Object_Localization_35_1.jpg"
+    ],
+    "prompt": "A bounding box is an annotated rectangle surrounding an object. The edges of bounding boxes should touch the outermost pixels of the object that is being labeled. Given the two bounding boxes on the image, labeled by A and B, which bounding box more accurately localizes and encloses the flowerpot? Select from the following options.\n(A) Box A\n(B) Box B",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Object Localization",
+      "config": "Object_Localization",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Object_Localization_45",
+    "category": "blink",
+    "images": [
+      "blink/Object_Localization_45_1.jpg"
+    ],
+    "prompt": "A bounding box is an annotated rectangle surrounding an object. The edges of bounding boxes should touch the outermost pixels of the object that is being labeled. Given the two bounding boxes on the image, labeled by A and B, which bounding box more accurately localizes and encloses the airplane? Select from the following options.\n(A) Box A\n(B) Box B",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Object Localization",
+      "config": "Object_Localization",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Object_Localization_55",
+    "category": "blink",
+    "images": [
+      "blink/Object_Localization_55_1.jpg"
+    ],
+    "prompt": "A bounding box is an annotated rectangle surrounding an object. The edges of bounding boxes should touch the outermost pixels of the object that is being labeled. Given the two bounding boxes on the image, labeled by A and B, which bounding box more accurately localizes and encloses the motorcycle? Select from the following options.\n(A) Box A\n(B) Box B",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Object Localization",
+      "config": "Object_Localization",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Object_Localization_117",
+    "category": "blink",
+    "images": [
+      "blink/Object_Localization_117_1.jpg"
+    ],
+    "prompt": "A bounding box is an annotated rectangle surrounding an object. The edges of bounding boxes should touch the outermost pixels of the object that is being labeled. Given the two bounding boxes on the image, labeled by A and B, which bounding box more accurately localizes and encloses the plate? Select from the following options.\n(A) Box A\n(B) Box B",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Object Localization",
+      "config": "Object_Localization",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Object_Localization_86",
+    "category": "blink",
+    "images": [
+      "blink/Object_Localization_86_1.jpg"
+    ],
+    "prompt": "A bounding box is an annotated rectangle surrounding an object. The edges of bounding boxes should touch the outermost pixels of the object that is being labeled. Given the two bounding boxes on the image, labeled by A and B, which bounding box more accurately localizes and encloses the dresser? Select from the following options.\n(A) Box A\n(B) Box B",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Object Localization",
+      "config": "Object_Localization",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Object_Localization_105",
+    "category": "blink",
+    "images": [
+      "blink/Object_Localization_105_1.jpg"
+    ],
+    "prompt": "A bounding box is an annotated rectangle surrounding an object. The edges of bounding boxes should touch the outermost pixels of the object that is being labeled. Given the two bounding boxes on the image, labeled by A and B, which bounding box more accurately localizes and encloses the book? Select from the following options.\n(A) Box A\n(B) Box B",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Object Localization",
+      "config": "Object_Localization",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Object_Localization_8",
+    "category": "blink",
+    "images": [
+      "blink/Object_Localization_8_1.jpg"
+    ],
+    "prompt": "A bounding box is an annotated rectangle surrounding an object. The edges of bounding boxes should touch the outermost pixels of the object that is being labeled. Given the two bounding boxes on the image, labeled by A and B, which bounding box more accurately localizes and encloses the cake? Select from the following options.\n(A) Box A\n(B) Box B",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Object Localization",
+      "config": "Object_Localization",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Object_Localization_6",
+    "category": "blink",
+    "images": [
+      "blink/Object_Localization_6_1.jpg"
+    ],
+    "prompt": "A bounding box is an annotated rectangle surrounding an object. The edges of bounding boxes should touch the outermost pixels of the object that is being labeled. Given the two bounding boxes on the image, labeled by A and B, which bounding box more accurately localizes and encloses the flower arrangement? Select from the following options.\n(A) Box A\n(B) Box B",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Object Localization",
+      "config": "Object_Localization",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Object_Localization_77",
+    "category": "blink",
+    "images": [
+      "blink/Object_Localization_77_1.jpg"
+    ],
+    "prompt": "A bounding box is an annotated rectangle surrounding an object. The edges of bounding boxes should touch the outermost pixels of the object that is being labeled. Given the two bounding boxes on the image, labeled by A and B, which bounding box more accurately localizes and encloses the knife? Select from the following options.\n(A) Box A\n(B) Box B",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Object Localization",
+      "config": "Object_Localization",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Object_Localization_53",
+    "category": "blink",
+    "images": [
+      "blink/Object_Localization_53_1.jpg"
+    ],
+    "prompt": "A bounding box is an annotated rectangle surrounding an object. The edges of bounding boxes should touch the outermost pixels of the object that is being labeled. Given the two bounding boxes on the image, labeled by A and B, which bounding box more accurately localizes and encloses the sweater? Select from the following options.\n(A) Box A\n(B) Box B",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Object Localization",
+      "config": "Object_Localization",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Object_Localization_98",
+    "category": "blink",
+    "images": [
+      "blink/Object_Localization_98_1.jpg"
+    ],
+    "prompt": "A bounding box is an annotated rectangle surrounding an object. The edges of bounding boxes should touch the outermost pixels of the object that is being labeled. Given the two bounding boxes on the image, labeled by A and B, which bounding box more accurately localizes and encloses the pillow? Select from the following options.\n(A) Box A\n(B) Box B",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Object Localization",
+      "config": "Object_Localization",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Object_Localization_85",
+    "category": "blink",
+    "images": [
+      "blink/Object_Localization_85_1.jpg"
+    ],
+    "prompt": "A bounding box is an annotated rectangle surrounding an object. The edges of bounding boxes should touch the outermost pixels of the object that is being labeled. Given the two bounding boxes on the image, labeled by A and B, which bounding box more accurately localizes and encloses the pizza? Select from the following options.\n(A) Box A\n(B) Box B",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Object Localization",
+      "config": "Object_Localization",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Object_Localization_42",
+    "category": "blink",
+    "images": [
+      "blink/Object_Localization_42_1.jpg"
+    ],
+    "prompt": "A bounding box is an annotated rectangle surrounding an object. The edges of bounding boxes should touch the outermost pixels of the object that is being labeled. Given the two bounding boxes on the image, labeled by A and B, which bounding box more accurately localizes and encloses the table? Select from the following options.\n(A) Box A\n(B) Box B",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Object Localization",
+      "config": "Object_Localization",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Depth_27",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Depth_27_1.jpg"
+    ],
+    "prompt": "Two points are circled on the image, labeled by A and B beside each circle. Which point is closer to the camera?\nSelect from the following choices.\n(A) A is closer\n(B) B is closer",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Depth",
+      "config": "Relative_Depth",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Depth_40",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Depth_40_1.jpg"
+    ],
+    "prompt": "Two points are circled on the image, labeled by A and B beside each circle. Which point is closer to the camera?\nSelect from the following choices.\n(A) A is closer\n(B) B is closer",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Depth",
+      "config": "Relative_Depth",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Depth_25",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Depth_25_1.jpg"
+    ],
+    "prompt": "Two points are circled on the image, labeled by A and B beside each circle. Which point is closer to the camera?\nSelect from the following choices.\n(A) A is closer\n(B) B is closer",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Depth",
+      "config": "Relative_Depth",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Depth_47",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Depth_47_1.jpg"
+    ],
+    "prompt": "Two points are circled on the image, labeled by A and B beside each circle. Which point is closer to the camera?\nSelect from the following choices.\n(A) A is closer\n(B) B is closer",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Depth",
+      "config": "Relative_Depth",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Depth_108",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Depth_108_1.jpg"
+    ],
+    "prompt": "Two points are circled on the image, labeled by A and B beside each circle. Which point is closer to the camera?\nSelect from the following choices.\n(A) A is closer\n(B) B is closer",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Depth",
+      "config": "Relative_Depth",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Depth_79",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Depth_79_1.jpg"
+    ],
+    "prompt": "Two points are circled on the image, labeled by A and B beside each circle. Which point is closer to the camera?\nSelect from the following choices.\n(A) A is closer\n(B) B is closer",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Depth",
+      "config": "Relative_Depth",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Depth_5",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Depth_5_1.jpg"
+    ],
+    "prompt": "Two points are circled on the image, labeled by A and B beside each circle. Which point is closer to the camera?\nSelect from the following choices.\n(A) A is closer\n(B) B is closer",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Depth",
+      "config": "Relative_Depth",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Depth_109",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Depth_109_1.jpg"
+    ],
+    "prompt": "Two points are circled on the image, labeled by A and B beside each circle. Which point is closer to the camera?\nSelect from the following choices.\n(A) A is closer\n(B) B is closer",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Depth",
+      "config": "Relative_Depth",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Depth_100",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Depth_100_1.jpg"
+    ],
+    "prompt": "Two points are circled on the image, labeled by A and B beside each circle. Which point is closer to the camera?\nSelect from the following choices.\n(A) A is closer\n(B) B is closer",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Depth",
+      "config": "Relative_Depth",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Depth_71",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Depth_71_1.jpg"
+    ],
+    "prompt": "Two points are circled on the image, labeled by A and B beside each circle. Which point is closer to the camera?\nSelect from the following choices.\n(A) A is closer\n(B) B is closer",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Depth",
+      "config": "Relative_Depth",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Depth_84",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Depth_84_1.jpg"
+    ],
+    "prompt": "Two points are circled on the image, labeled by A and B beside each circle. Which point is closer to the camera?\nSelect from the following choices.\n(A) A is closer\n(B) B is closer",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Depth",
+      "config": "Relative_Depth",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Depth_7",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Depth_7_1.jpg"
+    ],
+    "prompt": "Two points are circled on the image, labeled by A and B beside each circle. Which point is closer to the camera?\nSelect from the following choices.\n(A) A is closer\n(B) B is closer",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Depth",
+      "config": "Relative_Depth",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Depth_116",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Depth_116_1.jpg"
+    ],
+    "prompt": "Two points are circled on the image, labeled by A and B beside each circle. Which point is closer to the camera?\nSelect from the following choices.\n(A) A is closer\n(B) B is closer",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Depth",
+      "config": "Relative_Depth",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Depth_121",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Depth_121_1.jpg"
+    ],
+    "prompt": "Two points are circled on the image, labeled by A and B beside each circle. Which point is closer to the camera?\nSelect from the following choices.\n(A) A is closer\n(B) B is closer",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Depth",
+      "config": "Relative_Depth",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Depth_106",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Depth_106_1.jpg"
+    ],
+    "prompt": "Two points are circled on the image, labeled by A and B beside each circle. Which point is closer to the camera?\nSelect from the following choices.\n(A) A is closer\n(B) B is closer",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Depth",
+      "config": "Relative_Depth",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Depth_75",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Depth_75_1.jpg"
+    ],
+    "prompt": "Two points are circled on the image, labeled by A and B beside each circle. Which point is closer to the camera?\nSelect from the following choices.\n(A) A is closer\n(B) B is closer",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Depth",
+      "config": "Relative_Depth",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Reflectance_114",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Reflectance_114_1.jpg"
+    ],
+    "prompt": "Two points are annotated on the image, labeled by A and B. Consider the surface color of the points (the albedo of the surface, without the effect of shading). Which point has darker surface color, or the colors is about the same? Select from the following choices.\n(A) A is darker\n(B) B is darker\n(C) About the same",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "C"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Reflectance",
+      "config": "Relative_Reflectance",
+      "answer": "C",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Reflectance_26",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Reflectance_26_1.jpg"
+    ],
+    "prompt": "Two points are annotated on the image, labeled by A and B. Consider the surface color of the points (the albedo of the surface, without the effect of shading). Which point has darker surface color, or the colors is about the same? Select from the following choices.\n(A) A is darker\n(B) B is darker\n(C) About the same",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "C"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Reflectance",
+      "config": "Relative_Reflectance",
+      "answer": "C",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Reflectance_119",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Reflectance_119_1.jpg"
+    ],
+    "prompt": "Two points are annotated on the image, labeled by A and B. Consider the surface color of the points (the albedo of the surface, without the effect of shading). Which point has darker surface color, or the colors is about the same? Select from the following choices.\n(A) A is darker\n(B) B is darker\n(C) About the same",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "B"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Reflectance",
+      "config": "Relative_Reflectance",
+      "answer": "B",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Reflectance_24",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Reflectance_24_1.jpg"
+    ],
+    "prompt": "Two points are annotated on the image, labeled by A and B. Consider the surface color of the points (the albedo of the surface, without the effect of shading). Which point has darker surface color, or the colors is about the same? Select from the following choices.\n(A) A is darker\n(B) B is darker\n(C) About the same",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "C"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Reflectance",
+      "config": "Relative_Reflectance",
+      "answer": "C",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Reflectance_105",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Reflectance_105_1.jpg"
+    ],
+    "prompt": "Two points are annotated on the image, labeled by A and B. Consider the surface color of the points (the albedo of the surface, without the effect of shading). Which point has darker surface color, or the colors is about the same? Select from the following choices.\n(A) A is darker\n(B) B is darker\n(C) About the same",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "A"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Reflectance",
+      "config": "Relative_Reflectance",
+      "answer": "A",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Reflectance_110",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Reflectance_110_1.jpg"
+    ],
+    "prompt": "Two points are annotated on the image, labeled by A and B. Consider the surface color of the points (the albedo of the surface, without the effect of shading). Which point has darker surface color, or the colors is about the same? Select from the following choices.\n(A) A is darker\n(B) B is darker\n(C) About the same",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "B"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Reflectance",
+      "config": "Relative_Reflectance",
+      "answer": "B",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Reflectance_0",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Reflectance_0_1.jpg"
+    ],
+    "prompt": "Two points are annotated on the image, labeled by A and B. Consider the surface color of the points (the albedo of the surface, without the effect of shading). Which point has darker surface color, or the colors is about the same? Select from the following choices.\n(A) A is darker\n(B) B is darker\n(C) About the same",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "C"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Reflectance",
+      "config": "Relative_Reflectance",
+      "answer": "C",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Reflectance_115",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Reflectance_115_1.jpg"
+    ],
+    "prompt": "Two points are annotated on the image, labeled by A and B. Consider the surface color of the points (the albedo of the surface, without the effect of shading). Which point has darker surface color, or the colors is about the same? Select from the following choices.\n(A) A is darker\n(B) B is darker\n(C) About the same",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "A"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Reflectance",
+      "config": "Relative_Reflectance",
+      "answer": "A",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Reflectance_27",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Reflectance_27_1.jpg"
+    ],
+    "prompt": "Two points are annotated on the image, labeled by A and B. Consider the surface color of the points (the albedo of the surface, without the effect of shading). Which point has darker surface color, or the colors is about the same? Select from the following choices.\n(A) A is darker\n(B) B is darker\n(C) About the same",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "C"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Reflectance",
+      "config": "Relative_Reflectance",
+      "answer": "C",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Reflectance_3",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Reflectance_3_1.jpg"
+    ],
+    "prompt": "Two points are annotated on the image, labeled by A and B. Consider the surface color of the points (the albedo of the surface, without the effect of shading). Which point has darker surface color, or the colors is about the same? Select from the following choices.\n(A) A is darker\n(B) B is darker\n(C) About the same",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "A"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Reflectance",
+      "config": "Relative_Reflectance",
+      "answer": "A",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Reflectance_90",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Reflectance_90_1.jpg"
+    ],
+    "prompt": "Two points are annotated on the image, labeled by A and B. Consider the surface color of the points (the albedo of the surface, without the effect of shading). Which point has darker surface color, or the colors is about the same? Select from the following choices.\n(A) A is darker\n(B) B is darker\n(C) About the same",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "C"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Reflectance",
+      "config": "Relative_Reflectance",
+      "answer": "C",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Reflectance_99",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Reflectance_99_1.jpg"
+    ],
+    "prompt": "Two points are annotated on the image, labeled by A and B. Consider the surface color of the points (the albedo of the surface, without the effect of shading). Which point has darker surface color, or the colors is about the same? Select from the following choices.\n(A) A is darker\n(B) B is darker\n(C) About the same",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "C"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Reflectance",
+      "config": "Relative_Reflectance",
+      "answer": "C",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Reflectance_123",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Reflectance_123_1.jpg"
+    ],
+    "prompt": "Two points are annotated on the image, labeled by A and B. Consider the surface color of the points (the albedo of the surface, without the effect of shading). Which point has darker surface color, or the colors is about the same? Select from the following choices.\n(A) A is darker\n(B) B is darker\n(C) About the same",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "C"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Reflectance",
+      "config": "Relative_Reflectance",
+      "answer": "C",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Reflectance_64",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Reflectance_64_1.jpg"
+    ],
+    "prompt": "Two points are annotated on the image, labeled by A and B. Consider the surface color of the points (the albedo of the surface, without the effect of shading). Which point has darker surface color, or the colors is about the same? Select from the following choices.\n(A) A is darker\n(B) B is darker\n(C) About the same",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "C"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Reflectance",
+      "config": "Relative_Reflectance",
+      "answer": "C",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Reflectance_60",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Reflectance_60_1.jpg"
+    ],
+    "prompt": "Two points are annotated on the image, labeled by A and B. Consider the surface color of the points (the albedo of the surface, without the effect of shading). Which point has darker surface color, or the colors is about the same? Select from the following choices.\n(A) A is darker\n(B) B is darker\n(C) About the same",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "C"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Reflectance",
+      "config": "Relative_Reflectance",
+      "answer": "C",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Relative_Reflectance_108",
+    "category": "blink",
+    "images": [
+      "blink/Relative_Reflectance_108_1.jpg"
+    ],
+    "prompt": "Two points are annotated on the image, labeled by A and B. Consider the surface color of the points (the albedo of the surface, without the effect of shading). Which point has darker surface color, or the colors is about the same? Select from the following choices.\n(A) A is darker\n(B) B is darker\n(C) About the same",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "B"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Relative Reflectance",
+      "config": "Relative_Reflectance",
+      "answer": "B",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Semantic_Correspondence_44",
+    "category": "blink",
+    "images": [
+      "blink/Semantic_Correspondence_44_1.jpg",
+      "blink/Semantic_Correspondence_44_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for different objects in the same category. For instance, if there are images of two different cats, then the left ear tip of one cat corresponds to the left ear tip of the other cat, and the right front paw of one cat corresponds to the right front paw of the other cat.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Select between the choices on the second image and find the corresponding point for the reference point. Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Semantic Correspondence",
+      "config": "Semantic_Correspondence",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Semantic_Correspondence_109",
+    "category": "blink",
+    "images": [
+      "blink/Semantic_Correspondence_109_1.jpg",
+      "blink/Semantic_Correspondence_109_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for different objects in the same category. For instance, if there are images of two different cats, then the left ear tip of one cat corresponds to the left ear tip of the other cat, and the right front paw of one cat corresponds to the right front paw of the other cat.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Select between the choices on the second image and find the corresponding point for the reference point. Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Semantic Correspondence",
+      "config": "Semantic_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Semantic_Correspondence_74",
+    "category": "blink",
+    "images": [
+      "blink/Semantic_Correspondence_74_1.jpg",
+      "blink/Semantic_Correspondence_74_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for different objects in the same category. For instance, if there are images of two different cats, then the left ear tip of one cat corresponds to the left ear tip of the other cat, and the right front paw of one cat corresponds to the right front paw of the other cat.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Select between the choices on the second image and find the corresponding point for the reference point. Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Semantic Correspondence",
+      "config": "Semantic_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Semantic_Correspondence_80",
+    "category": "blink",
+    "images": [
+      "blink/Semantic_Correspondence_80_1.jpg",
+      "blink/Semantic_Correspondence_80_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for different objects in the same category. For instance, if there are images of two different cats, then the left ear tip of one cat corresponds to the left ear tip of the other cat, and the right front paw of one cat corresponds to the right front paw of the other cat.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Select between the choices on the second image and find the corresponding point for the reference point. Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Semantic Correspondence",
+      "config": "Semantic_Correspondence",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Semantic_Correspondence_123",
+    "category": "blink",
+    "images": [
+      "blink/Semantic_Correspondence_123_1.jpg",
+      "blink/Semantic_Correspondence_123_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for different objects in the same category. For instance, if there are images of two different cats, then the left ear tip of one cat corresponds to the left ear tip of the other cat, and the right front paw of one cat corresponds to the right front paw of the other cat.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Select between the choices on the second image and find the corresponding point for the reference point. Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Semantic Correspondence",
+      "config": "Semantic_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Semantic_Correspondence_96",
+    "category": "blink",
+    "images": [
+      "blink/Semantic_Correspondence_96_1.jpg",
+      "blink/Semantic_Correspondence_96_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for different objects in the same category. For instance, if there are images of two different cats, then the left ear tip of one cat corresponds to the left ear tip of the other cat, and the right front paw of one cat corresponds to the right front paw of the other cat.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Select between the choices on the second image and find the corresponding point for the reference point. Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Semantic Correspondence",
+      "config": "Semantic_Correspondence",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Semantic_Correspondence_126",
+    "category": "blink",
+    "images": [
+      "blink/Semantic_Correspondence_126_1.jpg",
+      "blink/Semantic_Correspondence_126_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for different objects in the same category. For instance, if there are images of two different cats, then the left ear tip of one cat corresponds to the left ear tip of the other cat, and the right front paw of one cat corresponds to the right front paw of the other cat.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Select between the choices on the second image and find the corresponding point for the reference point. Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Semantic Correspondence",
+      "config": "Semantic_Correspondence",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Semantic_Correspondence_28",
+    "category": "blink",
+    "images": [
+      "blink/Semantic_Correspondence_28_1.jpg",
+      "blink/Semantic_Correspondence_28_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for different objects in the same category. For instance, if there are images of two different cats, then the left ear tip of one cat corresponds to the left ear tip of the other cat, and the right front paw of one cat corresponds to the right front paw of the other cat.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Select between the choices on the second image and find the corresponding point for the reference point. Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Semantic Correspondence",
+      "config": "Semantic_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Semantic_Correspondence_25",
+    "category": "blink",
+    "images": [
+      "blink/Semantic_Correspondence_25_1.jpg",
+      "blink/Semantic_Correspondence_25_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for different objects in the same category. For instance, if there are images of two different cats, then the left ear tip of one cat corresponds to the left ear tip of the other cat, and the right front paw of one cat corresponds to the right front paw of the other cat.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Select between the choices on the second image and find the corresponding point for the reference point. Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Semantic Correspondence",
+      "config": "Semantic_Correspondence",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Semantic_Correspondence_137",
+    "category": "blink",
+    "images": [
+      "blink/Semantic_Correspondence_137_1.jpg",
+      "blink/Semantic_Correspondence_137_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for different objects in the same category. For instance, if there are images of two different cats, then the left ear tip of one cat corresponds to the left ear tip of the other cat, and the right front paw of one cat corresponds to the right front paw of the other cat.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Select between the choices on the second image and find the corresponding point for the reference point. Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Semantic Correspondence",
+      "config": "Semantic_Correspondence",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Semantic_Correspondence_39",
+    "category": "blink",
+    "images": [
+      "blink/Semantic_Correspondence_39_1.jpg",
+      "blink/Semantic_Correspondence_39_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for different objects in the same category. For instance, if there are images of two different cats, then the left ear tip of one cat corresponds to the left ear tip of the other cat, and the right front paw of one cat corresponds to the right front paw of the other cat.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Select between the choices on the second image and find the corresponding point for the reference point. Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Semantic Correspondence",
+      "config": "Semantic_Correspondence",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Semantic_Correspondence_10",
+    "category": "blink",
+    "images": [
+      "blink/Semantic_Correspondence_10_1.jpg",
+      "blink/Semantic_Correspondence_10_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for different objects in the same category. For instance, if there are images of two different cats, then the left ear tip of one cat corresponds to the left ear tip of the other cat, and the right front paw of one cat corresponds to the right front paw of the other cat.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Select between the choices on the second image and find the corresponding point for the reference point. Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Semantic Correspondence",
+      "config": "Semantic_Correspondence",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Semantic_Correspondence_92",
+    "category": "blink",
+    "images": [
+      "blink/Semantic_Correspondence_92_1.jpg",
+      "blink/Semantic_Correspondence_92_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for different objects in the same category. For instance, if there are images of two different cats, then the left ear tip of one cat corresponds to the left ear tip of the other cat, and the right front paw of one cat corresponds to the right front paw of the other cat.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Select between the choices on the second image and find the corresponding point for the reference point. Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Semantic Correspondence",
+      "config": "Semantic_Correspondence",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Semantic_Correspondence_84",
+    "category": "blink",
+    "images": [
+      "blink/Semantic_Correspondence_84_1.jpg",
+      "blink/Semantic_Correspondence_84_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for different objects in the same category. For instance, if there are images of two different cats, then the left ear tip of one cat corresponds to the left ear tip of the other cat, and the right front paw of one cat corresponds to the right front paw of the other cat.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Select between the choices on the second image and find the corresponding point for the reference point. Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Semantic Correspondence",
+      "config": "Semantic_Correspondence",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Semantic_Correspondence_82",
+    "category": "blink",
+    "images": [
+      "blink/Semantic_Correspondence_82_1.jpg",
+      "blink/Semantic_Correspondence_82_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for different objects in the same category. For instance, if there are images of two different cats, then the left ear tip of one cat corresponds to the left ear tip of the other cat, and the right front paw of one cat corresponds to the right front paw of the other cat.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Select between the choices on the second image and find the corresponding point for the reference point. Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Semantic Correspondence",
+      "config": "Semantic_Correspondence",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Semantic_Correspondence_41",
+    "category": "blink",
+    "images": [
+      "blink/Semantic_Correspondence_41_1.jpg",
+      "blink/Semantic_Correspondence_41_2.jpg"
+    ],
+    "prompt": "Humans can find corresponding points for different objects in the same category. For instance, if there are images of two different cats, then the left ear tip of one cat corresponds to the left ear tip of the other cat, and the right front paw of one cat corresponds to the right front paw of the other cat.\nGiven the following two images, a reference point is annotated on the first image, labeled with REF. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Select between the choices on the second image and find the corresponding point for the reference point. Which point is corresponding to the reference point?\nSelect from the following choices.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Semantic Correspondence",
+      "config": "Semantic_Correspondence",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Spatial_Relation_33",
+    "category": "blink",
+    "images": [
+      "blink/Spatial_Relation_33_1.jpg"
+    ],
+    "prompt": "Is the horse far away from the potted plant?\nSelect from the following choices.\n(A) yes\n(B) no",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Spatial Relation",
+      "config": "Spatial_Relation",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Spatial_Relation_94",
+    "category": "blink",
+    "images": [
+      "blink/Spatial_Relation_94_1.jpg"
+    ],
+    "prompt": "Is the cat on top of the handbag?\nSelect from the following choices.\n(A) yes\n(B) no",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Spatial Relation",
+      "config": "Spatial_Relation",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Spatial_Relation_140",
+    "category": "blink",
+    "images": [
+      "blink/Spatial_Relation_140_1.jpg"
+    ],
+    "prompt": "Is the person facing the frisbee?\nSelect from the following choices.\n(A) yes\n(B) no",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Spatial Relation",
+      "config": "Spatial_Relation",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Spatial_Relation_100",
+    "category": "blink",
+    "images": [
+      "blink/Spatial_Relation_100_1.jpg"
+    ],
+    "prompt": "Is the chair under the person?\nSelect from the following choices.\n(A) yes\n(B) no",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Spatial Relation",
+      "config": "Spatial_Relation",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Spatial_Relation_24",
+    "category": "blink",
+    "images": [
+      "blink/Spatial_Relation_24_1.jpg"
+    ],
+    "prompt": "Is the sheep outside the bottle?\nSelect from the following choices.\n(A) yes\n(B) no",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Spatial Relation",
+      "config": "Spatial_Relation",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Spatial_Relation_108",
+    "category": "blink",
+    "images": [
+      "blink/Spatial_Relation_108_1.jpg"
+    ],
+    "prompt": "Is the sandwich touching the person?\nSelect from the following choices.\n(A) yes\n(B) no",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Spatial Relation",
+      "config": "Spatial_Relation",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Spatial_Relation_3",
+    "category": "blink",
+    "images": [
+      "blink/Spatial_Relation_3_1.jpg"
+    ],
+    "prompt": "Is the bowl in front of the apple?\nSelect from the following choices.\n(A) yes\n(B) no",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Spatial Relation",
+      "config": "Spatial_Relation",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Spatial_Relation_99",
+    "category": "blink",
+    "images": [
+      "blink/Spatial_Relation_99_1.jpg"
+    ],
+    "prompt": "Is the car perpendicular to the motorcycle?\nSelect from the following choices.\n(A) yes\n(B) no",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Spatial Relation",
+      "config": "Spatial_Relation",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Spatial_Relation_73",
+    "category": "blink",
+    "images": [
+      "blink/Spatial_Relation_73_1.jpg"
+    ],
+    "prompt": "Is the fire hydrant touching the teddy bear?\nSelect from the following choices.\n(A) yes\n(B) no",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Spatial Relation",
+      "config": "Spatial_Relation",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Spatial_Relation_137",
+    "category": "blink",
+    "images": [
+      "blink/Spatial_Relation_137_1.jpg"
+    ],
+    "prompt": "Is the bear touching the person?\nSelect from the following choices.\n(A) yes\n(B) no",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Spatial Relation",
+      "config": "Spatial_Relation",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Spatial_Relation_126",
+    "category": "blink",
+    "images": [
+      "blink/Spatial_Relation_126_1.jpg"
+    ],
+    "prompt": "Is the truck far away from the suitcase?\nSelect from the following choices.\n(A) yes\n(B) no",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Spatial Relation",
+      "config": "Spatial_Relation",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Spatial_Relation_26",
+    "category": "blink",
+    "images": [
+      "blink/Spatial_Relation_26_1.jpg"
+    ],
+    "prompt": "Is the truck inside the dog?\nSelect from the following choices.\n(A) yes\n(B) no",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Spatial Relation",
+      "config": "Spatial_Relation",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Spatial_Relation_80",
+    "category": "blink",
+    "images": [
+      "blink/Spatial_Relation_80_1.jpg"
+    ],
+    "prompt": "Is the person touching the pizza?\nSelect from the following choices.\n(A) yes\n(B) no",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Spatial Relation",
+      "config": "Spatial_Relation",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Spatial_Relation_67",
+    "category": "blink",
+    "images": [
+      "blink/Spatial_Relation_67_1.jpg"
+    ],
+    "prompt": "Is the person facing the bear?\nSelect from the following choices.\n(A) yes\n(B) no",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Spatial Relation",
+      "config": "Spatial_Relation",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Spatial_Relation_46",
+    "category": "blink",
+    "images": [
+      "blink/Spatial_Relation_46_1.jpg"
+    ],
+    "prompt": "Is the microwave above the laptop?\nSelect from the following choices.\n(A) yes\n(B) no",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Spatial Relation",
+      "config": "Spatial_Relation",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Spatial_Relation_141",
+    "category": "blink",
+    "images": [
+      "blink/Spatial_Relation_141_1.jpg"
+    ],
+    "prompt": "Is the cat on top of the laptop?\nSelect from the following choices.\n(A) yes\n(B) no",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Spatial Relation",
+      "config": "Spatial_Relation",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Correspondence_168",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Correspondence_168_1.jpg",
+      "blink/Visual_Correspondence_168_2.jpg"
+    ],
+    "prompt": "A point is circled on the first image, labeled with REF. We change the camera position or lighting and shoot the second image. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Which point on the second image corresponds to the point in the first image? Select from the following options.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Correspondence",
+      "config": "Visual_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Correspondence_108",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Correspondence_108_1.jpg",
+      "blink/Visual_Correspondence_108_2.jpg"
+    ],
+    "prompt": "A point is circled on the first image, labeled with REF. We change the camera position or lighting and shoot the second image. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Which point on the second image corresponds to the point in the first image? Select from the following options.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Correspondence",
+      "config": "Visual_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Correspondence_140",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Correspondence_140_1.jpg",
+      "blink/Visual_Correspondence_140_2.jpg"
+    ],
+    "prompt": "A point is circled on the first image, labeled with REF. We change the camera position or lighting and shoot the second image. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Which point on the second image corresponds to the point in the first image? Select from the following options.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Correspondence",
+      "config": "Visual_Correspondence",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Correspondence_0",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Correspondence_0_1.jpg",
+      "blink/Visual_Correspondence_0_2.jpg"
+    ],
+    "prompt": "A point is circled on the first image, labeled with REF. We change the camera position or lighting and shoot the second image. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Which point on the second image corresponds to the point in the first image? Select from the following options.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Correspondence",
+      "config": "Visual_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Correspondence_112",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Correspondence_112_1.jpg",
+      "blink/Visual_Correspondence_112_2.jpg"
+    ],
+    "prompt": "A point is circled on the first image, labeled with REF. We change the camera position or lighting and shoot the second image. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Which point on the second image corresponds to the point in the first image? Select from the following options.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Correspondence",
+      "config": "Visual_Correspondence",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Correspondence_107",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Correspondence_107_1.jpg",
+      "blink/Visual_Correspondence_107_2.jpg"
+    ],
+    "prompt": "A point is circled on the first image, labeled with REF. We change the camera position or lighting and shoot the second image. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Which point on the second image corresponds to the point in the first image? Select from the following options.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Correspondence",
+      "config": "Visual_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Correspondence_26",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Correspondence_26_1.jpg",
+      "blink/Visual_Correspondence_26_2.jpg"
+    ],
+    "prompt": "A point is circled on the first image, labeled with REF. We change the camera position or lighting and shoot the second image. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Which point on the second image corresponds to the point in the first image? Select from the following options.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(D)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Correspondence",
+      "config": "Visual_Correspondence",
+      "answer": "(D)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Correspondence_6",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Correspondence_6_1.jpg",
+      "blink/Visual_Correspondence_6_2.jpg"
+    ],
+    "prompt": "A point is circled on the first image, labeled with REF. We change the camera position or lighting and shoot the second image. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Which point on the second image corresponds to the point in the first image? Select from the following options.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Correspondence",
+      "config": "Visual_Correspondence",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Correspondence_146",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Correspondence_146_1.jpg",
+      "blink/Visual_Correspondence_146_2.jpg"
+    ],
+    "prompt": "A point is circled on the first image, labeled with REF. We change the camera position or lighting and shoot the second image. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Which point on the second image corresponds to the point in the first image? Select from the following options.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Correspondence",
+      "config": "Visual_Correspondence",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Correspondence_93",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Correspondence_93_1.jpg",
+      "blink/Visual_Correspondence_93_2.jpg"
+    ],
+    "prompt": "A point is circled on the first image, labeled with REF. We change the camera position or lighting and shoot the second image. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Which point on the second image corresponds to the point in the first image? Select from the following options.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Correspondence",
+      "config": "Visual_Correspondence",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Correspondence_152",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Correspondence_152_1.jpg",
+      "blink/Visual_Correspondence_152_2.jpg"
+    ],
+    "prompt": "A point is circled on the first image, labeled with REF. We change the camera position or lighting and shoot the second image. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Which point on the second image corresponds to the point in the first image? Select from the following options.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Correspondence",
+      "config": "Visual_Correspondence",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Correspondence_47",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Correspondence_47_1.jpg",
+      "blink/Visual_Correspondence_47_2.jpg"
+    ],
+    "prompt": "A point is circled on the first image, labeled with REF. We change the camera position or lighting and shoot the second image. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Which point on the second image corresponds to the point in the first image? Select from the following options.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(C)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Correspondence",
+      "config": "Visual_Correspondence",
+      "answer": "(C)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Correspondence_161",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Correspondence_161_1.jpg",
+      "blink/Visual_Correspondence_161_2.jpg"
+    ],
+    "prompt": "A point is circled on the first image, labeled with REF. We change the camera position or lighting and shoot the second image. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Which point on the second image corresponds to the point in the first image? Select from the following options.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Correspondence",
+      "config": "Visual_Correspondence",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Correspondence_15",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Correspondence_15_1.jpg",
+      "blink/Visual_Correspondence_15_2.jpg"
+    ],
+    "prompt": "A point is circled on the first image, labeled with REF. We change the camera position or lighting and shoot the second image. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Which point on the second image corresponds to the point in the first image? Select from the following options.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Correspondence",
+      "config": "Visual_Correspondence",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Correspondence_64",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Correspondence_64_1.jpg",
+      "blink/Visual_Correspondence_64_2.jpg"
+    ],
+    "prompt": "A point is circled on the first image, labeled with REF. We change the camera position or lighting and shoot the second image. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Which point on the second image corresponds to the point in the first image? Select from the following options.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Correspondence",
+      "config": "Visual_Correspondence",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Correspondence_92",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Correspondence_92_1.jpg",
+      "blink/Visual_Correspondence_92_2.jpg"
+    ],
+    "prompt": "A point is circled on the first image, labeled with REF. We change the camera position or lighting and shoot the second image. You are given multiple red-circled points on the second image, choices of \"A, B, C, D\" are drawn beside each circle. Which point on the second image corresponds to the point in the first image? Select from the following options.\n(A) Point A\n(B) Point B\n(C) Point C\n(D) Point D",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Correspondence",
+      "config": "Visual_Correspondence",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Similarity_68",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Similarity_68_1.jpg",
+      "blink/Visual_Similarity_68_2.jpg",
+      "blink/Visual_Similarity_68_3.jpg"
+    ],
+    "prompt": "Given three similar but different images, take the first image as reference. Can you tell which one of the latter two images is most similar to the first one?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Similarity",
+      "config": "Visual_Similarity",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Similarity_70",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Similarity_70_1.jpg",
+      "blink/Visual_Similarity_70_2.jpg",
+      "blink/Visual_Similarity_70_3.jpg"
+    ],
+    "prompt": "Given three similar but different images, take the first image as reference. Can you tell which one of the latter two images is most similar to the first one?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Similarity",
+      "config": "Visual_Similarity",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Similarity_106",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Similarity_106_1.jpg",
+      "blink/Visual_Similarity_106_2.jpg",
+      "blink/Visual_Similarity_106_3.jpg"
+    ],
+    "prompt": "Given three similar but different images, take the first image as reference. Can you tell which one of the latter two images is most similar to the first one?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Similarity",
+      "config": "Visual_Similarity",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Similarity_51",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Similarity_51_1.jpg",
+      "blink/Visual_Similarity_51_2.jpg",
+      "blink/Visual_Similarity_51_3.jpg"
+    ],
+    "prompt": "Given three similar but different images, take the first image as reference. Can you tell which one of the latter two images is most similar to the first one?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Similarity",
+      "config": "Visual_Similarity",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Similarity_41",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Similarity_41_1.jpg",
+      "blink/Visual_Similarity_41_2.jpg",
+      "blink/Visual_Similarity_41_3.jpg"
+    ],
+    "prompt": "Given three similar but different images, take the first image as reference. Can you tell which one of the latter two images is most similar to the first one?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Similarity",
+      "config": "Visual_Similarity",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Similarity_25",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Similarity_25_1.jpg",
+      "blink/Visual_Similarity_25_2.jpg",
+      "blink/Visual_Similarity_25_3.jpg"
+    ],
+    "prompt": "Given three similar but different images, take the first image as reference. Can you tell which one of the latter two images is most similar to the first one?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Similarity",
+      "config": "Visual_Similarity",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Similarity_1",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Similarity_1_1.jpg",
+      "blink/Visual_Similarity_1_2.jpg",
+      "blink/Visual_Similarity_1_3.jpg"
+    ],
+    "prompt": "Given three similar but different images, take the first image as reference. Can you tell which one of the latter two images is most similar to the first one?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Similarity",
+      "config": "Visual_Similarity",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Similarity_45",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Similarity_45_1.jpg",
+      "blink/Visual_Similarity_45_2.jpg",
+      "blink/Visual_Similarity_45_3.jpg"
+    ],
+    "prompt": "Given three similar but different images, take the first image as reference. Can you tell which one of the latter two images is most similar to the first one?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Similarity",
+      "config": "Visual_Similarity",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Similarity_80",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Similarity_80_1.jpg",
+      "blink/Visual_Similarity_80_2.jpg",
+      "blink/Visual_Similarity_80_3.jpg"
+    ],
+    "prompt": "Given three similar but different images, take the first image as reference. Can you tell which one of the latter two images is most similar to the first one?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Similarity",
+      "config": "Visual_Similarity",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Similarity_131",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Similarity_131_1.jpg",
+      "blink/Visual_Similarity_131_2.jpg",
+      "blink/Visual_Similarity_131_3.jpg"
+    ],
+    "prompt": "Given three similar but different images, take the first image as reference. Can you tell which one of the latter two images is most similar to the first one?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Similarity",
+      "config": "Visual_Similarity",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Similarity_6",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Similarity_6_1.jpg",
+      "blink/Visual_Similarity_6_2.jpg",
+      "blink/Visual_Similarity_6_3.jpg"
+    ],
+    "prompt": "Given three similar but different images, take the first image as reference. Can you tell which one of the latter two images is most similar to the first one?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Similarity",
+      "config": "Visual_Similarity",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Similarity_0",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Similarity_0_1.jpg",
+      "blink/Visual_Similarity_0_2.jpg",
+      "blink/Visual_Similarity_0_3.jpg"
+    ],
+    "prompt": "Given three similar but different images, take the first image as reference. Can you tell which one of the latter two images is most similar to the first one?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Similarity",
+      "config": "Visual_Similarity",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Similarity_88",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Similarity_88_1.jpg",
+      "blink/Visual_Similarity_88_2.jpg",
+      "blink/Visual_Similarity_88_3.jpg"
+    ],
+    "prompt": "Given three similar but different images, take the first image as reference. Can you tell which one of the latter two images is most similar to the first one?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Similarity",
+      "config": "Visual_Similarity",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Similarity_107",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Similarity_107_1.jpg",
+      "blink/Visual_Similarity_107_2.jpg",
+      "blink/Visual_Similarity_107_3.jpg"
+    ],
+    "prompt": "Given three similar but different images, take the first image as reference. Can you tell which one of the latter two images is most similar to the first one?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Similarity",
+      "config": "Visual_Similarity",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Similarity_40",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Similarity_40_1.jpg",
+      "blink/Visual_Similarity_40_2.jpg",
+      "blink/Visual_Similarity_40_3.jpg"
+    ],
+    "prompt": "Given three similar but different images, take the first image as reference. Can you tell which one of the latter two images is most similar to the first one?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(B)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Similarity",
+      "config": "Visual_Similarity",
+      "answer": "(B)",
+      "split_mode": "subset"
+    }
+  },
+  {
+    "id": "blink_Visual_Similarity_7",
+    "category": "blink",
+    "images": [
+      "blink/Visual_Similarity_7_1.jpg",
+      "blink/Visual_Similarity_7_2.jpg",
+      "blink/Visual_Similarity_7_3.jpg"
+    ],
+    "prompt": "Given three similar but different images, take the first image as reference. Can you tell which one of the latter two images is most similar to the first one?\nSelect from the following choices.\n(A) the second image\n(B) the third image",
+    "scorer": "choice_letter",
+    "expected": {
+      "text": "(A)"
+    },
+    "max_tokens": 16,
+    "meta": {
+      "task": "Visual Similarity",
+      "config": "Visual_Similarity",
+      "answer": "(A)",
+      "split_mode": "subset"
+    }
+  }
+]

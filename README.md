@@ -1,8 +1,8 @@
 # VLM bake-off — MLX vs GGUF
 
-Vision-language bake-off for Apple Silicon: the same vision benchmarks — ScreenSpot-v2, RefCOCO and DocVQA today, more datasets and custom cases to come — run head-to-head across two interchangeable backends, **MLX** ([mlx-vlm](https://github.com/Blaizzy/mlx-vlm), native Metal) and **GGUF** ([llama.cpp](https://github.com/ggml-org/llama.cpp) via a local `llama-server`), with identical prompts, scoring, and sampling so the comparison is apples-to-apples within one report.
+Vision-language bake-off for Apple Silicon: the same vision benchmarks — ScreenSpot-v2, RefCOCO, DocVQA, InfographicVQA and BLINK today, more datasets and custom cases to come — run head-to-head across two interchangeable backends, **MLX** ([mlx-vlm](https://github.com/Blaizzy/mlx-vlm), native Metal) and **GGUF** ([llama.cpp](https://github.com/ggml-org/llama.cpp) via a local `llama-server`), with identical prompts, scoring, and sampling so the comparison is apples-to-apples within one report.
 
-This is **not** a VLMEvalKit/vLLM reproduction. The ScreenSpot-v2 track uses the same 1,272 test items Liquid scored at 80.7, but inference is local (and usually quantized). With the tiling fix and the official grounding protocol, local MLX bf16 reaches 80.8 — matching the published number. The RefCOCO track (512-item seeded subset of the 8 splits behind the published 87.9) lands at 89.6–90.6 under the IoU rule across all six model combos, and the DocVQA track (500-item seeded subset) at 90.1–91.3 ANLS vs the published 91.1 — both within subset/sampling noise of vLLM, with no MLX-vs-GGUF gap.
+This is **not** a VLMEvalKit/vLLM reproduction. The ScreenSpot-v2 track uses the same 1,272 test items Liquid scored at 80.7, but inference is local (and usually quantized). With the tiling fix and the official grounding protocol, local MLX bf16 reaches 80.8 — matching the published number. The subset tracks land just as close: RefCOCO 89.6–90.6 (IoU rule) vs 87.9, DocVQA 90.1–91.3 vs 91.1, InfographicVQA 67.8–69.9 vs 70.2, and BLINK 62.9–65.2 vs 61.5 — all within subset/sampling noise of vLLM, with no systematic MLX-vs-GGUF gap outside the screenshot-specific ScreenSpot deficit.
 
 ## Backends
 
@@ -79,11 +79,45 @@ All six model combos, canonical short-answer instruction, official ANLS scoring,
 
 Reading these: every combo lands within ±1pp of the published 91.1 (a 500-item subset carries ~±1.4pp of noise at this accuracy, so the ordering inside the band is not meaningful). The interesting finding is what *doesn't* show: **no GGUF gap on dense document pages** — tiling engages heavily on ~1700×2200 pages, yet GGUF matches MLX and gguf-bf16 even edges past the published number. The ScreenSpot ~3pp GGUF deficit is therefore screenshot-specific, not a general tile-downsampling penalty. As on RefCOCO, **4-bit is free**. Hardest types everywhere: `free_text` (~85–88) and `table/list` (~86–90); the 75% `Yes/No` row is a 4-item group — one miss. Wall-clock: 5.2–6.6 min per MLX model, 9.0–10.3 min per GGUF model.
 
+### InfographicVQA (500-item seeded subset)
+
+Same recipe as DocVQA, denser mixed text/figure layouts (`results/20260814-142525`):
+
+| Model | ANLS |
+| --- | --- |
+| `4bit` | 69.6 |
+| `8bit` | 69.0 |
+| `bf16` | **69.9** |
+| `gguf-q4km` | 67.8 |
+| `gguf-q8` | 68.9 |
+| `gguf-bf16` | 68.1 |
+| *Liquid published (vLLM, bf16)* | *70.2* |
+
+Reading these: the whole band sits 0.3–2.4pp under the published number, with MLX bf16 dead on (69.9 vs 70.2) and GGUF running ~1–2pp behind MLX — the first track where GGUF trails at all, though the gap is within subset noise (~±2pp) and much smaller than ScreenSpot's screenshot-specific deficit. Hardest answer type everywhere: `non-extractive` (~53–58) — questions requiring synthesis rather than copying a span. Wall-clock: ~9–13 min per model.
+
+### BLINK (224-item seeded subset)
+
+All six combos, canonical lettered-choice prompts, 1–4 images per item (`results/20260814-142525`):
+
+| Model | Overall accuracy |
+| --- | --- |
+| `4bit` | 62.9 |
+| `8bit` | **65.2** |
+| `bf16` | 64.7 |
+| `gguf-q4km` | **65.2** |
+| `gguf-q8` | **65.2** |
+| `gguf-bf16` | 62.9 |
+| *Liquid published (vLLM, bf16)* | *61.5* |
+
+Reading these: every combo lands at or above the published 61.5 (62.9–65.2; ±3.2pp subset noise at n=224, so treat the in-band ordering as noise). The key implementation result: **no MLX-vs-GGUF divergence on multi-image inputs** — both backends' multi-image plumbing (image ordering, per-image tiling) produces matching distributions, including on the genuinely multi-image tasks (Jigsaw 100% everywhere, Visual Correspondence 81–94%). Per-task cells are n=16 and noisy; the stable pattern across all six models: depth/spatial/counting tasks strong (~75–90%), while Forensic Detection, IQ Test, Functional Correspondence and Multi-view Reasoning are hard for everyone (~19–63%) — consistent with BLINK's design as a model-agnostic stress test.
+
 ## Tracks
 
 - **ScreenSpot-v2** — GUI screenshots from [`HongxinLi/ScreenSpot_v2`](https://huggingface.co/datasets/HongxinLi/ScreenSpot_v2) (OS-Copilot splits: 501 mobile / 334 desktop / 437 web). Click-in-box scoring. Default prepare is the **full 1,272-item test set**. `--screenspot subset` is 48 seeded items (16 per platform).
 - **RefCOCO** — referring-expression grounding on COCO photos from the [`lmms-lab-encoder`](https://huggingface.co/lmms-lab-encoder) grounding sets (RefCOCO / RefCOCO+ / RefCOCOg — the 8 eval splits behind Liquid's published RefCOCO-avg 87.9, P@1, vLLM 0.26). Same `grounding_json` recipe as ScreenSpot; both hit rules (box center in gold, IoU ≥ 0.5) are reported until Liquid's P@1 rule is pinned. Default prepare is a **512-item seeded subset** (64 per split, ~4 GB download); `--refcoco full` is all 25,770 items (~5 GB, hours per model — the comparable number is the 8-split average).
 - **DocVQA** — document reading comprehension from [`lmms-lab-encoder/DocVQA`](https://huggingface.co/datasets/lmms-lab-encoder/DocVQA) (official validation split behind Liquid's published 91.1 ANLS, vLLM 0.26). Free-form short answers with the canonical single-word/phrase instruction, scored by official ANLS (Levenshtein, threshold 0.5, errors count 0); grouped by question type in the report. Default prepare is a **500-item seeded subset** (~1 GB download); `--docvqa full` is all 5,349 questions. Matrix on the subset: 90.1–91.3 ANLS across all six model combos vs 91.1 published.
+- **InfographicVQA** — same repo, config and scorer as DocVQA (behind Liquid's published 70.2 ANLS). Denser mixed text/figure layouts, and a lower reference score with more headroom to separate implementations. Default prepare is a **500-item seeded subset**; `--infographicvqa full` is 2,801 questions.
+- **BLINK** — multi-image perceptual tasks from [`BLINK-Benchmark/BLINK`](https://huggingface.co/datasets/BLINK-Benchmark/BLINK) (14 tasks, 1–4 images per item, behind Liquid's published 61.5 overall accuracy). Canonical lettered-choice prompts with a letter-extraction scorer; per-task breakdown in the report. The only multi-image track — it exercises the multi-image plumbing of both backends (ordering, per-image tiling). Default prepare is a **224-item seeded subset** (16 per task); `--blink full` is the whole 1,901-item validation split.
 - **Speed** — separate `bench speed` command (TTFT / wall-clock tok/s / peak memory). Not part of `run`.
 
 ## Setup
@@ -98,19 +132,19 @@ uv pip install -e .
 ## Run
 
 ```bash
-uv run python -m bench prepare                 # full ScreenSpot-v2 (1,272) + RefCOCO (512) + DocVQA (500) subsets
+uv run python -m bench prepare                 # ScreenSpot full (1,272) + 500-item subsets of every other track
 uv run python -m bench prepare --screenspot subset
 uv run python -m bench prepare --refcoco full --screenspot off   # all 25,770 RefCOCO items
 uv run python -m bench prepare --docvqa full --screenspot off --refcoco off   # all 5,349 DocVQA questions
+uv run python -m bench prepare --blink full --screenspot off     # full BLINK val (1,901)
 uv run python -m bench run --models 6bit,8bit,bf16              # MLX only
 uv run python -m bench run --models bf16,gguf-q8,gguf-bf16      # mixed backends, one report
 uv run python -m bench run --models 8bit --protocol bbox        # plain-box protocol (ScreenSpot only)
-uv run python -m bench run --models bf16 --categories refcoco   # just the RefCOCO track
-uv run python -m bench run --models bf16 --categories docvqa    # just the DocVQA track
+uv run python -m bench run --models bf16 --categories refcoco   # one track (screenspot|refcoco|docvqa|infographicvqa|blink)
 uv run python -m bench speed --models 6bit,8bit,bf16
 ```
 
-Default run is `6bit,8bit,bf16`. Full ScreenSpot-v2 is 1,272 inferences per model, plus any custom tasks you add (see below). Protocol variants (`--protocol`) apply to ScreenSpot only; RefCOCO always runs its native grounding recipe, DocVQA its canonical short-answer instruction.
+Default run is `6bit,8bit,bf16`. Full ScreenSpot-v2 is 1,272 inferences per model, plus any custom tasks you add (see below). Protocol variants (`--protocol`) apply to ScreenSpot only; every other track runs one canonical recipe (RefCOCO grounding JSON, ANLS tracks the single-word/phrase instruction, BLINK the benchmark's lettered-choice prompt).
 
 Default sampling matches Liquid's recommended generation parameters (`--temp 0.2 --top-k 50`, sampling on — what their 80.7 was measured with), so expect ±1–2pp run-to-run variance. Pass `--temp 0` for greedy, reproducible runs. Each run writes `REPORT.html`, `REPORT.md`, and `results.json` under `results/<timestamp>/`. Open the HTML file in a browser. ScreenSpot reports desktop / mobile / web plus the unweighted average Liquid uses for 80.7.
 

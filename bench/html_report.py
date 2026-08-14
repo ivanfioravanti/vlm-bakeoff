@@ -3,9 +3,15 @@ from __future__ import annotations
 import html
 from typing import Any
 
-from bench.docvqa import LIQUID_DOCVQA_ANLS
+from bench.blink import LIQUID_BLINK
+from bench.docvqa import LIQUID_DOCVQA_ANLS, LIQUID_INFOGRAPHICVQA_ANLS
 from bench.refcoco import LIQUID_REFERCOCO_AVG, SPLITS
 from bench.screenspot import LIQUID_SCREENSPOT_AVG, LIQUID_SCREENSPOT_V2
+
+ANLS_TRACKS = {
+    "docvqa": ("DocVQA", LIQUID_DOCVQA_ANLS, 5_349),
+    "infographicvqa": ("InfographicVQA", LIQUID_INFOGRAPHICVQA_ANLS, 2_801),
+}
 
 _CSS = """
 :root {
@@ -656,47 +662,90 @@ def render_html(payload: dict[str, Any]) -> str:
             f"<tbody>{''.join(refcoco_rows)}</tbody></table>"
         )
 
-    docvqa_rows = []
-    for label, key, ref in (
-        ("ANLS", "docvqa_anls", LIQUID_DOCVQA_ANLS),
-        ("ANLS pass rate", "docvqa_acc", None),
-    ):
-        cells = []
-        for m in models:
-            val = summaries[m].get(key)
-            p = _pct_num(val)
-            cells.append(
-                f'<td><span class="heat" style="--p:{p:.0f}">{_pct(val)}</span></td>'
-            )
-        ref_cell = (
-            f'<td class="ref">{_pct(ref)}</td>' if ref is not None else "<td></td>"
+    anls_tables = []
+    for cat, (title, ref, full_n) in ANLS_TRACKS.items():
+        if not any(summaries[m]["anls_tracks"].get(cat) for m in models):
+            continue
+        track_n = max(
+            (s["anls_tracks"][cat]["n"] for s in summaries.values() if s["anls_tracks"].get(cat)),
+            default=0,
         )
-        docvqa_rows.append(f"<tr><th>{_esc(label)}</th>{''.join(cells)}{ref_cell}</tr>")
-    qtypes = sorted({q for s in summaries.values() for q in s.get("docvqa_by_type") or {}})
-    for q in qtypes:
-        cells = []
-        for m in models:
-            val = summaries[m]["docvqa_by_type"].get(q)
-            p = _pct_num(val)
-            cells.append(
-                f'<td><span class="heat" style="--p:{p:.0f}">{_pct(val)}</span></td>'
-            )
-        docvqa_rows.append(f"<tr><th>{_esc(q)}</th>{''.join(cells)}<td></td></tr>")
-
-    docvqa_table = ""
-    if any(summaries[m].get("docvqa_n") for m in models):
-        dv_n = max(s.get("docvqa_n") or 0 for s in summaries.values())
+        rows = []
+        for label, key in (("ANLS", "anls"), ("ANLS pass rate", "acc")):
+            cells = []
+            for m in models:
+                val = (summaries[m]["anls_tracks"].get(cat) or {}).get(key)
+                p = _pct_num(val)
+                cells.append(
+                    f'<td><span class="heat" style="--p:{p:.0f}">{_pct(val)}</span></td>'
+                )
+            ref_cell = f'<td class="ref">{_pct(ref)}</td>' if key == "anls" else "<td></td>"
+            rows.append(f"<tr><th>{_esc(label)}</th>{''.join(cells)}{ref_cell}</tr>")
+        qtypes = sorted(
+            {
+                q
+                for m in models
+                for q in (summaries[m]["anls_tracks"].get(cat) or {}).get("by_type", {})
+            }
+        )
+        for q in qtypes:
+            cells = []
+            for m in models:
+                val = (summaries[m]["anls_tracks"].get(cat) or {}).get("by_type", {}).get(q)
+                p = _pct_num(val)
+                cells.append(
+                    f'<td><span class="heat" style="--p:{p:.0f}">{_pct(val)}</span></td>'
+                )
+            rows.append(f"<tr><th>{_esc(q)}</th>{''.join(cells)}<td></td></tr>")
         heads = "".join(f"<th>{_esc(m)}</th>" for m in models)
+        kind = "Document" if cat == "docvqa" else "Infographic"
         note = (
-            f"{dv_n} items — document reading comprehension on the official DocVQA validation "
+            f"{track_n} items — {kind.lower()} reading comprehension on the official validation "
             "split, free-form short answers scored by ANLS (threshold 0.5; errors count 0). "
             "Liquid column is published vLLM 0.26 ANLS, not this local run."
         )
-        docvqa_table = (
-            "<h2>DocVQA</h2>"
+        anls_tables.append(
+            f"<h2>{_esc(title)}</h2>"
             f"<p class='note'>{_esc(note)}</p>"
             f"<table><thead><tr><th>Metric</th>{heads}<th>Liquid vLLM</th></tr></thead>"
-            f"<tbody>{''.join(docvqa_rows)}</tbody></table>"
+            f"<tbody>{''.join(rows)}</tbody></table>"
+        )
+
+    blink_table = ""
+    if any(summaries[m].get("blink_n") for m in models):
+        bl_n = max(s.get("blink_n") or 0 for s in summaries.values())
+        heads = "".join(f"<th>{_esc(m)}</th>" for m in models)
+        cells = []
+        for m in models:
+            val = summaries[m].get("blink_acc")
+            p = _pct_num(val)
+            cells.append(
+                f'<td><span class="heat" style="--p:{p:.0f}">{_pct(val)}</span></td>'
+            )
+        row = (
+            f"<tr><th>Overall accuracy</th>{''.join(cells)}"
+            f'<td class="ref">{_pct(LIQUID_BLINK)}</td></tr>'
+        )
+        btasks = sorted({t for s in summaries.values() for t in s.get("blink_by_task") or {}})
+        for t in btasks:
+            cells = []
+            for m in models:
+                val = summaries[m]["blink_by_task"].get(t)
+                p = _pct_num(val)
+                cells.append(
+                    f'<td><span class="heat" style="--p:{p:.0f}">{_pct(val)}</span></td>'
+                )
+            row += f"<tr><th>{_esc(t)}</th>{''.join(cells)}<td></td></tr>"
+        note = (
+            f"{bl_n} items — multi-image perceptual tasks (relative depth, correspondence, "
+            "jigsaw, …) with the benchmark's canonical lettered-choice prompts. Liquid column "
+            "is published vLLM 0.26 overall accuracy, not this local run."
+        )
+        blink_table = (
+            "<h2>BLINK</h2>"
+            f"<p class='note'>{_esc(note)}</p>"
+            f"<table><thead><tr><th>Metric</th>{heads}<th>Liquid vLLM</th></tr></thead>"
+            f"<tbody>{row}</tbody></table>"
         )
 
     sampling = payload.get("sampling") or {}
@@ -724,14 +773,13 @@ def render_html(payload: dict[str, Any]) -> str:
             + ("all 8 eval splits" if full_rc else f"a {rc_n}-item seeded subset")
             + " vs Liquid’s published 87.9."
         )
-    dv_n = max((s.get("docvqa_n") or 0) for s in summaries.values()) if summaries else 0
-    if dv_n:
-        full_dv = dv_n >= 5300
-        lede += (
-            " Plus DocVQA: "
-            + ("full validation split" if full_dv else f"a {dv_n}-item seeded subset")
-            + " vs Liquid’s published 91.1 ANLS."
-        )
+    anls_present = [t for t in ANLS_TRACKS if any(s["anls_tracks"].get(t) for s in summaries.values())]
+    if anls_present:
+        refs = " and ".join(f"{ANLS_TRACKS[t][0]} ({_pct(ANLS_TRACKS[t][1])})" for t in anls_present)
+        lede += f" Plus {refs} vs the published ANLS."
+    bl_n = max((s.get("blink_n") or 0) for s in summaries.values()) if summaries else 0
+    if bl_n:
+        lede += f" Plus BLINK multi-image ({bl_n} items) vs Liquid’s published 61.5."
     versions = []
     if "mlx" in backends and payload.get("mlx_vlm_version"):
         versions.append(f'mlx-vlm {_esc(payload["mlx_vlm_version"])}')
@@ -776,7 +824,8 @@ def render_html(payload: dict[str, Any]) -> str:
     {cat_table}
     {plat_table}
     {refcoco_table}
-    {docvqa_table}
+    {''.join(anls_tables)}
+    {blink_table}
     {tq_html}
     {speed_html}
     {cases_html}

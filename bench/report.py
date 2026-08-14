@@ -7,9 +7,19 @@ from pathlib import Path
 from typing import Any
 
 from bench import RESULTS
-from bench.docvqa import LIQUID_DOCVQA_ANLS
+from bench.blink import LIQUID_BLINK
+from bench.docvqa import (
+    LIQUID_DOCVQA_ANLS,
+    LIQUID_INFOGRAPHICVQA_ANLS,
+)
 from bench.refcoco import LIQUID_REFERCOCO_AVG, SPLITS
 from bench.screenspot import LIQUID_SCREENSPOT_AVG, LIQUID_SCREENSPOT_V2
+
+# ANLS tracks share the DocVQA module, scorer, and report shape.
+ANLS_TRACKS = {
+    "docvqa": ("DocVQA", LIQUID_DOCVQA_ANLS, 5_349),
+    "infographicvqa": ("InfographicVQA", LIQUID_INFOGRAPHICVQA_ANLS, 2_801),
+}
 
 
 def _acc(rows: list[dict]) -> float | None:
@@ -33,7 +43,8 @@ def summarize(run: dict[str, Any]) -> dict[str, Any]:
     by_plat: dict[str, list] = defaultdict(list)
     by_type: dict[str, list] = defaultdict(list)
     by_subset: dict[str, list] = defaultdict(list)
-    by_dtype_q: dict[str, list] = defaultdict(list)
+    by_dtype_q: dict[tuple[str, str], list] = defaultdict(list)
+    by_blink_task: dict[str, list] = defaultdict(list)
     for row in run["cases"]:
         by_cat[row["category"]].append(row)
         meta = row.get("meta") or {}
@@ -47,8 +58,11 @@ def summarize(run: dict[str, Any]) -> dict[str, Any]:
         if subset:
             by_subset[subset].append(row)
         qtype = meta.get("question_type")
-        if row["category"] == "docvqa" and qtype:
-            by_dtype_q[qtype].append(row)
+        if row["category"] in ANLS_TRACKS and qtype:
+            by_dtype_q[(row["category"], qtype)].append(row)
+        btask = meta.get("task")
+        if row["category"] == "blink" and btask:
+            by_blink_task[btask].append(row)
     plats = {k: _acc(v) for k, v in sorted(by_plat.items())}
     macro = None
     if all(p in plats and plats[p] is not None for p in ("desktop", "mobile", "web")):
@@ -58,11 +72,21 @@ def summarize(run: dict[str, Any]) -> dict[str, Any]:
     refcoco_macro = sum(subsets.values()) / len(subsets) if subsets else None
     refcoco_iou_macro = sum(subsets_iou.values()) / len(subsets_iou) if subsets_iou else None
     docvqa_rows = by_cat.get("docvqa") or []
-    docvqa_anls = (
-        sum(float(r.get("metric") or 0.0) for r in docvqa_rows) / len(docvqa_rows)
-        if docvqa_rows
-        else None
-    )
+    anls_tracks: dict[str, dict] = {}
+    for cat in ANLS_TRACKS:
+        rows = by_cat.get(cat) or []
+        if not rows:
+            continue
+        anls_tracks[cat] = {
+            "anls": sum(float(r.get("metric") or 0.0) for r in rows) / len(rows),
+            "acc": _acc(rows),
+            "by_type": {
+                q: sum(float(r.get("metric") or 0.0) for r in v) / len(v)
+                for (c, q), v in sorted(by_dtype_q.items())
+                if c == cat
+            },
+            "n": len(rows),
+        }
     return {
         "overall": _acc(run["cases"]),
         "n": len(run["cases"]),
@@ -78,13 +102,10 @@ def summarize(run: dict[str, Any]) -> dict[str, Any]:
         "refcoco_macro": refcoco_macro,
         "refcoco_iou_macro": refcoco_iou_macro,
         "refcoco_n": sum(len(v) for v in by_subset.values()),
-        "docvqa_anls": docvqa_anls,
-        "docvqa_acc": _acc(docvqa_rows),
-        "docvqa_by_type": {
-            k: sum(float(r.get("metric") or 0.0) for r in v) / len(v)
-            for k, v in sorted(by_dtype_q.items())
-        },
-        "docvqa_n": len(docvqa_rows),
+        "anls_tracks": anls_tracks,
+        "blink_n": sum(len(v) for v in by_blink_task.values()),
+        "blink_acc": _acc([r for r in by_cat.get("blink") or []]),
+        "blink_by_task": {k: _acc(v) for k, v in sorted(by_blink_task.items())},
     }
 
 
@@ -279,40 +300,82 @@ def render_markdown(payload: dict[str, Any]) -> str:
             lines.append("| avg — box center in gold | " + " | ".join(cells) + f" | {_pct(LIQUID_REFERCOCO_AVG)} |")
             cells = [_pct(summaries[m].get("refcoco_iou_macro")) for m in models]
             lines.append("| avg — IoU ≥ 0.5 | " + " | ".join(cells) + " | |")
-        if any(summaries[m].get("docvqa_n") for m in models):
-            dv_n = max(s.get("docvqa_n") or 0 for s in summaries.values())
+        for cat, (title, ref, full_n) in ANLS_TRACKS.items():
+            if not any(summaries[m]["anls_tracks"].get(cat) for m in models):
+                continue
+            dv_n = max(
+                (s["anls_tracks"][cat]["n"] for s in summaries.values() if s["anls_tracks"].get(cat)),
+                default=0,
+            )
             scope = (
                 "seeded subset, expect a couple pp of sampling noise"
-                if dv_n < 5000
+                if dv_n < full_n * 0.9
                 else "full validation split"
             )
             lines += [
                 "",
-                f"## DocVQA ({dv_n} items, {scope})",
+                f"## {title} ({dv_n} items, {scope})",
                 "",
-                "Document reading comprehension — free-form short answers on the official "
-                "validation split, scored by ANLS (Levenshtein, threshold 0.5; errors count 0). "
-                "Liquid column is their published vLLM ANLS, not this local run.",
+                f"{'Document' if cat == 'docvqa' else 'Infographic'} reading comprehension — free-form short "
+                "answers on the official validation split, scored by ANLS (Levenshtein, threshold "
+                "0.5; errors count 0). Liquid column is their published vLLM ANLS, not this local run.",
                 "",
                 "| Metric | " + " | ".join(f"`{m}`" for m in models) + " | Liquid vLLM |",
                 "| --- | " + " | ".join("---" for _ in models) + " | --- |",
             ]
-            cells = [_pct(summaries[m].get("docvqa_anls")) for m in models]
-            lines.append("| ANLS | " + " | ".join(cells) + f" | {_pct(LIQUID_DOCVQA_ANLS)} |")
-            cells = [_pct(summaries[m].get("docvqa_acc")) for m in models]
+            cells = [_pct(summaries[m]["anls_tracks"][cat].get("anls")) for m in models]
+            lines.append("| ANLS | " + " | ".join(cells) + f" | {_pct(ref)} |")
+            cells = [_pct(summaries[m]["anls_tracks"][cat].get("acc")) for m in models]
             lines.append("| ANLS pass rate | " + " | ".join(cells) + " | |")
             qtypes = sorted(
-                {q for s in summaries.values() for q in s.get("docvqa_by_type") or {}}
+                {
+                    q
+                    for m in models
+                    for q in (summaries[m]["anls_tracks"].get(cat) or {}).get("by_type", {})
+                }
             )
             if qtypes:
                 lines += [
                     "",
-                    "| Question type | " + " | ".join(f"`{m}`" for m in models) + " |",
+                    "| Answer/question type | " + " | ".join(f"`{m}`" for m in models) + " |",
                     "| --- | " + " | ".join("---" for _ in models) + " |",
                 ]
                 for q in qtypes:
-                    cells = [_pct(summaries[m]["docvqa_by_type"].get(q)) for m in models]
+                    cells = [
+                        _pct((summaries[m]["anls_tracks"].get(cat) or {}).get("by_type", {}).get(q))
+                        for m in models
+                    ]
                     lines.append(f"| {q} | " + " | ".join(cells) + " |")
+        if any(summaries[m].get("blink_n") for m in models):
+            bl_n = max(s.get("blink_n") or 0 for s in summaries.values())
+            scope = (
+                "seeded subset (16 per task), noisy per-task"
+                if bl_n < 1800
+                else "full validation split (all 14 tasks)"
+            )
+            lines += [
+                "",
+                f"## BLINK ({bl_n} items, {scope})",
+                "",
+                "Multi-image perceptual tasks (relative depth, correspondence, jigsaw, ...) with "
+                "the benchmark's canonical lettered-choice prompts. Liquid column is their "
+                "published vLLM overall accuracy, not this local run.",
+                "",
+                "| Metric | " + " | ".join(f"`{m}`" for m in models) + " | Liquid vLLM |",
+                "| --- | " + " | ".join("---" for _ in models) + " | --- |",
+            ]
+            cells = [_pct(summaries[m].get("blink_acc")) for m in models]
+            lines.append("| Overall accuracy | " + " | ".join(cells) + f" | {_pct(LIQUID_BLINK)} |")
+            btasks = sorted({t for s in summaries.values() for t in s.get("blink_by_task") or {}})
+            if btasks:
+                lines += [
+                    "",
+                    "| Task | " + " | ".join(f"`{m}`" for m in models) + " |",
+                    "| --- | " + " | ".join("---" for _ in models) + " |",
+                ]
+                for t in btasks:
+                    cells = [_pct(summaries[m]["blink_by_task"].get(t)) for m in models]
+                    lines.append(f"| {t} | " + " | ".join(cells) + " |")
     timed = [m for m in models if runs[m].get("elapsed_s") and summaries[m]["n"]]
     if timed:
         def _dur(x: float) -> str:
