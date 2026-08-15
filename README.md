@@ -142,7 +142,7 @@ uv run python -m bench run --models 4bit,8bit,bf16,gguf-q4km,gguf-q8,gguf-bf16
 open "results/$(ls -t results | head -1)/REPORT.html"
 ```
 
-Disk budget for the full six-model setup: ~12 GB MLX weights + ~11 GB GGUF repo + ~17 GB dataset caches (all under `~/.cache/huggingface`) + ~1.2 GB extracted images — plan for ~40 GB. Single-track setups are far lighter (BLINK subset alone is <1 GB). Two practical notes: export `HF_TOKEN` before the big downloads to avoid anonymous rate limits, and each model's weights download on its first `run`. For like-for-like cross-machine comparisons, keep the same `--models` list and default sampling — the chip is recorded in every report automatically.
+Disk budget for the full six-model setup: ~12 GB MLX weights + ~11 GB GGUF repo + ~17 GB dataset caches (all under `$HF_HOME` — default `~/.cache/huggingface`; nothing in the stack hardcodes a cache path, so pointing `HF_HOME` at another volume relocates every download) + ~1.2 GB extracted images — plan for ~40 GB. Single-track setups are far lighter (BLINK subset alone is <1 GB). Two practical notes: export `HF_TOKEN` before the big downloads to avoid anonymous rate limits, and each model's weights download on its first `run`. For like-for-like cross-machine comparisons, keep the same `--models` list and default sampling — the chip is recorded in every report automatically.
 
 ## Run
 
