@@ -501,6 +501,12 @@ def render_markdown(payload: dict[str, Any]) -> str:
             lines.append("")
             for c in fails:
                 preview = (c.get("output") or "").replace("\n", " ")[:160]
-                lines.append(f"- `{c['id']}` ({c['category']}): {preview}")
+                expected = c.get("expected") or {}
+                exp = (
+                    " / ".join(str(a) for a in expected.get("answers") or [])
+                    or str(expected.get("gold") or expected.get("answer") or expected.get("text") or "")
+                )
+                exp = f" · expected: {exp[:120]}" if exp else ""
+                lines.append(f"- `{c['id']}` ({c['category']}): {preview}{exp}")
             lines.append("")
     return "\n".join(lines) + "\n"

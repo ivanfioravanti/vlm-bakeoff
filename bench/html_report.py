@@ -260,6 +260,14 @@ td.ref { color: var(--mute); font-size: 12px; }
   margin: 8px 0 0; color: var(--mute); white-space: pre-wrap; word-break: break-word;
   font-size: 12px; max-height: 7.5em; overflow: auto;
 }
+.exp {
+  margin: 4px 0 0; color: var(--mute); font-size: 11.5px;
+  white-space: pre-wrap; word-break: break-word;
+}
+.exp span {
+  color: var(--copper-dim); font-size: 10px; letter-spacing: .14em;
+  text-transform: uppercase; margin-right: 8px;
+}
 body[data-filter="fail"] .case.pass { display: none; }
 body[data-filter="pass"] .case.fail { display: none; }
 @media (max-width: 720px) {
@@ -531,6 +539,24 @@ def render_html(payload: dict[str, Any]) -> str:
 
     cases_html = ""
     if has_cases:
+        def _expected_str(expected: dict | None) -> str:
+            if not expected:
+                return ""
+            if expected.get("answers"):
+                return " / ".join(str(a) for a in expected["answers"][:4])
+            if expected.get("gold") is not None:
+                gold = str(expected["gold"])
+                if expected.get("text"):
+                    gold = f"{gold} — {expected['text']}"
+                return gold
+            if expected.get("answer") is not None:
+                return str(expected["answer"])
+            if expected.get("text"):
+                return str(expected["text"])
+            if expected.get("bbox"):
+                return f"box {expected['bbox']}"
+            return ""
+
         ss_n = max(s.get("screenspot_n") or 0 for s in summaries.values())
         omit_ss_pass = ss_n > 48
         items = []
@@ -544,6 +570,12 @@ def render_html(payload: dict[str, Any]) -> str:
                 out = _esc((c.get("output") or "")[:800])
                 err = c.get("error")
                 extra = f"<div class='out'>{_esc(err)}</div>" if err else ""
+                expected = _expected_str(c.get("expected"))
+                exp_html = (
+                    f"<div class='exp'><span>expected</span>{_esc(expected[:300])}</div>"
+                    if expected
+                    else ""
+                )
                 items.append(
                     f"""<article class="case {kind}">
   <div class="row1">
@@ -551,7 +583,7 @@ def render_html(payload: dict[str, Any]) -> str:
     <span class="id">{_esc(c["id"])}</span>
     <span class="cat">{_esc(m)} · {_esc(c["category"])}</span>
   </div>
-  <div class="out">{out}</div>{extra}
+  <div class="out">{out}</div>{extra}{exp_html}
 </article>"""
                 )
         omit_note = (
