@@ -260,14 +260,7 @@ td.ref { color: var(--mute); font-size: 12px; }
   margin: 8px 0 0; color: var(--mute); white-space: pre-wrap; word-break: break-word;
   font-size: 12px; max-height: 7.5em; overflow: auto;
 }
-.exp {
-  margin: 4px 0 0; color: var(--mute); font-size: 11.5px;
-  white-space: pre-wrap; word-break: break-word;
-}
-.exp span {
-  color: var(--copper-dim); font-size: 10px; letter-spacing: .14em;
-  text-transform: uppercase; margin-right: 8px;
-}
+.out .exp { color: var(--copper-dim); }
 body[data-filter="fail"] .case.pass { display: none; }
 body[data-filter="pass"] .case.fail { display: none; }
 @media (max-width: 720px) {
@@ -570,9 +563,10 @@ def render_html(payload: dict[str, Any]) -> str:
                 out = _esc((c.get("output") or "")[:800])
                 err = c.get("error")
                 extra = f"<div class='out'>{_esc(err)}</div>" if err else ""
-                expected = _expected_str(c.get("expected"))
+                # expected only on failures, inline after the output
+                expected = "" if c["pass"] else _expected_str(c.get("expected"))
                 exp_html = (
-                    f"<div class='exp'><span>expected</span>{_esc(expected[:300])}</div>"
+                    f"<span class='exp'> · expected: {_esc(expected[:300])}</span>"
                     if expected
                     else ""
                 )
@@ -583,7 +577,7 @@ def render_html(payload: dict[str, Any]) -> str:
     <span class="id">{_esc(c["id"])}</span>
     <span class="cat">{_esc(m)} · {_esc(c["category"])}</span>
   </div>
-  <div class="out">{out}</div>{extra}{exp_html}
+  <div class="out">{out}{exp_html}</div>{extra}
 </article>"""
                 )
         omit_note = (
