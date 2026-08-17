@@ -177,7 +177,7 @@ Every `run` appends each scored item to `results/<timestamp>/checkpoints/<model>
 
 Default run is `6bit,8bit,bf16`. Full ScreenSpot-v2 is 1,272 inferences per model, plus any custom tasks you add (see below). Protocol variants (`--protocol`) apply to ScreenSpot only; every other track runs one canonical recipe (RefCOCO grounding JSON, ANLS tracks the single-word/phrase instruction, BLINK the benchmark's lettered-choice prompt).
 
-Default sampling matches Liquid's recommended generation parameters (`--temp 0.2 --top-k 50`, sampling on — what their 80.7 was measured with), so expect ±1–2pp run-to-run variance. Pass `--temp 0` for greedy, reproducible runs. Each run writes `REPORT.html`, `REPORT.md`, and `results.json` under `results/<timestamp>/`. Open the HTML file in a browser. ScreenSpot reports desktop / mobile / web plus the unweighted average Liquid uses for 80.7.
+Default sampling matches Liquid's recommended generation parameters (`--temp 0.2 --top-k 50`, sampling on — what their 80.7 was measured with), so expect ±1–2pp run-to-run variance. Pass `--temp 0` for greedy, reproducible runs. `--limits` caps items per track: `--limits 500` caps every selected track at 500, `--limits docvqa:1000,mmmu:300` caps specific tracks (combinable: `--limits 500,blink:224`); omit it to run the full suites. Each run writes `REPORT.html`, `REPORT.md`, and `results.json` under `results/<timestamp>/`. Open the HTML file in a browser. ScreenSpot reports desktop / mobile / web plus the unweighted average Liquid uses for 80.7.
 
 ### Reading the ScreenSpot numbers
 

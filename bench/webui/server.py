@@ -337,6 +337,18 @@ class Handler(BaseHTTPRequestHandler):
             cmd = ["run", "--models", ",".join(models)]
             if categories:
                 cmd += ["--categories", ",".join(categories)]
+            limits = req.get("limits") or {}
+            limit_parts = []
+            if limits.get("global"):
+                limit_parts.append(str(int(limits["global"])))
+            for cat, n in (limits.get("per_track") or {}).items():
+                if cat not in known:
+                    self._json({"error": f"unknown track in limits: {cat}"}, 400)
+                    return
+                if n:
+                    limit_parts.append(f"{cat}:{int(n)}")
+            if limit_parts:
+                cmd += ["--limits", ",".join(limit_parts)]
             for flag, key in (
                 ("--batch-size", "batch_size"),
                 ("--temp", "temp"),
@@ -404,13 +416,25 @@ class Handler(BaseHTTPRequestHandler):
             }
         cmd = _state.get("cmd") or []
         counts = _track_counts()
+        gcap: int | None = None
+        caps: dict[str, int] = {}
+        if "--limits" in cmd:
+            for part in cmd[cmd.index("--limits") + 1].split(","):
+                part = part.strip()
+                if not part:
+                    continue
+                if ":" in part:
+                    cat, _, n = part.rpartition(":")
+                    caps[cat] = int(n)
+                elif part.isdigit():
+                    gcap = int(part)
         if "--limit" in cmd:
             payload["target_total"] = int(cmd[cmd.index("--limit") + 1])
         elif "--categories" in cmd:
             cats = cmd[cmd.index("--categories") + 1].split(",")
-            payload["target_total"] = sum(counts.get(c, 0) for c in cats)
+            payload["target_total"] = sum(min(counts.get(c, 0), caps.get(c, gcap or counts.get(c, 0))) for c in cats)
         elif counts:
-            payload["target_total"] = sum(counts.values())
+            payload["target_total"] = sum(min(n, caps.get(c, gcap or n)) for c, n in counts.items())
         run_dir = _state.get("run_dir")
         if run_dir and Path(run_dir).is_dir():
             payload["models_progress"] = _checkpoint_progress(Path(run_dir))

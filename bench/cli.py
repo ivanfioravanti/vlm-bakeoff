@@ -130,10 +130,46 @@ def _fmt_eta(seconds: float | None) -> str:
     return f"{s // 3600}h{(s % 3600) // 60:02d}m"
 
 
+def _limits_arg(value: str) -> tuple[int | None, dict[str, int]]:
+    """'500' (cap every track), 'docvqa:1000' (per track) or '500,blink:224'."""
+    global_cap: int | None = None
+    caps: dict[str, int] = {}
+    for part in value.split(","):
+        part = part.strip()
+        if not part:
+            continue
+        if ":" in part:
+            cat, _, n = part.rpartition(":")
+            if not cat.strip() or not n.isdigit() or int(n) <= 0:
+                raise argparse.ArgumentTypeError(f"bad limit {part!r} — expected track:N")
+            caps[cat.strip()] = int(n)
+        elif part.isdigit() and int(part) > 0:
+            global_cap = int(part)
+        else:
+            raise argparse.ArgumentTypeError(f"bad limit {part!r} — expected N or track:N")
+    return global_cap, caps
+
+
+def _apply_limits(tasks: list[dict], limits: tuple[int | None, dict[str, int]]) -> list[dict]:
+    global_cap, caps = limits
+    if global_cap is None and not caps:
+        return tasks
+    seen: dict[str, int] = {}
+    out: list[dict] = []
+    for t in tasks:
+        cat = str(t.get("category"))
+        seen[cat] = seen.get(cat, 0) + 1
+        cap = caps.get(cat, global_cap)
+        if cap is None or seen[cat] <= cap:
+            out.append(t)
+    return out
+
+
 def cmd_run(args: argparse.Namespace) -> int:
     names = parse_models(args.models)
     cats = [c.strip() for c in args.categories.split(",") if c.strip()] if args.categories else None
     tasks = _apply_protocol(load_tasks(cats), args.protocol)
+    tasks = _apply_limits(tasks, args.limits)
     if args.limit:
         tasks = tasks[: args.limit]
     fingerprint = task_fingerprint(tasks)
@@ -476,6 +512,15 @@ def main(argv: list[str] | None = None) -> int:
         type=int,
         default=None,
         help="only run the first N tasks after category/protocol filters (smoke tests)",
+    )
+    sr.add_argument(
+        "--limits",
+        type=_limits_arg,
+        default=(None, {}),
+        metavar="SPEC",
+        help="cap items per track: '500' caps every selected track at 500, "
+        "'docvqa:1000,mmmu:300' caps specific tracks, '500,blink:224' combines; "
+        "omit for the full suites",
     )
     sr.add_argument(
         "--resume",

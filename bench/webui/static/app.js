@@ -55,6 +55,16 @@ async function loadMeta() {
       Object.assign(document.createElement("span"), { className: "n", textContent: `${n} items` }));
     tracks.appendChild(label);
   }
+  const caps = $("per-track-limits");
+  caps.innerHTML = "";
+  for (const name of Object.keys(META.tracks)) {
+    const f = document.createElement("div");
+    f.className = "field";
+    f.innerHTML = `<label>${name}</label><input type="number" min="1" placeholder="global" id="cap-${name}">`;
+    f.querySelector("input").oninput = updateTotals;
+    caps.appendChild(f);
+  }
+  $("opt-trackcap").oninput = updateTotals;
   const d = META.defaults;
   $("opt-temp").value = d.temp;
   $("opt-topk").value = d.top_k;
@@ -71,10 +81,24 @@ function setAllTracks(on) {
   updateTotals();
 }
 
+function currentCaps() {
+  const g = Number($("opt-trackcap").value) || null;
+  const per = {};
+  for (const name of Object.keys(META?.tracks || {})) {
+    const v = Number((document.getElementById(`cap-${name}`) || {}).value) || null;
+    if (v) per[name] = v;
+  }
+  return { global: g, per_track: per };
+}
+
 function updateTotals() {
-  const total = Object.values(META?.tracks || {}).reduce((a, b) => a + b, 0);
-  const chosen = Object.keys(META?.tracks || {}).filter((t) => selected.tracks.has(t))
-    .reduce((a, t) => a + META.tracks[t], 0);
+  const caps = currentCaps();
+  let total = 0;
+  let chosen = 0;
+  for (const [t, n] of Object.entries(META?.tracks || {})) {
+    total += n;
+    if (selected.tracks.has(t)) chosen += Math.min(n, caps.per_track[t] ?? caps.global ?? n);
+  }
   $("track-total").textContent = `${chosen.toLocaleString()} / ${total.toLocaleString()} items`;
 }
 
@@ -88,6 +112,8 @@ async function startRun() {
   const categories = [...selected.tracks];
   if (!categories.length) return note("select at least one track");
   const req = { models, categories, protocol: $("opt-protocol").value };
+  const caps = currentCaps();
+  if (caps.global || Object.keys(caps.per_track).length) req.limits = caps;
   for (const [key, id] of [["batch_size", "opt-batch"], ["temp", "opt-temp"], ["top_k", "opt-topk"], ["limit", "opt-limit"]]) {
     const v = $(id).value.trim();
     if (v !== "") req[key] = Number(v);
