@@ -50,6 +50,43 @@ def _track_counts() -> dict[str, int]:
     return counts
 
 
+# What `prepare --<track> full` yields per track (mmmu full-prepare keeps only
+# the scored MC items; refcoco full is all 8 eval splits, ~5 GB download).
+_FULL_N = {
+    "docvqa": 5_349,
+    "infographicvqa": 2_801,
+    "blink": 1_901,
+    "screenspot": 1_272,
+    "refcoco": 25_770,
+    "mathvista": 1_000,
+    "mmmu": 847,
+}
+_PREPARE_FLAG = {
+    "docvqa": "--docvqa",
+    "infographicvqa": "--infographicvqa",
+    "blink": "--blink",
+    "screenspot": "--screenspot",
+    "refcoco": "--refcoco",
+    "mathvista": "--mathvista",
+    "mmmu": "--mmmu",
+}
+
+
+def _prepare_shortfalls(categories: list[str], limits: dict) -> dict[str, dict]:
+    """Tracks whose prepared items are fewer than requested → prepare target."""
+    counts = _track_counts()
+    gcap = int(limits.get("global") or 0) or None
+    per = limits.get("per_track") or {}
+    shortfalls: dict[str, dict] = {}
+    for cat in categories or list(counts):
+        prepared = counts.get(cat, 0)
+        requested = per.get(cat) or gcap or _FULL_N.get(cat, prepared)
+        target = min(int(requested), _FULL_N.get(cat, int(requested)))
+        if target > prepared:
+            shortfalls[cat] = {"prepared": prepared, "target": target, "full": _FULL_N.get(cat)}
+    return shortfalls
+
+
 def _checkpoint_progress(run_dir: Path) -> list[dict]:
     out = []
     ckpt = run_dir / "checkpoints"
@@ -165,20 +202,26 @@ def _adopt_active() -> None:
         _clear_active()
 
 
-def _spawn(cmd: list[str], run_dir: Path) -> None:
+def _spawn(argv: list[str], run_dir: Path, cmd_label: list[str]) -> None:
     log = open(run_dir / "run.log", "ab")
     env = dict(os.environ)
     env["PYTHONUNBUFFERED"] = "1"
     proc = subprocess.Popen(
-        [sys.executable, "-u", "-m", "bench", *cmd],
+        argv,
         cwd=str(Path(__file__).resolve().parent.parent.parent),
         stdout=log,
         stderr=subprocess.STDOUT,
         start_new_session=True,
         env=env,
     )
-    _state.update(proc=proc, pid=proc.pid, cmd=cmd, run_dir=run_dir, started=time.time(), exit_code=None)
+    _state.update(
+        proc=proc, pid=proc.pid, cmd=cmd_label, run_dir=run_dir, started=time.time(), exit_code=None
+    )
     _save_active()
+
+
+def _bench_argv(*args: str) -> list[str]:
+    return [sys.executable, "-u", "-m", "bench", *args]
 
 
 def _reap() -> None:
@@ -364,7 +407,36 @@ class Handler(BaseHTTPRequestHandler):
                 cmd += ["--resume", str(run_dir)]
             else:
                 cmd += ["--run-dir", str(run_dir)]
-            _spawn(cmd, run_dir)
+
+            # Auto-prepare: if more items are requested per track than are on
+            # disk (unlimited = the full suite), regenerate those tracks first.
+            # Two-phase: report the shortfall for confirmation, then chain
+            # prepare (only the short tracks, everything else off) → run.
+            shortfalls = _prepare_shortfalls(categories or list(known), limits)
+            if shortfalls and not resume:
+                if not req.get("confirm_prepare"):
+                    self._json({"ok": False, "needs_prepare": shortfalls}, 200)
+                    return
+                prepare_cmd = ["prepare"]
+                for cat in _PREPARE_FLAG:
+                    if cat in shortfalls:
+                        target = shortfalls[cat]["target"]
+                        prepare_cmd += [
+                            _PREPARE_FLAG[cat],
+                            "full" if target >= (_FULL_N.get(cat) or 0) else str(target),
+                        ]
+                    else:
+                        prepare_cmd += [_PREPARE_FLAG[cat], "off"]
+                chain = " ".join(
+                    [
+                        " ".join(_bench_argv(*prepare_cmd)),
+                        "&&",
+                        " ".join(_bench_argv(*cmd)),
+                    ]
+                )
+                _spawn(["/bin/sh", "-c", chain], run_dir, ["prepare", *prepare_cmd[1:], "→", *cmd])
+            else:
+                _spawn(_bench_argv(*cmd), run_dir, cmd)
             self._json({"ok": True, "run_dir": str(run_dir), "cmd": cmd})
 
     def _stop(self) -> None:

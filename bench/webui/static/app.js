@@ -122,11 +122,26 @@ async function startRun() {
   const resume = $("opt-resume").value;
   if (resume) req.resume = resume;
   try {
-    const out = await api("/api/start", {
+    let out = await api("/api/start", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(req),
     });
+    if (out.needs_prepare) {
+      const changes = Object.entries(out.needs_prepare)
+        .map(([cat, s]) => `${cat}: ${s.prepared.toLocaleString()} → ${s.target.toLocaleString()}${s.full && s.target >= s.full ? " (full)" : ""}`)
+        .join("\n");
+      const ok = confirm(
+        `Some tracks need preparing first (item regeneration, possibly downloads):\n\n${changes}\n\nPrepare them now, then start the run?`
+      );
+      if (!ok) return note("cancelled — prepare more items or lower the caps");
+      req.confirm_prepare = true;
+      out = await api("/api/start", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(req),
+      });
+    }
     note(`started → results/${out.run_dir.split("/").pop()}`);
     refreshStatusLoop(true);
     refreshRuns();
