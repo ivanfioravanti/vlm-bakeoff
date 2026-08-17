@@ -3,7 +3,7 @@
 const $ = (id) => document.getElementById(id);
 let META = null;
 let selected = { models: new Set(["4bit", "8bit", "bf16"]), tracks: new Set() };
-let lastLogLines = 0;
+let lastLogSig = "";
 
 async function api(path, opts) {
   const res = await fetch(path, opts);
@@ -153,16 +153,19 @@ function renderProgress(st) {
 
 function renderLog(lines) {
   const el = $("log");
-  if (lines.length !== lastLogLines) {
-    el.innerHTML = lines.map((l) => {
-      let cls = "sys";
-      if (l.includes(" PASS ")) cls = "pass";
-      else if (l.includes(" FAIL ")) cls = "fail";
-      return `<div class="${cls}">${l.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</div>`;
-    }).join("");
-    el.scrollTop = el.scrollHeight;
-    lastLogLines = lines.length;
-  }
+  // the server always sends the last N lines, so the count alone can't detect
+  // change once the log is long enough — key on length + last line instead
+  const sig = `${lines.length}|${lines[lines.length - 1] || ""}`;
+  if (sig === lastLogSig) return;
+  lastLogSig = sig;
+  const nearBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 48;
+  el.innerHTML = lines.map((l) => {
+    let cls = "sys";
+    if (l.includes(" PASS ")) cls = "pass";
+    else if (l.includes(" FAIL ")) cls = "fail";
+    return `<div class="${cls}">${l.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</div>`;
+  }).join("");
+  if (nearBottom) el.scrollTop = el.scrollHeight;
 }
 
 let statusTimer = null;
