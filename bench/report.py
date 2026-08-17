@@ -267,6 +267,30 @@ def render_markdown(payload: dict[str, Any]) -> str:
         for m in models:
             s = summaries[m]
             lines.append(f"| `{m}` | {s['n_pass']}/{s['n']} | {_pct(s['overall'])} |")
+        timed = [m for m in models if runs[m].get("elapsed_s") and summaries[m]["n"]]
+        if timed:
+            def _dur(x: float) -> str:
+                s = int(round(x))
+                h, rem = divmod(s, 3600)
+                m_, sec = divmod(rem, 60)
+                return f"{h}:{m_:02d}:{sec:02d}" if h else f"{m_}:{sec:02d}"
+
+            lines += [
+                "",
+                "## Time & quality",
+                "",
+                "Wall-clock per model run (weights load + all cases), fastest first.",
+                "",
+                "| # | Model | Duration | Items/s | Overall | ScreenSpot avg |",
+                "| --- | --- | --- | --- | --- | --- |",
+            ]
+            for rank, m in enumerate(sorted(timed, key=lambda m: runs[m]["elapsed_s"]), 1):
+                el = float(runs[m]["elapsed_s"])
+                s = summaries[m]
+                lines.append(
+                    f"| {rank} | `{m}` | {_dur(el)} | {s['n'] / el:.2f} | "
+                    f"{_pct(s['overall'])} | {_pct(s.get('screenspot_macro'))} |"
+                )
         lines += ["", "## By category", "", "| Category | " + " | ".join(f"`{m}`" for m in models) + " |", "| --- | " + " | ".join("---" for _ in models) + " |"]
         for cat in cats:
             cells = [_pct(summaries[m]["by_category"].get(cat)) for m in models]
@@ -457,30 +481,6 @@ def render_markdown(payload: dict[str, Any]) -> str:
                         for m in models
                     ]
                     lines.append(f"| {g} | " + " | ".join(cells) + " |")
-    timed = [m for m in models if runs[m].get("elapsed_s") and summaries[m]["n"]]
-    if timed:
-        def _dur(x: float) -> str:
-            s = int(round(x))
-            h, rem = divmod(s, 3600)
-            m_, sec = divmod(rem, 60)
-            return f"{h}:{m_:02d}:{sec:02d}" if h else f"{m_}:{sec:02d}"
-
-        lines += [
-            "",
-            "## Time & quality",
-            "",
-            "Wall-clock per model run (weights load + all cases), fastest first.",
-            "",
-            "| # | Model | Duration | Items/s | Overall | ScreenSpot avg |",
-            "| --- | --- | --- | --- | --- | --- |",
-        ]
-        for rank, m in enumerate(sorted(timed, key=lambda m: runs[m]["elapsed_s"]), 1):
-            el = float(runs[m]["elapsed_s"])
-            s = summaries[m]
-            lines.append(
-                f"| {rank} | `{m}` | {_dur(el)} | {s['n'] / el:.2f} | "
-                f"{_pct(s['overall'])} | {_pct(s.get('screenspot_macro'))} |"
-            )
     if payload.get("speed"):
         lines += ["", "## Speed", "", "| Model | Setting | TTFT s | tok/s | Peak GB |", "| --- | --- | --- | --- | --- |"]
         for m, rows in payload["speed"].items():

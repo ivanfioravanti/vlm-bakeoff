@@ -892,13 +892,13 @@ def render_html(payload: dict[str, Any]) -> str:
       <div class="plate-head"><div></div>{head}</div>
       {''.join(row_html)}
     </section>
+    {tq_html}
     {cat_table}
     {plat_table}
     {refcoco_table}
     {''.join(anls_tables)}
     {blink_table}
     {''.join(exam_tables)}
-    {tq_html}
     {speed_html}
     {cases_html}
   </main>
