@@ -152,6 +152,8 @@ LFM2.5-VL-3B can also run on Apple's Core AI runtime (`.aimodel`, the Core ML su
 
 The first run downloads the bundles (~4 GB) and AOT-compiles the decoder once (`xcrun coreai-build`, needs Xcode 27; cached under `~/.cache/vlm-bakeoff/coreai/`). Everything else — prompts, scorers, checkpointing, reports — is identical to the other backends.
 
+**Chunked-prefill re-export (~9x faster).** The published bundle pins `input_ids` to `[1,1]`, forcing token-at-a-time prefill (~4.4 s/item). If `~/.cache/vlm-bakeoff/coreai/exports/lfm2_5_vl_3b_decode_int8lin_chunked/` exists, the session prefers a locally re-exported decoder with a dynamic sequence dimension (~0.5 s/item); outputs are numerically equivalent (identical greedy agreement vs MLX bf16). To produce it: clone [`john-rocky/coreai-model-zoo`](https://github.com/john-rocky/coreai-model-zoo), apply its conversion overlay onto the pinned `apple/coreai-models` checkout, and run `conversion/export_lfm25vl_pipelined.py` with the single change `build_export_spec(..., trace_query=64, static_ids=False)` (`--hf-id LiquidAI/LFM2.5-VL-3B --skip-vision --tag _chunked`), then AOT-compile the result. The session auto-detects which contract the bundle speaks. Note: the raw dynamic bundle JIT-compiles through a broken Neural-Engine pass — the AOT build (`--preferred-compute gpu`) is required.
+
 Comparability caveats, inherent to the conversion: every image is squashed to a **single 512×512 view** (256 tokens) instead of the tiled multi-view pipeline MLX/GGUF use, so document-heavy tracks (DocVQA, ScreenSpot) read much less resolution — treat those numbers as a lower bound for the runtime, not the model. Multi-image items (BLINK) are unsupported and skipped for this backend. Also note `coreai-core` is a beta (1.0.0b2) and the conversion is community-maintained (LFM Open License).
 
 ## Web UI
@@ -218,6 +220,8 @@ Drop images in `data/images/custom/` and a JSON file in `data/tasks/`:
 }
 ```
 
-Scorers: `contains`, `exact`, `bbox_iou`, `click_in_box`, `click_point`, `choice`.
+Scorers: `contains`, `exact`, `bbox_iou`, `click_in_box`, `click_point`, `anls`, `mathvista`, `mc_option`, `choice_letter`, `choice`.
+
+For a full custom track, `data/images/maelstrom/GUIDE.md` is the worked guide: what real images to source per scorer family (grounding screenshots, documents, charts), how to record gold boxes on the 0-1000 grid, and one copy-paste JSON snippet per scorer.
 
 **On bracketed literals in prompts.** The original (untiled, plain-bbox) stack lost huge accuracy to format echoes: a bracketed literal like `[0, 1000]` in the user prompt came back verbatim as the answer and the parser read the echo as a prediction — 14.6% vs 58.3% on a 48-item slice. That mechanism does **not** reproduce on the current tiled stack (0 echoes across literal / no-literal / numeric-literal / JSON-protocol variants, GGUF Q8): when this model can't find a target it emits its own whole-image box `[0, 0, 1000, 1000]` — a model failure mode, not an echo — and the default `grounding_json` system prompt itself contains `[xmin, ymin, xmax, ymax] … in [0, 1000]` verbatim (official recipe) with no ill effect, because the model anchors to its trained JSON format. The old rule is still cheap hygiene for custom plain-box prompts (the parser will happily read any echoed bracket), just no longer a measurable hazard. Shared wording lives in `bench/prompts.py`.

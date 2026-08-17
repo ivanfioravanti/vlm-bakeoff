@@ -150,6 +150,8 @@ def _compile_aot(raw: Path, out_dir: Path) -> None:
 class _Model:
     """Loaded bundles + the token-stepping host loop (asyncio-free surface)."""
 
+    CHUNK = 64
+
     def __init__(self) -> None:
         import coreai.runtime as rt
         from huggingface_hub import hf_hub_download
@@ -163,7 +165,11 @@ class _Model:
                 revision=COREAI_REVISION,
             )
         )
-        decoder_raw = Path(
+        # prefer a locally re-exported decoder with a dynamic input_ids seq dim
+        # (chunked prefill — see README "Core AI backend"); fall back to the
+        # pinned HF bundle (token-at-a-time)
+        chunked = AOT_CACHE / "exports" / "lfm2_5_vl_3b_decode_int8lin_chunked" / "lfm2_5_vl_3b_decode_int8lin_chunked.aimodel"
+        decoder_raw = chunked if chunked.exists() else Path(
             hf_hub_download(
                 COREAI_REPO,
                 f"{DECODER_NAME}/{Path(DECODER_NAME).name}.aimodel",
@@ -191,6 +197,9 @@ class _Model:
         self.vfn = _run(vm.load_function(vm.function_names[0]))
         self.dfn = _load_decoder(rt, decoder_raw)
         self.stop_ids = {self.tok.eos_token_id, self.tok.convert_tokens_to_ids("<|im_end|>")}
+        # set once the first prefill probes the graph: True for dynamic-seq
+        # exports (chunked prefill), False for the pinned [1,1] HF bundle
+        self.chunk_ok = None
 
     def preprocess(self, img: Image.Image) -> np.ndarray:
         """RGB → 512² stretch → (x-0.5)/0.5 → [1024, 768] patches, channel-fastest."""
@@ -223,6 +232,37 @@ class _Model:
         }
         res = _run(self.dfn(inputs=inputs, state=state))
         return np.asarray(res["logits"].numpy())[0, -1]
+
+    def step_chunk(self, tokens: list[int], pos_end: int, image_embeds, state) -> np.ndarray:
+        """Feed a block of tokens at once (dynamic-seq bundle export only)."""
+        inputs = {
+            "input_ids": self.rt.NDArray(np.array([tokens], dtype=np.int32)),
+            "position_ids": self.rt.NDArray(np.arange(pos_end + 1, dtype=np.int32)[None]),
+            "image_embeds": image_embeds,
+        }
+        res = _run(self.dfn(inputs=inputs, state=state))
+        return np.asarray(res["logits"].numpy())[0, -1]
+
+    def prefill(self, ids: list[int], image_embeds, state) -> np.ndarray:
+        """Chunked when the bundle's input_ids dim is dynamic, else S=1 steps."""
+        start = 0
+        if self.chunk_ok is None:
+            try:
+                probe = ids[: self.CHUNK]
+                logits = self.step_chunk(probe, len(probe) - 1, image_embeds, state)
+                self.chunk_ok = True
+                start = len(probe)
+            except RuntimeError:
+                self.chunk_ok = False
+        if self.chunk_ok:
+            for c0 in range(start, len(ids), self.CHUNK):
+                chunk = ids[c0 : c0 + self.CHUNK]
+                logits = self.step_chunk(chunk, c0 + len(chunk) - 1, image_embeds, state)
+            return logits
+        logits = None
+        for i, token in enumerate(ids):
+            logits = self.step(int(token), i, image_embeds, state)
+        return logits
 
 
 class Generation:
@@ -313,9 +353,8 @@ class CoreAISession:
         state = self.model.fresh_state()
         rng = np.random.default_rng()
 
-        logits = None
-        for i, token in enumerate(ids.tolist()):
-            logits = self.model.step(int(token), i, image_embeds, state)
+        all_ids = ids.tolist()
+        logits = self.model.prefill(all_ids, image_embeds, state)
         stop = self.model.stop_ids
         out_ids: list[int] = []
         for k in range(int(task.get("max_tokens", 128))):
@@ -323,7 +362,7 @@ class CoreAISession:
             if nxt in stop:
                 break
             out_ids.append(nxt)
-            logits = self.model.step(nxt, ids.size + k, image_embeds, state)
+            logits = self.model.step(nxt, len(all_ids) + k, image_embeds, state)
         return Generation(self.model.tok.decode(out_ids).strip())
 
     def generate_batch(self, tasks: list[dict[str, Any]]) -> list[Generation]:
