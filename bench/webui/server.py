@@ -148,6 +148,7 @@ class Handler(BaseHTTPRequestHandler):
             return
         self.send_response(status)
         self.send_header("Content-Type", ctype)
+        self.send_header("Cache-Control", "no-cache")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
