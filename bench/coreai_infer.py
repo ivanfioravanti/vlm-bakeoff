@@ -150,7 +150,10 @@ def _compile_aot(raw: Path, out_dir: Path) -> None:
 class _Model:
     """Loaded bundles + the token-stepping host loop (asyncio-free surface)."""
 
-    CHUNK = 64
+    # 9 = the chunk size the conversion author verified (verify_s9); the fp16
+    # chunked-scan inverse goes unstable past ~32 tokens and SIGTRAPs on this
+    # runtime at 32 in our sweep (9 and 16 held 40/40 token-exact vs S=1).
+    CHUNK = 9
 
     def __init__(self) -> None:
         import coreai.runtime as rt
