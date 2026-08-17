@@ -19,10 +19,14 @@ async function loadMeta() {
   const mk = (chip, cls) => {
     chip.className = "chip" + (selected.models.has(chip.dataset.model) ? " on" : "");
   };
-  for (const [host, group] of [["mlx-chips", "mlx"], ["gguf-chips", "gguf"]]) {
+  for (const [host, group] of [["mlx-chips", "mlx"], ["gguf-chips", "gguf"], ["coreai-chips", "coreai"]]) {
     const box = $(host);
+    const groupModels = META.models.filter((x) => x.backend === group);
+    if (!groupModels.length) continue;
+    box.style.display = "";
+    if (host === "coreai-chips") $("coreai-label").style.display = "";
     box.innerHTML = "";
-    for (const m of META.models.filter((x) => x.backend === group)) {
+    for (const m of groupModels) {
       const b = document.createElement("button");
       b.type = "button";
       b.className = "chip";

@@ -129,6 +129,16 @@ def ModelSession(
             repetition_penalty=repetition_penalty,
             batch_size=batch_size,
         )
+    if sp.backend == "coreai":
+        from bench.coreai_infer import CoreAISession
+
+        return CoreAISession(
+            sp.model_id,
+            temperature=temperature,
+            top_k=top_k,
+            repetition_penalty=repetition_penalty,
+            batch_size=batch_size,
+        )
     return MlxSession(
         sp.model_id,
         temperature=temperature,

@@ -280,16 +280,26 @@ class Handler(BaseHTTPRequestHandler):
         elif path == "/style.css":
             self._file(STATIC / "style.css", "text/css; charset=utf-8")
         elif path == "/api/meta":
+            models = [
+                {"alias": a, "backend": "mlx", "model_id": spec(a).model_id}
+                for a in MLX_ALIASES
+            ] + [
+                {"alias": a, "backend": "gguf", "model_id": spec(a).model_id}
+                for a in GGUF_ALIASES
+            ]
+            try:
+                from bench.coreai_infer import coreai_available
+
+                ok, _reason = coreai_available()
+                if ok:
+                    models.append(
+                        {"alias": "coreai", "backend": "coreai", "model_id": spec("coreai").model_id}
+                    )
+            except Exception:
+                pass
             self._json(
                 {
-                    "models": [
-                        {"alias": a, "backend": "mlx", "model_id": spec(a).model_id}
-                        for a in MLX_ALIASES
-                    ]
-                    + [
-                        {"alias": a, "backend": "gguf", "model_id": spec(a).model_id}
-                        for a in GGUF_ALIASES
-                    ],
+                    "models": models,
                     "tracks": _track_counts(),
                     "defaults": {
                         "temp": 0.2,

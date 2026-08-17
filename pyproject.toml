@@ -8,6 +8,10 @@ dependencies = [
     "pillow",
     "huggingface-hub",
     "datasets",
+    # Apple Core AI backend (.aimodel bundles). Marker-scoped instead of an
+    # optional extra because `uv run` re-syncs to default deps and would strip
+    # extras mid-session. Import is guarded (coreai_available) for macOS < 27.
+    "coreai-core>=1.0.0b2; sys_platform == 'darwin' and platform_machine == 'arm64'",
 ]
 
 [project.scripts]

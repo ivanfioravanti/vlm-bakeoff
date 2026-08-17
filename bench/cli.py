@@ -257,12 +257,25 @@ def cmd_run(args: argparse.Namespace) -> int:
 
         try:
             i = 0
+            supports = None  # optional per-backend capability filter
             while i < len(tasks):
                 task = tasks[i]
                 if task["id"] in cases:
                     i += 1
                     continue
                 get_session()
+                if supports is None and session is not None:
+                    supports = getattr(session, "supports_task", None)
+                    if supports is not None:
+                        n_skip = sum(1 for t in tasks if t["id"] not in cases and not supports(t))
+                        if n_skip:
+                            print(
+                                f"  note: backend cannot run {n_skip} items "
+                                "(e.g. multi-image on coreai) — skipping them for this model"
+                            )
+                if supports is not None and not supports(task):
+                    i += 1
+                    continue
                 if args.batch_size > 1 and not state["batch_off"] and session.batchable(task):
                     chunk = [task]
                     i += 1

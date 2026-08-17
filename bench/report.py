@@ -182,7 +182,7 @@ def render_markdown(payload: dict[str, Any]) -> str:
             backends.append(b)
     if "mlx" in backends:
         backends = ["mlx"] + [b for b in backends if b != "mlx"]
-    runtime = " + ".join({"mlx": "MLX", "gguf": "GGUF"}.get(b, b.upper()) for b in backends)
+    runtime = " + ".join({"mlx": "MLX", "gguf": "GGUF", "coreai": "Core AI"}.get(b, b.upper()) for b in backends)
     has_screenspot = any(summaries[m].get("screenspot_n") for m in models)
     mlx_tiled = False
     if "mlx" in backends:

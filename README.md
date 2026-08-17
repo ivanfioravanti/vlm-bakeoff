@@ -146,6 +146,14 @@ open "results/$(ls -t results | head -1)/REPORT.html"
 
 Disk budget for the full six-model setup: ~12 GB MLX weights + ~11 GB GGUF repo + ~17 GB dataset caches (all under `$HF_HOME` — default `~/.cache/huggingface`; nothing in the stack hardcodes a cache path, so pointing `HF_HOME` at another volume relocates every download) + ~1.2 GB extracted images — plan for ~40 GB. Single-track setups are far lighter (BLINK subset alone is <1 GB). Two practical notes: export `HF_TOKEN` before the big downloads to avoid anonymous rate limits, and each model's weights download on its first `run`. For like-for-like cross-machine comparisons, keep the same `--models` list and default sampling — the chip is recorded in every report automatically.
 
+### Core AI backend (optional, macOS 27+)
+
+LFM2.5-VL-3B can also run on Apple's Core AI runtime (`.aimodel`, the Core ML successor shipping with macOS 27) via the community conversion [`mlboydaisuke/LFM2.5-VL-3B-CoreAI`](https://huggingface.co/mlboydaisuke/LFM2.5-VL-3B-CoreAI) — alias `coreai`, int8-linear decode + fp16 SigLIP2 vision. On arm64 Macs the `coreai-core` package installs automatically (marker-scoped); the backend stays hidden on machines below macOS 27.
+
+The first run downloads the bundles (~4 GB) and AOT-compiles the decoder once (`xcrun coreai-build`, needs Xcode 27; cached under `~/.cache/vlm-bakeoff/coreai/`). Everything else — prompts, scorers, checkpointing, reports — is identical to the other backends.
+
+Comparability caveats, inherent to the conversion: every image is squashed to a **single 512×512 view** (256 tokens) instead of the tiled multi-view pipeline MLX/GGUF use, so document-heavy tracks (DocVQA, ScreenSpot) read much less resolution — treat those numbers as a lower bound for the runtime, not the model. Multi-image items (BLINK) are unsupported and skipped for this backend. Also note `coreai-core` is a beta (1.0.0b2) and the conversion is community-maintained (LFM Open License).
+
 ## Web UI
 
 ```bash

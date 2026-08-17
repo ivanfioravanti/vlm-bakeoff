@@ -61,6 +61,9 @@ def spec(name: str) -> ModelSpec:
     key = name.strip()
     if key in MLX_ALIASES:
         return ModelSpec(key, "mlx", MLX_ALIASES[key])
+    if key == "coreai":
+        # optional backend — Apple Core AI conversion, macOS 27+ only
+        return ModelSpec(key, "coreai", "mlboydaisuke/LFM2.5-VL-3B-CoreAI")
     if key in GGUF_ALIASES:
         return _gguf_spec(key, GGUF_ALIASES[key])
     if key.endswith(".gguf"):

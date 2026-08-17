@@ -319,8 +319,8 @@ _FAMILY_NEEDLES = (
 )
 
 
-_BACKEND_LABEL = {"mlx": "MLX", "gguf": "GGUF"}
-_BACKEND_ENGINE = {"mlx": "mlx-vlm", "gguf": "llama.cpp"}
+_BACKEND_LABEL = {"mlx": "MLX", "gguf": "GGUF", "coreai": "Core AI"}
+_BACKEND_ENGINE = {"mlx": "mlx-vlm", "gguf": "llama.cpp", "coreai": "Core AI (.aimodel)"}
 
 
 def _backend_of(name: str, run: dict[str, Any]) -> str:
