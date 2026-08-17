@@ -149,7 +149,7 @@ Disk budget for the full six-model setup: ~12 GB MLX weights + ~11 GB GGUF repo 
 ## Web UI
 
 ```bash
-uv run python -m bench ui          # http://127.0.0.1:8765 (opens automatically)
+uv run bench ui                 # http://127.0.0.1:8765 (opens automatically)
 ```
 
 A localhost web app (stdlib only — no extra dependencies) that wraps the same CLI: pick models (the MLX/GGUF aliases or any mlx-vlm HF id), tick benchmark tracks, tweak the usual options (`--temp`, `--top-k`, `--batch-size`, `--limit`, protocol), and Start. Runs execute exactly as they do from the terminal — same subprocess, same per-item checkpoints, same reports — with live per-model progress bars, pass counts, and a streaming log. Stop kills the whole process group (llama-server included) and any partial run appears in the resume picker; finished runs are listed with their overall scores and their self-contained `REPORT.html` opens inline. One run at a time (the GPU is serial); `--host 0.0.0.0` exposes it on the LAN if you ever want to drive it from another device.

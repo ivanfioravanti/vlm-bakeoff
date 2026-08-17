@@ -10,6 +10,9 @@ dependencies = [
     "datasets",
 ]
 
+[project.scripts]
+bench = "bench.cli:main"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
