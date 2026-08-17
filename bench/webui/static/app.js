@@ -231,4 +231,5 @@ $("btn-stop").onclick = async () => {
   } catch (e) { note(e.message); }
 };
 
-loadMeta().then(() => { refreshStatusLoop(true); refreshRuns(); });
+loadMeta().catch((e) => note(`meta failed: ${e.message}`));
+refreshStatusLoop(true); // status renders the live card immediately, independent of meta

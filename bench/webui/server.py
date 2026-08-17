@@ -25,8 +25,12 @@ from bench.models import GGUF_ALIASES, MLX_ALIASES, spec
 
 STATIC = Path(__file__).parent / "static"
 _DIRNAME_RE = re.compile(r"^\d{8}-\d{6}$")
+# Active-run record on disk: lets a restarted server re-adopt a run started
+# by a previous instance (runs live in their own process group, so a server
+# restart orphans the child but does not kill it).
+_STATE_FILE = RESULTS / ".ui-active.json"
 
-_state: dict = {"proc": None, "cmd": [], "run_dir": None, "started": None, "exit_code": None}
+_state: dict = {"proc": None, "pid": None, "cmd": [], "run_dir": None, "started": None, "exit_code": None}
 _lock = threading.Lock()
 
 
@@ -101,6 +105,66 @@ def _run_summary(run_dir: Path) -> dict | None:
     }
 
 
+def _save_active() -> None:
+    proc = _state.get("proc")
+    if proc is None:
+        return
+    try:
+        _STATE_FILE.write_text(
+            json.dumps(
+                {
+                    "pid": proc.pid,
+                    "run_dir": str(_state.get("run_dir")),
+                    "cmd": _state.get("cmd"),
+                    "started": _state.get("started"),
+                }
+            )
+        )
+    except OSError:
+        pass
+
+
+def _clear_active() -> None:
+    try:
+        _STATE_FILE.unlink()
+    except OSError:
+        pass
+
+
+def _pid_alive(pid: int | None) -> bool:
+    if not pid:
+        return False
+    try:
+        os.kill(pid, 0)
+        return True
+    except OSError:
+        return False
+
+
+def _adopt_active() -> None:
+    """Re-attach to a run started by a previous server instance."""
+    if not _STATE_FILE.is_file():
+        return
+    try:
+        rec = json.loads(_STATE_FILE.read_text())
+    except (OSError, json.JSONDecodeError):
+        _clear_active()
+        return
+    run_dir = Path(str(rec.get("run_dir") or ""))
+    if _pid_alive(rec.get("pid")) and not (run_dir / "results.json").is_file():
+        _state.update(
+            proc=None,
+            pid=rec.get("pid"),
+            cmd=rec.get("cmd") or [],
+            run_dir=run_dir,
+            started=rec.get("started"),
+            exit_code=None,
+        )
+        print(f"bench UI: adopted active run pid {rec.get('pid')} → {run_dir}")
+    else:
+        _clear_active()
+
+
 def _spawn(cmd: list[str], run_dir: Path) -> None:
     log = open(run_dir / "run.log", "ab")
     env = dict(os.environ)
@@ -113,14 +177,24 @@ def _spawn(cmd: list[str], run_dir: Path) -> None:
         start_new_session=True,
         env=env,
     )
-    _state.update(proc=proc, cmd=cmd, run_dir=run_dir, started=time.time(), exit_code=None)
+    _state.update(proc=proc, pid=proc.pid, cmd=cmd, run_dir=run_dir, started=time.time(), exit_code=None)
+    _save_active()
 
 
 def _reap() -> None:
     proc = _state.get("proc")
-    if proc is not None and proc.poll() is not None:
-        _state["exit_code"] = proc.returncode
-        _state["proc"] = None
+    if proc is not None:
+        if proc.poll() is not None:
+            _state["exit_code"] = proc.returncode
+            _state["proc"] = None
+            _state["pid"] = None
+            _clear_active()
+        return
+    # adopted run from a previous server instance: liveness + report presence
+    if _state.get("pid") and not _pid_alive(_state["pid"]):
+        _state["exit_code"] = 0
+        _state["pid"] = None
+        _clear_active()
 
 
 # ---------------------------------------------------------------- handler
@@ -224,11 +298,11 @@ class Handler(BaseHTTPRequestHandler):
             return {}
 
     def _start(self) -> None:
-        with _lock:
-            _reap()
-            if _state.get("proc") is not None:
-                self._json({"error": "a run is already active"}, 409)
-                return
+            with _lock:
+                _reap()
+                if _state.get("proc") is not None or _state.get("pid"):
+                    self._json({"error": "a run is already active"}, 409)
+                    return
             req = self._read_body()
             models = [m.strip() for m in req.get("models") or [] if m.strip()]
             if not models:
@@ -285,32 +359,44 @@ class Handler(BaseHTTPRequestHandler):
         with _lock:
             _reap()
             proc = _state.get("proc")
-            if proc is None:
+            pid = _state.get("pid")
+            if proc is None and not pid:
                 self._json({"ok": True, "note": "no active run"})
                 return
+            target = proc.pid if proc is not None else pid
             try:
-                os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
+                os.killpg(os.getpgid(target), signal.SIGTERM)
             except (ProcessLookupError, PermissionError):
-                proc.terminate()
-            for _ in range(50):  # up to 5s graceful
-                if proc.poll() is not None:
-                    break
-                time.sleep(0.1)
-            if proc.poll() is None:
-                try:
-                    os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
-                except (ProcessLookupError, PermissionError):
-                    proc.kill()
-            _state["exit_code"] = proc.poll()
+                if proc is not None:
+                    proc.terminate()
+            if proc is not None:
+                for _ in range(50):  # up to 5s graceful
+                    if proc.poll() is not None:
+                        break
+                    time.sleep(0.1)
+                if proc.poll() is None:
+                    try:
+                        os.killpg(os.getpgid(target), signal.SIGKILL)
+                    except (ProcessLookupError, PermissionError):
+                        proc.kill()
+                _state["exit_code"] = proc.poll()
+            else:
+                for _ in range(50):
+                    if not _pid_alive(pid):
+                        break
+                    time.sleep(0.1)
+                _state["exit_code"] = 0
             _state["proc"] = None
+            _state["pid"] = None
+            _clear_active()
             self._json({"ok": True, "note": "stopped; resume any time (checkpoints kept)"})
 
     def _status(self) -> None:
         with _lock:
             _reap()
-            proc = _state.get("proc")
+            active = _state.get("proc") is not None or bool(_state.get("pid"))
             payload: dict = {
-                "active": proc is not None,
+                "active": active,
                 "cmd": _state.get("cmd"),
                 "run_dir": str(_state.get("run_dir")) if _state.get("run_dir") else None,
                 "started": _state.get("started"),
@@ -360,6 +446,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def serve(host: str = "127.0.0.1", port: int = 8765, open_browser: bool = True) -> None:
+    _adopt_active()
     httpd = ThreadingHTTPServer((host, port), Handler)
     url = f"http://{host}:{port}"
     print(f"bench UI: {url}  (Ctrl-C to stop)")
