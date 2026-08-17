@@ -63,6 +63,10 @@ header .sub .dot { color: var(--copper); }
 .group-label .dim {
   text-transform: none; letter-spacing: .04em; color: var(--copper-dim);
 }
+.group-label.track-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.group-label.track-head .sel { text-transform: none; letter-spacing: .04em; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip {
   border: 1px solid var(--line); border-radius: 999px; cursor: pointer;
