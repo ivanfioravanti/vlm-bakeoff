@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>vlm-bakeoff · bench UI</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,420&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>vlm-bakeoff <span style="color:var(--copper)">·</span> bench</h1>
+    <div class="sub">local MLX <span class="dot">vs</span> GGUF vision benchmark <span class="dot">—</span> one run at a time, everything checkpointed &amp; resumable</div>
+  </header>
+
+  <section class="card" id="launcher">
+    <h2>Launch a run <span class="tag" id="track-total"></span></h2>
+    <div class="group-label">models</div>
+    <div class="chips" id="mlx-chips"></div>
+    <div class="group-label">gguf</div>
+    <div class="chips" id="gguf-chips"></div>
+    <div class="row">
+      <div class="field" style="flex:1">
+        <label>custom mlx HF id (optional)</label>
+        <input type="text" id="custom-model" placeholder="e.g. Qwen/Qwen2.5-VL-3B-Instruct-MLX">
+      </div>
+    </div>
+
+    <div class="group-label" style="margin-top:20px">benchmark tracks</div>
+    <div class="tracks" id="tracks"></div>
+    <div class="row" style="margin-top:8px">
+      <span class="hint"><a href="#" id="all-tracks">all</a> · <a href="#" id="none-tracks">none</a></span>
+    </div>
+
+    <details class="adv">
+      <summary>advanced</summary>
+      <div class="row">
+        <div class="field"><label>temp</label><input type="number" step="0.1" id="opt-temp"></div>
+        <div class="field"><label>top-k</label><input type="number" id="opt-topk"></div>
+        <div class="field"><label>batch-size</label><input type="number" id="opt-batch"></div>
+        <div class="field"><label>limit (smoke)</label><input type="number" id="opt-limit" placeholder="—"></div>
+        <div class="field"><label>protocol</label><select id="opt-protocol"></select></div>
+        <div class="field"><label>resume run</label><select id="opt-resume"><option value="">— fresh —</option></select></div>
+      </div>
+      <div class="hint" style="margin-top:8px">defaults match the terminal CLI (temp 0.2 / top-k 50 / batch 2 = Liquid's recommended params).</div>
+    </details>
+
+    <div class="actions">
+      <button class="primary" id="btn-start">Start run</button>
+      <button class="danger" id="btn-stop" disabled>Stop</button>
+      <span class="hint" id="launch-note"></span>
+    </div>
+  </section>
+
+  <section class="card" id="live" style="display:none">
+    <h2>Live <span class="tag" id="live-dir"></span></h2>
+    <div id="progress"></div>
+    <div class="log" id="log"></div>
+  </section>
+
+  <section class="card" id="runs-card">
+    <h2>Past runs</h2>
+    <table class="runs">
+      <thead><tr><th>run</th><th>models</th><th>items</th><th>status</th><th>overall</th></tr></thead>
+      <tbody id="runs-body"></tbody>
+    </table>
+  </section>
+</div>
+
+<dialog id="report-dlg">
+  <div class="dlgbar">
+    <div class="t" id="dlg-title"></div>
+    <button onclick="document.getElementById('report-dlg').close()">close</button>
+  </div>
+  <iframe id="report-frame"></iframe>
+</dialog>
+
+<script src="/app.js"></script>
+</body>
+</html>

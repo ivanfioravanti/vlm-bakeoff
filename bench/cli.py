@@ -141,6 +141,9 @@ def cmd_run(args: argparse.Namespace) -> int:
         run_dir = Path(args.resume).expanduser()
         if not run_dir.is_dir():
             raise SystemExit(f"--resume: not a results run dir: {run_dir}")
+    elif args.run_dir:
+        run_dir = Path(args.run_dir).expanduser()
+        run_dir.mkdir(parents=True, exist_ok=True)
     else:
         run_dir = RESULTS / datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -369,6 +372,13 @@ def cmd_report(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_ui(args: argparse.Namespace) -> int:
+    from bench.webui.server import serve
+
+    serve(host=args.host, port=args.port, open_browser=not args.no_open)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description="Local MLX / GGUF VLM capability benchmark")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -473,7 +483,23 @@ def main(argv: list[str] | None = None) -> int:
         help="results run dir holding checkpoints/ to resume from (results are appended "
         "incrementally, so a killed run can always be resumed)",
     )
+    sr.add_argument(
+        "--run-dir",
+        default="",
+        help="explicit output dir for this run (created if missing) instead of the "
+        "auto-generated results/<UTC timestamp>",
+    )
     sr.set_defaults(func=cmd_run)
+
+    ui = sub.add_parser("ui", help="Local web UI for launching and browsing runs")
+    ui.add_argument("--host", default="127.0.0.1", help="bind address (default: localhost only)")
+    ui.add_argument("--port", type=int, default=8765)
+    ui.add_argument(
+        "--no-open",
+        action="store_true",
+        help="don't open the browser automatically",
+    )
+    ui.set_defaults(func=cmd_ui)
 
     ss = sub.add_parser("speed", help="TTFT / tok/s / peak memory")
     ss.add_argument("--models", default=",".join(DEFAULT_MODELS))

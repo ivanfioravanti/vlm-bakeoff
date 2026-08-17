@@ -146,6 +146,14 @@ open "results/$(ls -t results | head -1)/REPORT.html"
 
 Disk budget for the full six-model setup: ~12 GB MLX weights + ~11 GB GGUF repo + ~17 GB dataset caches (all under `$HF_HOME` — default `~/.cache/huggingface`; nothing in the stack hardcodes a cache path, so pointing `HF_HOME` at another volume relocates every download) + ~1.2 GB extracted images — plan for ~40 GB. Single-track setups are far lighter (BLINK subset alone is <1 GB). Two practical notes: export `HF_TOKEN` before the big downloads to avoid anonymous rate limits, and each model's weights download on its first `run`. For like-for-like cross-machine comparisons, keep the same `--models` list and default sampling — the chip is recorded in every report automatically.
 
+## Web UI
+
+```bash
+uv run python -m bench ui          # http://127.0.0.1:8765 (opens automatically)
+```
+
+A localhost web app (stdlib only — no extra dependencies) that wraps the same CLI: pick models (the MLX/GGUF aliases or any mlx-vlm HF id), tick benchmark tracks, tweak the usual options (`--temp`, `--top-k`, `--batch-size`, `--limit`, protocol), and Start. Runs execute exactly as they do from the terminal — same subprocess, same per-item checkpoints, same reports — with live per-model progress bars, pass counts, and a streaming log. Stop kills the whole process group (llama-server included) and any partial run appears in the resume picker; finished runs are listed with their overall scores and their self-contained `REPORT.html` opens inline. One run at a time (the GPU is serial); `--host 0.0.0.0` exposes it on the LAN if you ever want to drive it from another device.
+
 ## Run
 
 ```bash

@@ -1,0 +1,169 @@
+:root {
+  --ink: #100e0c;
+  --paper: #191613;
+  --raised: #211e1a;
+  --line: #322c26;
+  --copper: #d08a45;
+  --copper-dim: #8a5a2c;
+  --sage: #9aa57f;
+  --fog: #d4cbc0;
+  --mute: #7d746a;
+  --hair: rgba(208, 138, 69, 0.22);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--ink); color: var(--fog); }
+body {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 32px 20px 80px;
+}
+a { color: var(--copper); }
+.wrap { max-width: 980px; margin: 0 auto; }
+
+header h1 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 420;
+  font-size: 34px;
+  letter-spacing: -.02em;
+  margin: 0 0 4px;
+  color: #f3ece3;
+}
+header .sub { color: var(--mute); font-size: 12px; margin-bottom: 28px; }
+header .sub .dot { color: var(--copper); }
+
+.card {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 22px;
+}
+.card h2 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 420;
+  font-size: 21px;
+  margin: 0 0 14px;
+  color: #f3ece3;
+}
+.card h2 .tag {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  color: var(--mute);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-left: 10px;
+}
+
+.group-label {
+  color: var(--mute); font-size: 11px; letter-spacing: .16em;
+  text-transform: uppercase; margin: 14px 0 8px;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  border: 1px solid var(--line); border-radius: 999px; cursor: pointer;
+  padding: 5px 14px; user-select: none; color: var(--fog);
+  background: transparent; font: inherit; font-size: 13px;
+  transition: border-color .12s, color .12s, background .12s;
+}
+.chip small { color: var(--mute); margin-left: 6px; font-size: 10px; }
+.chip:hover { border-color: var(--copper-dim); }
+.chip.on { border-color: var(--copper); color: var(--copper); background: var(--hair); }
+
+.tracks { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 8px; }
+.track {
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px;
+}
+.track:hover { border-color: var(--copper-dim); }
+.track input { accent-color: var(--copper); }
+.track .name { flex: 1; }
+.track .n { color: var(--mute); font-size: 11px; }
+
+.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin-top: 10px; }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field label { color: var(--mute); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+input[type="text"], input[type="number"], select {
+  background: var(--raised); border: 1px solid var(--line); border-radius: 8px;
+  color: var(--fog); font: inherit; padding: 7px 10px; min-width: 90px;
+}
+input:focus, select:focus { outline: none; border-color: var(--copper-dim); }
+
+details.adv { margin-top: 14px; }
+details.adv summary {
+  cursor: pointer; color: var(--mute); font-size: 12px; user-select: none;
+  list-style: none;
+}
+details.adv summary::-webkit-details-marker { display: none; }
+details.adv summary::before { content: "▸ "; color: var(--copper); }
+details.adv[open] summary::before { content: "▾ "; }
+
+.actions { display: flex; gap: 12px; margin-top: 18px; align-items: center; }
+button.primary, button.danger {
+  font: inherit; border-radius: 10px; cursor: pointer; padding: 10px 22px;
+  border: 1px solid var(--copper); background: var(--copper); color: #1a1207;
+  letter-spacing: .04em;
+}
+button.primary:hover { filter: brightness(1.08); }
+button.primary:disabled { opacity: .35; cursor: not-allowed; }
+button.danger { border-color: var(--clay, #c45c3e); background: transparent; color: #c45c3e; }
+button.danger:hover { background: rgba(196, 92, 62, .12); }
+button.danger:disabled { opacity: .35; cursor: not-allowed; }
+.hint { color: var(--mute); font-size: 12px; }
+
+.modelbar { margin: 12px 0; }
+.modelbar .top { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; }
+.modelbar .name { color: #f3ece3; }
+.modelbar .stat { color: var(--mute); }
+.bar { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.bar > div {
+  height: 100%; border-radius: 99px;
+  background: linear-gradient(90deg, var(--copper-dim), var(--copper));
+  transition: width .6s ease;
+}
+.bar.idle > div { background: var(--line); }
+
+.log {
+  background: #0c0a09; border: 1px solid var(--line); border-radius: 10px;
+  font-size: 11.5px; line-height: 1.45; padding: 12px 14px;
+  max-height: 260px; overflow-y: auto; white-space: pre-wrap;
+  word-break: break-all; color: #b7ad9f;
+}
+.log .pass { color: var(--sage); }
+.log .fail { color: #c45c3e; }
+.log .sys { color: var(--mute); }
+
+table.runs { width: 100%; border-collapse: collapse; }
+table.runs th, table.runs td {
+  text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line);
+  font-size: 13px; vertical-align: middle;
+}
+table.runs th { color: var(--mute); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+table.runs tr.runclick { cursor: pointer; }
+table.runs tr.runclick:hover td { background: var(--raised); }
+table.runs td.score { color: var(--copper); }
+table.runs tr.noreport td { color: var(--mute); }
+.badge {
+  display: inline-block; border-radius: 99px; padding: 1px 10px; font-size: 11px;
+  border: 1px solid var(--line); color: var(--mute);
+}
+.badge.done { border-color: var(--sage); color: var(--sage); }
+.badge.live { border-color: var(--copper); color: var(--copper); }
+
+dialog {
+  background: var(--paper); color: var(--fog); border: 1px solid var(--line);
+  border-radius: 14px; padding: 0; width: min(1100px, 94vw); height: 88vh;
+}
+dialog::backdrop { background: rgba(8, 6, 5, .8); }
+dialog iframe { width: 100%; height: calc(100% - 46px); border: 0; border-radius: 0 0 14px 14px; background: var(--ink); }
+dialog .dlgbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 16px; border-bottom: 1px solid var(--line);
+}
+dialog .dlgbar .t { font-family: Fraunces, Georgia, serif; color: #f3ece3; }
+dialog .dlgbar button {
+  background: none; border: 1px solid var(--line); color: var(--fog);
+  border-radius: 8px; padding: 4px 14px; cursor: pointer; font: inherit;
+}
+dialog .dlgbar button:hover { border-color: var(--copper); }
