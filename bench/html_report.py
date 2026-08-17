@@ -168,10 +168,27 @@ h2 {
   margin: 48px 0 16px;
   color: #f3ece3;
 }
+details.cases > summary {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 420;
+  font-size: 28px;
+  margin: 48px 0 16px;
+  color: #f3ece3;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+details.cases > summary::-webkit-details-marker { display: none; }
+details.cases > summary::before { content: "▸"; color: var(--copper); font-size: 20px; }
+details.cases[open] > summary::before { content: "▾"; }
+details.cases > summary .count { color: var(--mute); font-size: 13px; }
 .note { color: var(--mute); font-size: 12px; margin: -8px 0 18px; }
 table { width: 100%; border-collapse: collapse; }
 th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: middle; }
 th { color: var(--mute); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; font-weight: 500; }
+.dim { color: var(--mute); font-size: 10px; letter-spacing: .08em; text-transform: none; }
 .heat {
   display: inline-block; min-width: 72px; padding: 3px 8px; border-radius: 999px;
   text-align: center; font-size: 12px;
@@ -542,18 +559,21 @@ def render_html(payload: dict[str, Any]) -> str:
             if omitted
             else ""
         )
+        n_cases = sum(len(runs[m]["cases"]) for m in models)
         cases_html = f"""
-<h2>Cases</h2>
-{omit_note}
-<div class="filters">
+<details class="cases">
+  <summary>Cases <span class="count">{n_cases:,} items · collapsed by default — click to expand</span></summary>
+  {omit_note}
+  <div class="filters">
   <input id="f-all" type="radio" name="flt" checked onchange="document.body.dataset.filter='all'">
   <label for="f-all">All</label>
   <input id="f-fail" type="radio" name="flt" onchange="document.body.dataset.filter='fail'">
   <label for="f-fail">Fails</label>
   <input id="f-pass" type="radio" name="flt" onchange="document.body.dataset.filter='pass'">
   <label for="f-pass">Passes</label>
-</div>
-<div class="log">{''.join(items)}</div>"""
+  </div>
+  <div class="log">{''.join(items)}</div>
+</details>"""
 
     cat_table = ""
     if cats:
@@ -748,6 +768,57 @@ def render_html(payload: dict[str, Any]) -> str:
             f"<tbody>{row}</tbody></table>"
         )
 
+    from bench.report import EXAM_TRACKS
+
+    exam_tables = []
+    for cat, (title, ref) in EXAM_TRACKS.items():
+        if not any(summaries[m]["exam_tracks"].get(cat) for m in models):
+            continue
+        heads = "".join(f"<th>{_esc(m)}</th>" for m in models)
+        ev_n = max(
+            (s["exam_tracks"][cat]["n"] for s in summaries.values() if s["exam_tracks"].get(cat)),
+            default=0,
+        )
+        cells = []
+        for m in models:
+            val = (summaries[m]["exam_tracks"].get(cat) or {}).get("acc")
+            p = _pct_num(val)
+            cells.append(
+                f'<td><span class="heat" style="--p:{p:.0f}">{_pct(val)}</span></td>'
+            )
+        row = (
+            f"<tr><th>Accuracy</th>{''.join(cells)}<td class='ref'>{_pct(ref)}</td></tr>"
+        )
+        for label, key in (("question type", "by_type"), ("subject", "by_subject")):
+            groups = sorted(
+                {
+                    g
+                    for m in models
+                    for g in (summaries[m]["exam_tracks"].get(cat) or {}).get(key, {})
+                }
+            )
+            for g in groups:
+                cells = []
+                for m in models:
+                    val = (summaries[m]["exam_tracks"].get(cat) or {}).get(key, {}).get(g)
+                    p = _pct_num(val)
+                    cells.append(
+                        f'<td><span class="heat" style="--p:{p:.0f}">{_pct(val)}</span></td>'
+                    )
+                row += f"<tr><th>{_esc(g)} <span class='dim'>· {label}</span></th>{''.join(cells)}<td></td></tr>"
+        note = (
+            f"{ev_n} items — multiple-choice / short-answer accuracy with direct answers "
+            "(option letter or single number/word). Liquid column is their published vLLM "
+            "number, which uses a CoT-style eval pipeline — treat this local direct-answer "
+            "accuracy as a lower bound vs their setup."
+        )
+        exam_tables.append(
+            f"<h2>{_esc(title)}</h2>"
+            f"<p class='note'>{_esc(note)}</p>"
+            f"<table><thead><tr><th>Metric</th>{heads}<th>Liquid vLLM</th></tr></thead>"
+            f"<tbody>{row}</tbody></table>"
+        )
+
     sampling = payload.get("sampling") or {}
     backends = _backends_used(models, runs)
     runtime = " + ".join(_BACKEND_LABEL.get(b, b.upper()) for b in backends) or "local"
@@ -826,6 +897,7 @@ def render_html(payload: dict[str, Any]) -> str:
     {refcoco_table}
     {''.join(anls_tables)}
     {blink_table}
+    {''.join(exam_tables)}
     {tq_html}
     {speed_html}
     {cases_html}

@@ -12,6 +12,8 @@ from bench.docvqa import (
     LIQUID_DOCVQA_ANLS,
     LIQUID_INFOGRAPHICVQA_ANLS,
 )
+from bench.mathvista import LIQUID_MATHVISTA_MINI
+from bench.mmmu import LIQUID_MMMU_VAL
 from bench.refcoco import LIQUID_REFERCOCO_AVG, SPLITS
 from bench.screenspot import LIQUID_SCREENSPOT_AVG, LIQUID_SCREENSPOT_V2
 
@@ -19,6 +21,12 @@ from bench.screenspot import LIQUID_SCREENSPOT_AVG, LIQUID_SCREENSPOT_V2
 ANLS_TRACKS = {
     "docvqa": ("DocVQA", LIQUID_DOCVQA_ANLS, 5_349),
     "infographicvqa": ("InfographicVQA", LIQUID_INFOGRAPHICVQA_ANLS, 2_801),
+}
+
+# Multiple-choice / short-answer exam tracks share the accuracy report shape.
+EXAM_TRACKS = {
+    "mathvista": ("MathVista", LIQUID_MATHVISTA_MINI),
+    "mmmu": ("MMMU", LIQUID_MMMU_VAL),
 }
 
 
@@ -45,6 +53,8 @@ def summarize(run: dict[str, Any]) -> dict[str, Any]:
     by_subset: dict[str, list] = defaultdict(list)
     by_dtype_q: dict[tuple[str, str], list] = defaultdict(list)
     by_blink_task: dict[str, list] = defaultdict(list)
+    by_exam_type: dict[tuple[str, str], list] = defaultdict(list)
+    by_exam_subject: dict[tuple[str, str], list] = defaultdict(list)
     for row in run["cases"]:
         by_cat[row["category"]].append(row)
         meta = row.get("meta") or {}
@@ -60,6 +70,12 @@ def summarize(run: dict[str, Any]) -> dict[str, Any]:
         qtype = meta.get("question_type")
         if row["category"] in ANLS_TRACKS and qtype:
             by_dtype_q[(row["category"], qtype)].append(row)
+        if row["category"] in EXAM_TRACKS:
+            if qtype:
+                by_exam_type[(row["category"], qtype)].append(row)
+            subject = meta.get("subject")
+            if subject:
+                by_exam_subject[(row["category"], subject)].append(row)
         btask = meta.get("task")
         if row["category"] == "blink" and btask:
             by_blink_task[btask].append(row)
@@ -87,6 +103,21 @@ def summarize(run: dict[str, Any]) -> dict[str, Any]:
             },
             "n": len(rows),
         }
+    exam_tracks: dict[str, dict] = {}
+    for cat in EXAM_TRACKS:
+        rows = by_cat.get(cat) or []
+        if not rows:
+            continue
+        exam_tracks[cat] = {
+            "acc": _acc(rows),
+            "by_type": {
+                q: _acc(v) for (c, q), v in sorted(by_exam_type.items()) if c == cat
+            },
+            "by_subject": {
+                s: _acc(v) for (c, s), v in sorted(by_exam_subject.items()) if c == cat
+            },
+            "n": len(rows),
+        }
     return {
         "overall": _acc(run["cases"]),
         "n": len(run["cases"]),
@@ -103,34 +134,40 @@ def summarize(run: dict[str, Any]) -> dict[str, Any]:
         "refcoco_iou_macro": refcoco_iou_macro,
         "refcoco_n": sum(len(v) for v in by_subset.values()),
         "anls_tracks": anls_tracks,
+        "exam_tracks": exam_tracks,
         "blink_n": sum(len(v) for v in by_blink_task.values()),
         "blink_acc": _acc([r for r in by_cat.get("blink") or []]),
         "blink_by_task": {k: _acc(v) for k, v in sorted(by_blink_task.items())},
     }
 
 
-def write_outputs(models: list[str], runs: dict[str, dict], extra: dict[str, Any]) -> Path:
-    stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
-    out = RESULTS / stamp
-    out.mkdir(parents=True, exist_ok=True)
+def write_outputs(
+    models: list[str],
+    runs: dict[str, dict],
+    extra: dict[str, Any],
+    out_dir: Path | None = None,
+) -> Path:
+    if out_dir is None:
+        out_dir = RESULTS / datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
+    out_dir.mkdir(parents=True, exist_ok=True)
     payload = {
-        "created": stamp,
+        "created": out_dir.name,
         "models": models,
         "runs": runs,
         **extra,
     }
-    (out / "results.json").write_text(json.dumps(payload, indent=2) + "\n")
+    (out_dir / "results.json").write_text(json.dumps(payload, indent=2) + "\n")
     try:
-        (out / "REPORT.md").write_text(render_markdown(payload))
+        (out_dir / "REPORT.md").write_text(render_markdown(payload))
     except Exception as exc:
         print(f"markdown report failed: {exc}")
     try:
         from bench.html_report import render_html
 
-        (out / "REPORT.html").write_text(render_html(payload))
+        (out_dir / "REPORT.html").write_text(render_html(payload))
     except Exception as exc:
         print(f"html report failed: {exc}")
-    return out
+    return out_dir
 
 
 def render_markdown(payload: dict[str, Any]) -> str:
@@ -376,6 +413,50 @@ def render_markdown(payload: dict[str, Any]) -> str:
                 for t in btasks:
                     cells = [_pct(summaries[m]["blink_by_task"].get(t)) for m in models]
                     lines.append(f"| {t} | " + " | ".join(cells) + " |")
+        for cat, (title, ref) in EXAM_TRACKS.items():
+            if not any(summaries[m]["exam_tracks"].get(cat) for m in models):
+                continue
+            ev_n = max(
+                (s["exam_tracks"][cat]["n"] for s in summaries.values() if s["exam_tracks"].get(cat)),
+                default=0,
+            )
+            scope_note = (
+                "Direct short answers (option letter or single number/word), scored by exact/"
+                "tolerant match. Liquid's published number uses a CoT-style eval pipeline, so "
+                "treat this local direct-answer accuracy as a lower bound vs their setup."
+            )
+            lines += [
+                "",
+                f"## {title} ({ev_n} items)",
+                "",
+                scope_note,
+                "",
+                "| Metric | " + " | ".join(f"`{m}`" for m in models) + " | Liquid vLLM |",
+                "| --- | " + " | ".join("---" for _ in models) + " | --- |",
+            ]
+            cells = [_pct((summaries[m]["exam_tracks"].get(cat) or {}).get("acc")) for m in models]
+            lines.append("| Accuracy | " + " | ".join(cells) + f" | {_pct(ref)} |")
+            for label, key in (("question type", "by_type"), ("subject", "by_subject")):
+                groups = sorted(
+                    {
+                        g
+                        for m in models
+                        for g in (summaries[m]["exam_tracks"].get(cat) or {}).get(key, {})
+                    }
+                )
+                if not groups:
+                    continue
+                lines += [
+                    "",
+                    f"| {label.capitalize()} | " + " | ".join(f"`{m}`" for m in models) + " |",
+                    "| --- | " + " | ".join("---" for _ in models) + " |",
+                ]
+                for g in groups:
+                    cells = [
+                        _pct((summaries[m]["exam_tracks"].get(cat) or {}).get(key, {}).get(g))
+                        for m in models
+                    ]
+                    lines.append(f"| {g} | " + " | ".join(cells) + " |")
     timed = [m for m in models if runs[m].get("elapsed_s") and summaries[m]["n"]]
     if timed:
         def _dur(x: float) -> str:

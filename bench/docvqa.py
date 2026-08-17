@@ -3,7 +3,6 @@ from __future__ import annotations
 import hashlib
 import json
 import random
-import shutil
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -58,25 +57,39 @@ def _page_name(row: dict, idx: int) -> str:
     return f"{row.get('questionId', idx)}.png"
 
 
-def build_anls_track(name: str, split: str = "subset") -> list[dict]:
-    if split not in ("full", "subset"):
-        raise ValueError(f"{name} split must be 'full' or 'subset', got {split!r}")
+def _resolve_split(name: str, split: str | int) -> tuple[str, int | None]:
+    """Map a split flag to (mode, subset_n).
+
+    'full' runs the whole validation split; 'subset' keeps the track's
+    seeded 500; a positive integer takes that many items from the same
+    seeded shuffle, so the 500-item subset stays a prefix of any larger one.
+    """
     track = TRACKS[name]
+    if split == "full":
+        return "full", None
+    if split == "subset":
+        return "subset", track["subset_n"]
+    if isinstance(split, int) and not isinstance(split, bool) and split > 0:
+        return "subset", min(split, track["full_n"])
+    raise ValueError(f"{name} split must be 'full', 'subset' or a positive int, got {split!r}")
+
+
+def build_anls_track(name: str, split: str | int = "subset") -> list[dict]:
+    track = TRACKS[name]
+    mode, subset_n = _resolve_split(name, split)
     from datasets import load_dataset
 
     ds = load_dataset(HF_ID, track["config"], split=SPLIT)
     indices = list(range(len(ds)))
-    if split == "subset":
+    if mode == "subset":
         rng = random.Random(SEED)
         rng.shuffle(indices)
-        indices = indices[: track["subset_n"]]
+        indices = indices[:subset_n]
 
     out_dir = IMAGES / name
-    if out_dir.exists():
-        shutil.rmtree(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    saved: set[str] = set()
+    used: set[str] = set()
     tasks: list[dict] = []
     category = track["category"]
     for n, idx in enumerate(indices):
@@ -85,12 +98,22 @@ def build_anls_track(name: str, split: str = "subset") -> list[dict]:
         if not answers:
             continue
         fname = _page_name(row, idx)
-        if fname not in saved:
-            row["image"].convert("RGB").save(out_dir / fname)
-            saved.add(fname)
+        if fname not in used:
+            target = out_dir / fname
+            if not target.exists():
+                row["image"].convert("RGB").save(target)
+            used.add(fname)
         qid = row.get("questionId", idx)
         types = list(row.get("question_types") or row.get("answer_type") or [])
         question = str(row["question"]).strip()
+        meta: dict = {
+            "question_type": types[0] if types else "other",
+            "question": question,
+            "answers": answers,
+            "split_mode": mode,
+        }
+        if subset_n is not None:
+            meta["subset_n"] = subset_n
         tasks.append(
             {
                 "id": f"{category}_val_{qid}",
@@ -100,16 +123,15 @@ def build_anls_track(name: str, split: str = "subset") -> list[dict]:
                 "scorer": "anls",
                 "expected": {"answers": answers, "anls": 0.5},
                 "max_tokens": 32,
-                "meta": {
-                    "question_type": types[0] if types else "other",
-                    "question": question,
-                    "answers": answers,
-                    "split_mode": split,
-                },
+                "meta": meta,
             }
         )
-        if (n + 1) % 100 == 0 or n + 1 == len(indices):
+        if (n + 1) % 100 == 0 or (n + 1) == len(indices):
             print(f"  {name} tasks {n + 1}/{len(indices)}")
+
+    for stale in out_dir.iterdir():
+        if stale.is_file() and stale.name not in used:
+            stale.unlink()
 
     TASKS.mkdir(parents=True, exist_ok=True)
     (TASKS / f"{name}.json").write_text(json.dumps(tasks, indent=2) + "\n")

@@ -8,10 +8,14 @@ import subprocess
 import sys
 import time
 import traceback
+from datetime import datetime, timezone
 from pathlib import Path
 
 from bench.blink import build_blink
+from bench.checkpoint import CheckpointStore, task_fingerprint
 from bench.docvqa import build_docvqa, build_infographicvqa
+from bench.mathvista import build_mathvista
+from bench.mmmu import build_mmmu
 from bench.infer import ModelSession
 from bench.models import DEFAULT_MODELS, parse_models, spec
 from bench.prompts import (
@@ -39,6 +43,19 @@ def _chip() -> str:
         return platform.processor() or platform.machine()
 
 
+def _split_arg(value: str) -> str | int:
+    v = value.strip().lower()
+    if v in ("off", "subset", "full"):
+        return v
+    try:
+        n = int(v)
+    except ValueError:
+        raise argparse.ArgumentTypeError(f"expected off, subset, full or N, got {value!r}")
+    if n <= 0:
+        raise argparse.ArgumentTypeError("N must be a positive item count")
+    return n
+
+
 def cmd_prepare(args: argparse.Namespace) -> int:
     tracks = [
         ("screenspot", args.screenspot, build_screenspot),
@@ -46,6 +63,8 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         ("docvqa", args.docvqa, build_docvqa),
         ("infographicvqa", args.infographicvqa, build_infographicvqa),
         ("blink", args.blink, build_blink),
+        ("mathvista", args.mathvista, build_mathvista),
+        ("mmmu", args.mmmu, build_mmmu),
     ]
     if all(mode == "off" for _, mode, _ in tracks):
         raise SystemExit("nothing to prepare: every track flag is off")
@@ -102,59 +121,173 @@ def _apply_protocol(tasks: list[dict], protocol: str) -> list[dict]:
     return out
 
 
+def _fmt_eta(seconds: float | None) -> str:
+    if seconds is None:
+        return "?"
+    s = int(seconds)
+    if s < 3600:
+        return f"{s // 60}m"
+    return f"{s // 3600}h{(s % 3600) // 60:02d}m"
+
+
 def cmd_run(args: argparse.Namespace) -> int:
     names = parse_models(args.models)
     cats = [c.strip() for c in args.categories.split(",") if c.strip()] if args.categories else None
     tasks = _apply_protocol(load_tasks(cats), args.protocol)
+    if args.limit:
+        tasks = tasks[: args.limit]
+    fingerprint = task_fingerprint(tasks)
+    if args.resume:
+        run_dir = Path(args.resume).expanduser()
+        if not run_dir.is_dir():
+            raise SystemExit(f"--resume: not a results run dir: {run_dir}")
+    else:
+        run_dir = RESULTS / datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
+    run_dir.mkdir(parents=True, exist_ok=True)
+    store = CheckpointStore(run_dir, fingerprint)
+
     runs: dict = {}
     used_gguf = False
     for name in names:
         sp = spec(name)
         used_gguf = used_gguf or sp.backend == "gguf"
-        print(f"\n== {name} ({sp.backend}: {sp.model_id}) ==")
+        resumed = store.load(name)
+        batch_note = f", batch {args.batch_size}" if args.batch_size > 1 else ""
+        resume_note = f" [resuming {len(resumed)}/{len(tasks)}]" if resumed else ""
+        print(f"\n== {name} ({sp.backend}: {sp.model_id}{batch_note}) =={resume_note}")
         t0 = time.perf_counter()
-        session = ModelSession(
-            name,
-            temperature=args.temp,
-            top_k=args.top_k,
-            repetition_penalty=args.repetition_penalty,
-        )
-        cases = []
+        session = None
+
+        def get_session():
+            # Created only if something actually needs generating, so a fully
+            # resumed model skips the weight load / llama-server startup.
+            nonlocal session
+            if session is None:
+                session = ModelSession(
+                    name,
+                    temperature=args.temp,
+                    top_k=args.top_k,
+                    repetition_penalty=args.repetition_penalty,
+                    batch_size=args.batch_size,
+                )
+            return session
+
+        out_fh = store.writer(name)
+        cases: dict[str, dict] = dict(resumed)
+        state = {"done": len(resumed), "new": 0, "batch_fails": 0, "batch_off": False}
+
+        def _record(task: dict, text: str, scored: dict, gen_s: float) -> None:
+            row = {
+                "id": task["id"],
+                "category": task["category"],
+                "pass": scored["pass"],
+                "metric": scored.get("metric"),
+                "iou": scored.get("iou"),
+                "pred_bbox": scored.get("pred_bbox"),
+                "output": text,
+                "expected": task.get("expected"),
+                "meta": task.get("meta"),
+                "error": scored.get("error"),
+                "gen_s": round(gen_s, 3),
+            }
+            out_fh.write(json.dumps({"type": "row", "row": row}) + "\n")
+            out_fh.flush()
+            cases[task["id"]] = row
+            state["done"] += 1
+            state["new"] += 1
+            elapsed = time.perf_counter() - t0
+            rate = state["new"] / elapsed * 60 if elapsed > 0 else 0.0
+            eta = (len(tasks) - state["done"]) / (state["new"] / elapsed) if state["new"] else None
+            mark = "PASS" if row["pass"] else "FAIL"
+            print(
+                f"  [{state['done']}/{len(tasks)}] {mark} {task['id']} "
+                f"({rate:.1f} it/min, eta {_fmt_eta(eta)})"
+            )
+
+        def _run_one(task: dict) -> None:
+            t_gen = time.perf_counter()
+            try:
+                result = session.generate(task)
+                text = result.text if hasattr(result, "text") else str(result)
+                scored = score(task, text)
+            except Exception as exc:
+                text = ""
+                scored = {"pass": False, "metric": None, "error": f"{type(exc).__name__}: {exc}"}
+                traceback.print_exc()
+            _record(task, text, scored, time.perf_counter() - t_gen)
+
         try:
-            for i, task in enumerate(tasks, 1):
-                try:
-                    result = session.generate(task)
-                    text = result.text if hasattr(result, "text") else str(result)
-                    scored = score(task, text)
-                except Exception as exc:
-                    text = ""
-                    scored = {"pass": False, "metric": None, "error": f"{type(exc).__name__}: {exc}"}
-                    traceback.print_exc()
-                row = {
-                    "id": task["id"],
-                    "category": task["category"],
-                    "pass": scored["pass"],
-                    "metric": scored.get("metric"),
-                    "iou": scored.get("iou"),
-                    "pred_bbox": scored.get("pred_bbox"),
-                    "output": text,
-                    "expected": task.get("expected"),
-                    "meta": task.get("meta"),
-                    "error": scored.get("error"),
-                }
-                mark = "PASS" if row["pass"] else "FAIL"
-                print(f"  [{i}/{len(tasks)}] {mark} {task['id']}")
-                cases.append(row)
+            i = 0
+            while i < len(tasks):
+                task = tasks[i]
+                if task["id"] in cases:
+                    i += 1
+                    continue
+                get_session()
+                if args.batch_size > 1 and not state["batch_off"] and session.batchable(task):
+                    chunk = [task]
+                    i += 1
+                    while i < len(tasks) and len(chunk) < args.batch_size:
+                        nxt = tasks[i]
+                        if nxt["id"] in cases or not session.batchable(nxt):
+                            break
+                        chunk.append(nxt)
+                        i += 1
+                    t_gen = time.perf_counter()
+                    try:
+                        results = session.generate_batch(chunk)
+                    except Exception as exc:
+                        state["batch_fails"] += 1
+                        traceback.print_exc()
+                        print(
+                            f"  batch of {len(chunk)} failed ({type(exc).__name__}); "
+                            "retrying sequentially"
+                        )
+                        if state["batch_fails"] >= 5:
+                            state["batch_off"] = True
+                            print("  disabling batching for this model after repeated batch failures")
+                        results = None
+                    if results is not None:
+                        # gen_s is each item's amortized share of the batch wall time
+                        gen_s = (time.perf_counter() - t_gen) / len(chunk)
+                        for item, res in zip(chunk, results):
+                            text = res.text if hasattr(res, "text") else str(res)
+                            try:
+                                scored = score(item, text)
+                            except Exception as exc:
+                                text = ""
+                                scored = {"pass": False, "metric": None, "error": f"{type(exc).__name__}: {exc}"}
+                                traceback.print_exc()
+                            _record(item, text, scored, gen_s)
+                        continue
+                    for item in chunk:  # sequential fallback after a failed batch
+                        if item["id"] not in cases:
+                            _run_one(item)
+                else:
+                    i += 1
+                    _run_one(task)
         finally:
-            session.close()
-        elapsed_s = time.perf_counter() - t0
-        n_pass = sum(1 for c in cases if c["pass"])
-        print(f"  {n_pass}/{len(cases)} passed in {elapsed_s/60:.1f} min")
+            elapsed_s = time.perf_counter() - t0
+            if state["new"]:
+                out_fh.write(json.dumps({"type": "done", "elapsed_s": round(elapsed_s, 1)}) + "\n")
+                out_fh.flush()
+            if session is not None:
+                session.close()
+            out_fh.close()
+        total_s = store.load_elapsed(name)
+        ordered = [cases[t["id"]] for t in tasks if t["id"] in cases]
+        n_pass = sum(1 for c in ordered if c["pass"])
+        print(
+            f"  {n_pass}/{len(ordered)} passed | session {elapsed_s/60:.1f} min | "
+            f"total {total_s/60:.1f} min (+{len(resumed)} resumed)"
+        )
         runs[name] = {
             "model_id": sp.model_id,
             "backend": sp.backend,
-            "elapsed_s": round(elapsed_s, 1),
-            "cases": cases,
+            "elapsed_s": round(total_s, 1),
+            "batch_size": args.batch_size,
+            "resumed": len(resumed),
+            "cases": ordered,
         }
 
     extra = {
@@ -167,12 +300,13 @@ def cmd_run(args: argparse.Namespace) -> int:
             "top_k": args.top_k,
             "repetition_penalty": args.repetition_penalty,
         },
+        "batch_size": args.batch_size,
     }
     if used_gguf:
         from bench.gguf_infer import llama_version
 
         extra["llama_cpp"] = llama_version()
-    out = write_outputs(names, runs, extra)
+    out = write_outputs(names, runs, extra, out_dir=run_dir)
     print(f"\nWrote {out / 'REPORT.html'}")
     print(f"      {out / 'REPORT.md'}")
     return 0
@@ -256,17 +390,19 @@ def main(argv: list[str] | None = None) -> int:
     )
     sp.add_argument(
         "--docvqa",
-        choices=("full", "subset", "off"),
+        type=_split_arg,
         default="subset",
         help="document reading comprehension behind Liquid's published DocVQA 91.1 (val, ANLS): "
-        "full = 5,349 questions (~1 GB download); subset = 500 seeded items; off = skip",
+        "full = 5,349 questions (~1 GB download); subset = 500 seeded items; N = custom "
+        "seeded subset of N items (same shuffle, so 500 stays a prefix); off = skip",
     )
     sp.add_argument(
         "--infographicvqa",
-        choices=("full", "subset", "off"),
+        type=_split_arg,
         default="subset",
         help="infographic reading comprehension behind Liquid's published 70.2 (val, ANLS; same "
-        "repo/scorer as DocVQA): full = 2,801 questions; subset = 500 seeded items; off = skip",
+        "repo/scorer as DocVQA): full = 2,801 questions; subset = 500 seeded items; "
+        "N = custom seeded subset; off = skip",
     )
     sp.add_argument(
         "--blink",
@@ -275,6 +411,24 @@ def main(argv: list[str] | None = None) -> int:
         help="multi-image perceptual tasks behind Liquid's published BLINK 61.5 (val, overall "
         "accuracy; 1-4 images per item): full = all 14 tasks (1,901 items); subset = 16 seeded "
         "items per task (224); off = skip",
+    )
+    sp.add_argument(
+        "--mathvista",
+        type=_split_arg,
+        default="full",
+        help="visual math reasoning behind Liquid's published MathVista 68.5 (testmini, "
+        "1,000 items: multiple-choice + short free-form answers): full = testmini; "
+        "subset = 300 seeded; N = custom seeded subset; off = skip. Note: Liquid's "
+        "number uses CoT-style eval; this suite scores direct answers, so expect "
+        "a lower bound.",
+    )
+    sp.add_argument(
+        "--mmmu",
+        type=_split_arg,
+        default="full",
+        help="college-level multi-discipline MC behind Liquid's published MMMU 48.4 "
+        "(val, ~900 items over 30 subjects, 1-3 images each incl. some text-only "
+        "questions): full = val; subset = 300 seeded; N = custom; off = skip",
     )
     sp.set_defaults(func=cmd_prepare)
 
@@ -298,6 +452,27 @@ def main(argv: list[str] | None = None) -> int:
     )
     sr.add_argument("--top-k", type=int, default=50)
     sr.add_argument("--repetition-penalty", type=float, default=None)
+    sr.add_argument(
+        "--batch-size",
+        type=int,
+        default=2,
+        help="items in flight per model (concurrency): MLX uses mlx-vlm batch_generate "
+        "(single-image tasks; BLINK stays sequential), GGUF uses parallel llama-server "
+        "slots. Measured on M5 Max: MLX is vision-bound and flat across batch sizes; "
+        "GGUF is ~10% faster at 2-4 slots and ~1.7x slower at 8.",
+    )
+    sr.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="only run the first N tasks after category/protocol filters (smoke tests)",
+    )
+    sr.add_argument(
+        "--resume",
+        default="",
+        help="results run dir holding checkpoints/ to resume from (results are appended "
+        "incrementally, so a killed run can always be resumed)",
+    )
     sr.set_defaults(func=cmd_run)
 
     ss = sub.add_parser("speed", help="TTFT / tok/s / peak memory")

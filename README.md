@@ -118,6 +118,8 @@ Reading these: every combo lands at or above the published 61.5 (62.9–65.2; ±
 - **DocVQA** — document reading comprehension from [`lmms-lab-encoder/DocVQA`](https://huggingface.co/datasets/lmms-lab-encoder/DocVQA) (official validation split behind Liquid's published 91.1 ANLS, vLLM 0.26). Free-form short answers with the canonical single-word/phrase instruction, scored by official ANLS (Levenshtein, threshold 0.5, errors count 0); grouped by question type in the report. Default prepare is a **500-item seeded subset** (~1 GB download); `--docvqa full` is all 5,349 questions. Matrix on the subset: 90.1–91.3 ANLS across all six model combos vs 91.1 published.
 - **InfographicVQA** — same repo, config and scorer as DocVQA (behind Liquid's published 70.2 ANLS). Denser mixed text/figure layouts, and a lower reference score with more headroom to separate implementations. Default prepare is a **500-item seeded subset**; `--infographicvqa full` is 2,801 questions.
 - **BLINK** — multi-image perceptual tasks from [`BLINK-Benchmark/BLINK`](https://huggingface.co/datasets/BLINK-Benchmark/BLINK) (14 tasks, 1–4 images per item, behind Liquid's published 61.5 overall accuracy). Canonical lettered-choice prompts with a letter-extraction scorer; per-task breakdown in the report. The only multi-image track — it exercises the multi-image plumbing of both backends (ordering, per-image tiling). Default prepare is a **224-item seeded subset** (16 per task); `--blink full` is the whole 1,901-item validation split.
+- **MathVista** — visual math reasoning from [`AI4Math/MathVista`](https://huggingface.co/datasets/AI4Math/MathVista) (testmini: 1,000 items, 540 multiple-choice + 460 short free-form, behind Liquid's published 68.5). Multiple choice scores by option letter; free-form by tolerant numeric/text match. Liquid's number uses a CoT-style eval pipeline while this suite scores **direct answers**, so treat the local accuracy as a lower bound vs their setup. Default prepare is the full testmini; `subset` = 300 seeded, or pass N.
+- **MMMU** — college-level multi-discipline multiple choice from [`MMMU/MMMU`](https://huggingface.co/datasets/MMMU/MMMU) (validation split, behind Liquid's published 48.4). ~850 scored items over 30 subjects (2–9 options each; 53 val items are open-ended with free-text answers and no usable options, so they're skipped; some rows ship options as a stringified list — parsed at prepare time). 42 items carry 2+ images. Default prepare is the full val MC set; `subset` = 300 seeded, or pass N.
 - **Speed** — separate `bench speed` command (TTFT / wall-clock tok/s / peak memory). Not part of `run`.
 
 ## Setup
@@ -147,17 +149,23 @@ Disk budget for the full six-model setup: ~12 GB MLX weights + ~11 GB GGUF repo 
 ## Run
 
 ```bash
-uv run python -m bench prepare                 # ScreenSpot full (1,272) + 500-item subsets of every other track
+uv run python -m bench prepare                 # ScreenSpot full (1,272) + MathVista testmini (1,000) + MMMU val MC (847) + 500-item subsets of every other track
 uv run python -m bench prepare --screenspot subset
 uv run python -m bench prepare --refcoco full --screenspot off   # all 25,770 RefCOCO items
 uv run python -m bench prepare --docvqa full --screenspot off --refcoco off   # all 5,349 DocVQA questions
+uv run python -m bench prepare --docvqa 2000 --infographicvqa 2000 --screenspot off --refcoco off --blink off  # custom seeded subsets
 uv run python -m bench prepare --blink full --screenspot off     # full BLINK val (1,901)
 uv run python -m bench run --models 6bit,8bit,bf16              # MLX only
 uv run python -m bench run --models bf16,gguf-q8,gguf-bf16      # mixed backends, one report
 uv run python -m bench run --models 8bit --protocol bbox        # plain-box protocol (ScreenSpot only)
-uv run python -m bench run --models bf16 --categories refcoco   # one track (screenspot|refcoco|docvqa|infographicvqa|blink)
+uv run python -m bench run --models bf16 --categories refcoco   # one track (screenspot|refcoco|docvqa|infographicvqa|blink|mathvista|mmmu)
+uv run python -m bench run --models bf16 --limit 50             # smoke test on the first 50 tasks
 uv run python -m bench speed --models 6bit,8bit,bf16
 ```
+
+`--docvqa` / `--infographicvqa` accept `off | subset | full | N`: an integer builds a seeded N-item subset from the same shuffle as the 500-item one (so 500 stays a prefix of it). Already-downloaded page images are reused and unreferenced ones are pruned.
+
+Every `run` appends each scored item to `results/<timestamp>/checkpoints/<model>.jsonl` as it completes, so a killed or crashed run resumes where it left off: `uv run python -m bench run --resume results/<timestamp> ...` (same task list required — the checkpoint header carries a fingerprint and refuses mismatched resumes; per-session wall time is footed in the checkpoint so resumed runs keep honest totals). Runs default to concurrency 2 (`--batch-size`): MLX routes single-image tasks through mlx-vlm `batch_generate` (multi-image BLINK items stay sequential; requires the fork's `lfm2vl-batch-fix` branch), GGUF keeps N requests in flight against parallel `llama-server` slots. Measured on M5 Max across batch 1/2/4/8: MLX is vision-tower/prefill-bound and flat at every size, GGUF gains ~10% at 2–4 slots and loses ~1.7x at 8 — 2 is the default. If the batched path fails repeatedly the runner automatically falls back to sequential for the rest of that model. Per-item timings (`gen_s`) and live items/min + ETA are recorded in every run.
 
 Default run is `6bit,8bit,bf16`. Full ScreenSpot-v2 is 1,272 inferences per model, plus any custom tasks you add (see below). Protocol variants (`--protocol`) apply to ScreenSpot only; every other track runs one canonical recipe (RefCOCO grounding JSON, ANLS tracks the single-word/phrase instruction, BLINK the benchmark's lettered-choice prompt).
 

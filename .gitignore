@@ -11,3 +11,6 @@ data/images/refcoco/
 data/images/docvqa/
 data/images/infographicvqa/
 data/images/blink/
+data/images/mathvista/
+data/images/mmmu/
+.zcode/

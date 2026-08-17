@@ -76,14 +76,18 @@ class GgufSession:
         temperature: float = 0.0,
         top_k: int | None = None,
         repetition_penalty: float | None = None,
+        batch_size: int = 1,
     ):
         self.spec = spec
         self.model_id = spec.model_id
         self.temperature = temperature
         self.top_k = top_k
         self.repetition_penalty = repetition_penalty
+        self.batch_size = max(1, batch_size)
         self.port = _free_port()
         model_path, mmproj_path = _download_gguf(spec)
+        # -c is the total KV budget shared by the -np slots, so each parallel
+        # request still gets the single-slot 8192 context.
         cmd = [
             _llama_server(),
             "--host",
@@ -95,13 +99,15 @@ class GgufSession:
             "-ngl",
             "99",
             "-c",
-            "8192",
+            str(8192 * self.batch_size),
             "--no-ui",
             "--jinja",
         ]
+        if self.batch_size > 1:
+            cmd += ["-np", str(self.batch_size)]
         if mmproj_path:
             cmd += ["--mmproj", mmproj_path]
-        print(f"  starting llama-server on 127.0.0.1:{self.port}")
+        print(f"  starting llama-server on 127.0.0.1:{self.port} (-np {self.batch_size})")
         self.proc = subprocess.Popen(cmd)
         try:
             self._wait_ready()
@@ -133,6 +139,17 @@ class GgufSession:
     def generate(self, task: dict[str, Any]) -> Generation:
         text, _, _ = self._complete(task, stream=False)
         return Generation(text=text)
+
+    def batchable(self, task: dict[str, Any]) -> bool:
+        return True
+
+    def generate_batch(self, tasks: list[dict[str, Any]]) -> list[Generation]:
+        # llama-server does the continuous batching server-side across its
+        # -np slots; here we just keep that many requests in flight.
+        from concurrent.futures import ThreadPoolExecutor
+
+        with ThreadPoolExecutor(max_workers=self.batch_size) as pool:
+            return list(pool.map(self.generate, tasks))
 
     def timed_generate(self, task: dict[str, Any], warmup: bool = False) -> dict[str, float]:
         if warmup:

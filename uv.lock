@@ -996,7 +996,7 @@ wheels = [
 [[package]]
 name = "mlx-vlm"
 version = "0.6.14"
-source = { git = "https://github.com/ivanfioravanti/mlx-vlm?branch=fix%2Flfm2vl-image-splitting#9cfa0a4ffaa44de5a3136cbeb6b26d13f4e3a3b0" }
+source = { git = "https://github.com/ivanfioravanti/mlx-vlm?branch=lfm2vl-batch-fix#a309ee29c5fd89571d20308e5a40b2a3ec09abc8" }
 dependencies = [
     { name = "fastapi" },
     { name = "llguidance" },
@@ -2396,7 +2396,7 @@ dependencies = [
 requires-dist = [
     { name = "datasets" },
     { name = "huggingface-hub" },
-    { name = "mlx-vlm", git = "https://github.com/ivanfioravanti/mlx-vlm?branch=fix%2Flfm2vl-image-splitting" },
+    { name = "mlx-vlm", git = "https://github.com/ivanfioravanti/mlx-vlm?branch=lfm2vl-batch-fix" },
     { name = "pillow" },
 ]
 

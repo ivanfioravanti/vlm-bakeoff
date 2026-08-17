@@ -112,6 +112,38 @@ def _choice_letter(text: str) -> str | None:
     return letters[-1] if letters else None
 
 
+def _option_letter(text: str, n_choices: int) -> str | None:
+    """Like _choice_letter but for an arbitrary option count (MathVista A–E)."""
+    t = _norm(text)
+    last = chr(ord("a") + max(1, n_choices) - 1)
+    m = re.search(rf"\(([a-{last}])\)", t)
+    if m:
+        return m.group(1)
+    m = re.match(rf"^\(?\s*([a-{last}])(?:\s|\)|$)", t)
+    if m:
+        return m.group(1)
+    letters = re.findall(rf"\b([a-{last}])\b", t)
+    return letters[-1] if letters else None
+
+
+def _parse_number(s: str) -> float | None:
+    t = re.sub(r"\s+", "", (s or "")).replace(",", "").replace("$", "")
+    t = t.rstrip("%").rstrip(".")
+    if not t or t in ("-", ".", "-."):
+        return None
+    try:
+        return float(t)
+    except ValueError:
+        return None
+
+
+def _first_number(text: str) -> float | None:
+    m = re.search(_NUM.replace(r"\.", r"\.?\s*"), text or "")
+    if not m:
+        return None
+    return _parse_number(m.group(0))
+
+
 def score(task: dict[str, Any], text: str) -> dict[str, Any]:
     kind = task["scorer"]
     expected = task.get("expected") or {}
@@ -192,6 +224,41 @@ def score(task: dict[str, Any], text: str) -> dict[str, Any]:
             val = 0.0
         result["metric"] = val
         result["pass"] = val >= thresh
+    elif kind == "mathvista":
+        # MathVista testmini: multiple-choice items score by option letter;
+        # free-form items compare numbers with tolerance (answers like "3.14",
+        # "50%", "$1,200") and fall back to normalized text match.
+        if expected.get("kind") == "mc":
+            pred = _option_letter(text or "", int(expected.get("n") or 5))
+            ok = pred is not None and pred == str(expected["gold"]).lower()
+            if not ok and expected.get("text"):
+                # The official hint asks for the letter, but a model may emit
+                # the option text itself ("145°" instead of "(B) 145°").
+                ok = _contains(str(expected["text"]), text or "")
+            result["pass"] = ok
+            result["metric"] = float(ok)
+            result["pred_letter"] = pred
+        else:
+            gold = str(expected.get("answer") or "")
+            gold_num = _parse_number(gold)
+            if gold_num is not None:
+                pred_num = _first_number(text or "")
+                ok = pred_num is not None and abs(gold_num - pred_num) <= max(
+                    1e-6, abs(gold_num) * 1e-4
+                )
+            else:
+                ok = _norm(text) == _norm(gold) or _contains(gold, text)
+            result["pass"] = ok
+            result["metric"] = float(ok)
+    elif kind == "mc_option":
+        # Lettered multiple choice with an arbitrary option count (MMMU A–I):
+        # gold is the option letter, n the number of options shown.
+        gold = str(expected.get("gold") or "").lower()
+        pred = _option_letter(text or "", int(expected.get("n") or 4))
+        ok = pred is not None and pred == gold
+        result["pass"] = ok
+        result["metric"] = float(ok)
+        result["pred_letter"] = pred
     elif kind == "choice_letter":
         # BLINK-style multiple choice: gold is "(B)"; the model may emit the
         # parenthesized letter, a bare letter, or letter + choice text.
