@@ -69,6 +69,7 @@ async function loadMeta() {
   $("opt-temp").value = d.temp;
   $("opt-topk").value = d.top_k;
   $("opt-batch").value = d.batch_size;
+  $("opt-trackcap").value = 1000; // sensible quick-run default; clear for full suites
   $("opt-protocol").innerHTML = d.protocols.map((p) => `<option ${p === d.protocol ? "selected" : ""}>${p}</option>`).join("");
   $("all-tracks").onclick = (e) => { e.preventDefault(); setAllTracks(true); };
   $("none-tracks").onclick = (e) => { e.preventDefault(); setAllTracks(false); };
